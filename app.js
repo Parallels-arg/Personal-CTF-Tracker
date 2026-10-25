@@ -150,6 +150,15 @@ function deadlineInfo(ev) {
 const fmtShort = new Intl.DateTimeFormat("es-AR", { day: "2-digit", month: "2-digit" });
 const addedText = (ev) => ev.added ? `sugerido el ${fmtShort.format(new Date(`${ev.added}T12:00:00`))}` : null;
 
+// "en 3 días", "en 5 h", "hace 20 min": tiempo relativo legible.
+function relTime(d) {
+  const diff = d - Date.now();
+  const abs = Math.abs(diff);
+  const mins = Math.round(abs / 60000), hours = Math.round(abs / 3600000), days = Math.round(abs / DAY_MS);
+  const amount = mins < 60 ? `${Math.max(mins, 1)} min` : hours < 48 ? `${hours} h` : `${days} días`;
+  return diff >= 0 ? `en ${amount}` : `hace ${amount}`;
+}
+
 function isLive(ev) {
   const now = Date.now();
   return ev._start <= now && ev._end >= now;
@@ -1211,6 +1220,35 @@ function renderStats() {
   ].filter(Boolean).join(" · ");
 }
 
+// Franja "Ahora": lo que importa de tus eventos (me interesa e inscripto) sin recorrer el calendario.
+function renderNow() {
+  const el = document.getElementById("now");
+  const now = Date.now();
+  const mine = state.events.filter((e) => ["interesado", "inscripto"].includes(statusOf(e)));
+  const live = mine.filter((e) => e._start <= now && e._end >= now).sort((a, b) => a._end - b._end);
+  const week = mine.filter((e) => e._start > now && e._start - now <= 7 * DAY_MS).sort((a, b) => a._start - b._start);
+  const closing = state.events
+    .filter((e) => notifiesDeadline(e) && new Date(e._deadline) > now && new Date(e._deadline) - now <= 14 * DAY_MS)
+    .sort((a, b) => new Date(a._deadline) - new Date(b._deadline));
+
+  const item = (ev, text, list) => h("button", {
+    class: "now-item", style: colorVar(statusOf(ev)),
+    onclick: () => openEvent(ev.id, { list: list.map((e) => e.id) }),
+  }, h("span", { class: "now-name" }, ev.name), h("span", { class: "now-when" }, text));
+  const block = (title, list, textFn, empty) => h("div", { class: "now-block" },
+    h("div", { class: "now-title" }, title, h("span", { class: "n" }, list.length)),
+    list.length ? list.map((ev) => item(ev, textFn(ev), list)) : h("div", { class: "now-empty" }, empty));
+
+  el.replaceChildren(
+    h("div", { class: "now-head" },
+      h("span", { class: "now-label" }, "Ahora"),
+      h("span", { class: "muted small" }, "tus eventos: me interesa e inscripto")),
+    h("div", { class: "now-grid" },
+      block("En curso", live, (ev) => `termina ${relTime(ev._end)}`, "Nada en curso."),
+      block("Esta semana", week, (ev) => `empieza ${relTime(ev._start)}`, "Nada en los próximos 7 días."),
+      block("Cierres de inscripción", closing, (ev) => `cierra ${relTime(new Date(ev._deadline))}`, "Sin cierres en 14 días.")));
+}
+
 function renderMode() {
   const el = document.getElementById("mode");
   const { owner, repo } = state.config;
@@ -1224,6 +1262,7 @@ function renderMode() {
 function render() {
   for (const b of document.querySelectorAll(".seg-btn")) b.classList.toggle("active", b.dataset.view === state.view);
   renderMode();
+  renderNow();
   renderFilters();
   renderStats();
   document.getElementById("main").replaceChildren(state.view === "calendar" ? renderCalendar() : renderList());
