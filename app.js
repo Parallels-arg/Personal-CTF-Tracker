@@ -673,6 +673,16 @@ function statusPicker(ev) {
     }, s.label)));
 }
 
+// En celular, el estado de cada tarjeta es un único selector (ocupa un renglón en vez de dos).
+function statusSelect(ev) {
+  const current = statusOf(ev);
+  return h("select", {
+    class: "status-select", style: colorVar(current), "aria-label": "Estado",
+    onclick: (e) => e.stopPropagation(),
+    onchange: (e) => { setStatus(ev.id, e.target.value); if (!canWrite()) render(); },
+  }, STATES.map((s) => h("option", { value: s.key, selected: s.key === current }, s.label)));
+}
+
 function metaText(ev) {
   return [
     ev.format,
@@ -842,13 +852,16 @@ function renderWeek(weekStart, month, events) {
 
   for (let c = 0; c < 7; c++) {
     const day = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + c);
-    const cls = ["cal-day", day.getMonth() !== month && "other", day.getTime() === today && "today"];
+    const next = new Date(day.getTime() + DAY_MS);
+    // Tocar el día (en cualquier parte, útil en celular donde las barras son finitas) abre sus eventos.
+    const dayEvents = segs.filter((s) => s.from <= c && s.to >= c).map((s) => s.ev);
+    const cls = ["cal-day", day.getMonth() !== month && "other", day.getTime() === today && "today", dayEvents.length && "has-events"];
     week.append(h("div", {
       class: cls.filter(Boolean).join(" "),
       style: `grid-column: ${c + 1}; grid-row: 1 / ${rows + 2}`,
+      onclick: dayEvents.length ? () => openDay(day, dayEvents) : null,
     }, h("span", { class: "num" }, day.getDate())));
     // ⏳ el día que cierra la inscripción de un evento "Me interesa" que todavía no cerró.
-    const next = new Date(day.getTime() + DAY_MS);
     const closing = events.filter((ev) => notifiesDeadline(ev)
       && new Date(ev._deadline) >= day && new Date(ev._deadline) < next && new Date(ev._deadline) > Date.now());
     if (closing.length) {
@@ -948,7 +961,7 @@ function renderList() {
           h("div", {},
             h("button", { class: "title", onclick: () => openEvent(ev.id) }, ev.name),
             badges(ev)),
-          h("div", { class: "side" }, statusPicker(ev)),
+          h("div", { class: "side" }, statusPicker(ev), statusSelect(ev)),
           h("div", { class: "when" }, whenText(ev), h("span", { class: "rel" }, ` · ${relativeLine(ev)}`)),
           h("div", { class: "meta" }, metaText(ev)),
           deadlineLine(ev),

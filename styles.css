@@ -339,6 +339,16 @@ button { font: inherit; color: inherit; }
 .deadline.urgent { color: var(--st-interesado); font-weight: 600; }
 .deadline.closed { text-decoration: line-through; }
 
+.cal-day.has-events { cursor: pointer; }
+.cal-day.has-events:hover { background: color-mix(in srgb, var(--hover) 60%, transparent); }
+
+/* selector único de estado: solo en celular */
+.status-select {
+  display: none; font: 13px var(--sans); font-weight: 500; border-radius: 99px; padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); color: var(--text-strong);
+  background: color-mix(in srgb, var(--c) var(--tag-mix), var(--surface));
+}
+
 /* ---------- selector de estado (select de Notion) ---------- */
 .status-picker { display: inline-flex; flex-wrap: wrap; gap: 4px; }
 .status-picker button {
@@ -550,6 +560,8 @@ button { font: inherit; color: inherit; }
 
   .card { grid-template-columns: 1fr; }
   .card .side { grid-row: auto; grid-column: 1; justify-content: flex-start; margin-top: 4px; }
+  .card .status-picker { display: none; }
+  .card .status-select { display: inline-block; }
 
   /* en celular el popup sube desde abajo como hoja */
   .dialog.popup {
