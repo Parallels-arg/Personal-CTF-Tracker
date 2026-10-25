@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T00:19:13.673Z",
+  "updated": "2026-10-25T01:06:08.442Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -22,7 +22,47 @@
       "recommended": true,
       "id": "pointer-overflow-ctf-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-23",
+      "last_seen": "2026-10-25",
+      "ctftime_rated": false,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
+    },
+    {
+      "name": "Africa battleCTF 2026 Qualifier",
+      "url": "https://ctftime.org/event/3462/",
+      "ctftime_url": "https://ctftime.org/event/3462/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "BUG|PWN",
+      "description": "Clasificatorio de 31 días de pwn, web, OT e investigación de vulnerabilidades; los mejores pasan a una final de duelos. Fechas y formato confirmados en CTFtime; el sitio oficial no permitió confirmar esta edición. La ficha indica participación individual y ausencia de puntos globales por duración e individualidad.",
+      "why": "Valor estimado: práctica técnica complementaria a tu experiencia de desarrollo y análisis de sistemas.",
+      "fee": "no verificado",
+      "eligibility": "no verificado",
+      "team_size": "individual",
+      "career_value": "Valor estimado: resultados y writeups para el portfolio; reclutamiento no confirmado.",
+      "start": "2026-10-04T23:00:00.000Z",
+      "end": "2026-11-04T23:00:00.000Z",
+      "weight": 0,
+      "tags": [
+        "pwn",
+        "web",
+        "OT",
+        "vulnerability-research"
+      ],
+      "recommended": false,
+      "ctftime_rated": false,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "africa-battlectf-2026-quals",
+      "sources": [
+        "carga-complementaria.md"
       ],
       "added": "2026-10-23",
       "last_seen": "2026-10-25"
@@ -72,10 +112,16 @@
       "recommended": false,
       "id": "hitcon-ctf-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-20",
-      "last_seen": "2026-10-25"
+      "last_seen": "2026-10-25",
+      "ctftime_rated": true,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
     },
     {
       "name": "RSTCON CTF",
@@ -96,10 +142,16 @@
       "recommended": false,
       "id": "rstcon-ctf-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-20",
-      "last_seen": "2026-10-25"
+      "last_seen": "2026-10-25",
+      "ctftime_rated": true,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
     },
     {
       "name": "Hack.lu CTF",
@@ -120,9 +172,52 @@
       "recommended": false,
       "id": "hack-lu-ctf-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-20",
+      "last_seen": "2026-10-25",
+      "ctftime_rated": true,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
+    },
+    {
+      "name": "VOID CTF Qualifiers",
+      "url": "https://ctf.void-society.in/",
+      "ctftime_url": "https://ctftime.org/event/3468/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "KIET Cyber Security Center of Excellence / Void Society",
+      "description": "El oficial confirma el clasificatorio online del 24–25/10 y su duración de 24 horas. El horario exacto y peso 0 se recuperan del resultado indexado de CTFtime; abrir la ficha devuelve 404, por lo que esos datos no se reconfirmaron en la página completa. El registro y roster cerraron el 23/10, sin hora publicada; se incluye para seguimiento y superposiciones. Los 15 primeros pasan a finales presenciales de AD/ICS/SCADA el 29–30/11.",
+      "why": "Valor estimado: práctica técnica complementaria a tu experiencia de desarrollo y análisis de sistemas.",
+      "fee": "no verificado",
+      "eligibility": "registro previo; admisión internacional y requisitos académicos no verificados",
+      "team_size": "hasta 4",
+      "career_value": "Valor estimado: resultados y writeups para el portfolio; reclutamiento no confirmado.",
+      "start": "2026-10-24T18:30:00.000Z",
+      "end": "2026-10-25T18:30:00.000Z",
+      "weight": 0,
+      "tags": [
+        "web",
+        "crypto",
+        "rev",
+        "pwn",
+        "forensics",
+        "OSINT"
+      ],
+      "recommended": false,
+      "ctftime_rated": false,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ],
+      "id": "void-ctf-2026-quals",
+      "sources": [
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-23",
       "last_seen": "2026-10-25"
     },
     {
@@ -149,10 +244,16 @@
       "recommended": false,
       "id": "sudocrypt-v16",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-20",
-      "last_seen": "2026-10-25"
+      "last_seen": "2026-10-25",
+      "ctftime_rated": false,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
     },
     {
       "name": "HI Cyber Con CTF",
@@ -187,9 +288,46 @@
       "recommended": true,
       "id": "hi-cyber-con-ctf-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-20",
+      "last_seen": "2026-10-25",
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
+    },
+    {
+      "name": "Qiangwang Qualifier",
+      "url": "https://ctftime.org/event/3459/",
+      "ctftime_url": "https://ctftime.org/event/3459/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "LoveFromMimic / Qiangwang Cyber Mimic Defense",
+      "prizes": "Acceso a finales para equipos elegibles; criterios y premios por anunciar.",
+      "description": "CTFtime confirma el clasificatorio online de 24 horas de la novena Qiangwang International Elite Challenge on Cyber Mimic Defense. Combina retos CTF y seguridad endógena; las finales se planean presenciales en Nanjing. Oficial sin confirmar: la página de registro no fue legible. Peso actual 0 y peso futuro por determinar; el estado definitivo de puntuación no está confirmado.",
+      "why": "Valor estimado: práctica técnica complementaria a tu experiencia de desarrollo y análisis de sistemas.",
+      "fee": "no verificado",
+      "eligibility": "no verificado",
+      "team_size": "por equipos; límite no verificado",
+      "career_value": "Valor estimado: resultados y writeups para el portfolio; reclutamiento no confirmado.",
+      "start": "2026-10-31T02:00:00.000Z",
+      "end": "2026-11-01T02:00:00.000Z",
+      "weight": 0,
+      "tags": [
+        "misc",
+        "endogenous-security"
+      ],
+      "recommended": false,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "qiangwang-2026-quals",
+      "sources": [
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-22",
       "last_seen": "2026-10-25"
     },
     {
@@ -211,9 +349,46 @@
       "recommended": false,
       "id": "russian-ctf-cup-x-quals",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-22",
+      "last_seen": "2026-10-25",
+      "ctftime_rated": false,
+      "verified_by": [
+        "ctftime"
+      ]
+    },
+    {
+      "name": "Hack the UNLa",
+      "url": "https://www.unla.edu.ar/novedades/invitamos-al-evento-hack-the-unla",
+      "format": "otro",
+      "location": "Lanús, Buenos Aires, Argentina; sede y modalidad exactas por confirmar",
+      "organizer": "Universidad Nacional de Lanús",
+      "description": "La UNLa anuncia una jornada desde las 10 ART sobre Red Team y Wi-Fi Hacking, priorización de amenazas y cifrado con VeraCrypt. Inscripción por https://forms.gle/T6dFHMPvXkCRvJg17. No se publica hora de finalización ni se confirma un CTF competitivo; se incorpora como jornada técnica local.",
+      "why": "Es una oportunidad cercana para conocer la comunidad y explorar tu transición a seguridad ofensiva.",
+      "fee": "no verificado",
+      "eligibility": "estudiantes, profesionales y personas interesadas en tecnología, redes y ciberseguridad",
+      "team_size": "asistencia individual; no se anuncia competencia por equipos",
+      "career_value": "Valor estimado: contacto presencial con disertantes y comunidad universitaria local; no se anuncian entrevistas ni contratación.",
+      "start": "2026-10-31T13:00:00.000Z",
+      "end": "2026-10-31T13:00:00.000Z",
+      "tags": [
+        "Red Team",
+        "Wi-Fi",
+        "network",
+        "crypto",
+        "networking"
+      ],
+      "recommended": false,
+      "verified_by": [
+        "oficial"
+      ],
+      "id": "hack-the-unla-2026",
+      "sources": [
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-21",
       "last_seen": "2026-10-25"
     },
     {
@@ -242,10 +417,16 @@
       "recommended": false,
       "id": "stealthcup-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-23",
-      "last_seen": "2026-10-25"
+      "last_seen": "2026-10-25",
+      "ctftime_rated": false,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
     },
     {
       "name": "HKCERT CTF Quals",
@@ -275,10 +456,16 @@
       "registration_deadline": "2026-11-04T04:00:00.000Z",
       "id": "hkcert-ctf-2026-quals",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-22",
-      "last_seen": "2026-10-25"
+      "last_seen": "2026-10-25",
+      "ctftime_rated": true,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
     },
     {
       "name": "PINK+ CTF",
@@ -308,10 +495,15 @@
       "recommended": false,
       "id": "pink-plus-ctf-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-21",
-      "last_seen": "2026-10-25"
+      "last_seen": "2026-10-25",
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
     },
     {
       "name": "CSCTF 2026",
@@ -344,10 +536,15 @@
       "recommended": false,
       "id": "csctf-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-21",
-      "last_seen": "2026-10-25"
+      "last_seen": "2026-10-25",
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
     },
     {
       "name": "SpookyCTF",
@@ -379,9 +576,108 @@
       "recommended": true,
       "id": "spookyctf-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-20",
+      "last_seen": "2026-10-25",
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
+    },
+    {
+      "name": "First Flag CTF",
+      "url": "https://cyberlearner.org/ctf",
+      "format": "jeopardy",
+      "location": "online",
+      "difficulty": "principiante",
+      "organizer": "CyberLearner",
+      "prizes": "Gift cards de £100 / £50 / £25 para los tres primeros; certificado verificable para quien entregue al menos una flag correcta.",
+      "description": "CTF individual de seis horas y seis desafíos; dos están pensados para principiantes. El oficial confirma fecha, horario y registro gratuito. El top 3 debe entregar writeups para recibir las gift cards; las herramientas de IA no se recomiendan.",
+      "why": "Formato breve que permite practicar reversing y binarios sin dedicar todo el fin de semana.",
+      "fee": "gratis (£0)",
+      "eligibility": "sin experiencia CTF previa requerida; otras restricciones no verificadas",
+      "team_size": "individual (sin opción de equipo)",
+      "career_value": "Valor estimado: certificado verificable y writeups para respaldar tu práctica técnica.",
+      "start": "2026-11-07T09:00:00.000Z",
+      "end": "2026-11-07T15:00:00.000Z",
+      "tags": [
+        "web",
+        "rev",
+        "crypto",
+        "forensics",
+        "pwn",
+        "misc"
+      ],
+      "recommended": true,
+      "verified_by": [
+        "oficial"
+      ],
+      "id": "first-flag-ctf-2026",
+      "sources": [
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-21",
+      "last_seen": "2026-10-25"
+    },
+    {
+      "name": "Mimic",
+      "url": "https://ctftime.org/event/3455/",
+      "ctftime_url": "https://ctftime.org/event/3455/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "Rare Byte Hub",
+      "description": "CTFtime confirma un Jeopardy online de 24 horas con retos para principiantes y participantes experimentados, y equipos de 1–4. El oficial no fue accesible; se incluye con CTFtime como única verificación. La ficha lo marca como casual, sin puntos para el rating global.",
+      "why": "Valor estimado: práctica técnica complementaria a tu experiencia de desarrollo y análisis de sistemas.",
+      "fee": "no verificado",
+      "eligibility": "no verificado",
+      "team_size": "1–4",
+      "career_value": "Valor estimado: resultados y writeups para el portfolio; reclutamiento no confirmado.",
+      "start": "2026-11-07T12:00:00.000Z",
+      "end": "2026-11-08T12:00:00.000Z",
+      "weight": 0,
+      "recommended": false,
+      "ctftime_rated": false,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "mimic-ctf-2026",
+      "sources": [
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-22",
+      "last_seen": "2026-10-25"
+    },
+    {
+      "name": "CSAW CTF Final Round 2026",
+      "url": "https://ctftime.org/event/3410/",
+      "ctftime_url": "https://ctftime.org/event/3410/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "NYUSEC",
+      "description": "La ficha de CTFtime confirma esta final Jeopardy y la lista como online. El oficial no pudo contrastarse; no se asume que esté abierta a nuevas inscripciones ni que alcance con registrarse en CTFtime. Requisitos de clasificación, sede/modalidad efectiva de finalistas y tamaño de equipo quedan sin confirmar.",
+      "why": "Valor estimado: práctica técnica complementaria a tu experiencia de desarrollo y análisis de sistemas.",
+      "fee": "no verificado",
+      "eligibility": "final; acceso y clasificación previa no verificados",
+      "team_size": "no verificado",
+      "career_value": "Valor estimado: reconocimiento competitivo y comunidad de NYUSEC; participación y oportunidades laborales no confirmadas.",
+      "start": "2026-11-12T17:00:00.000Z",
+      "end": "2026-11-14T05:00:00.000Z",
+      "weight": 1,
+      "tags": [
+        "misc"
+      ],
+      "recommended": false,
+      "ctftime_rated": true,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "csaw-ctf-2026-finals",
+      "sources": [
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-24",
       "last_seen": "2026-10-25"
     },
     {
@@ -411,7 +707,50 @@
       "recommended": true,
       "id": "platypwn-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-22",
+      "last_seen": "2026-10-25",
+      "ctftime_rated": true,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
+    },
+    {
+      "name": "WolvCTF 2026",
+      "url": "https://ctftime.org/event/3049/",
+      "ctftime_url": "https://ctftime.org/event/3049/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "w01verines",
+      "prizes": "Por anunciar.",
+      "description": "CTFtime confirma el aplazamiento a noviembre: 48 horas del 13 al 15/11. Incluye retos desde principiantes hasta difíciles, división Open y división de estudiantes de University of Michigan, sin tope de equipo. Oficial sin confirmar. Peso actual 0 y futuro por determinar; no se confirma aún el estado definitivo de puntuación.",
+      "why": "Retos de dificultad variada y categoría abierta permiten priorizar reversing, binarios y web.",
+      "fee": "no verificado",
+      "eligibility": "división Open; división separada para estudiantes de University of Michigan",
+      "team_size": "sin límite",
+      "career_value": "Valor estimado: resultados y writeups para el portfolio; reclutamiento no confirmado.",
+      "start": "2026-11-13T23:00:00.000Z",
+      "end": "2026-11-15T23:00:00.000Z",
+      "weight": 0,
+      "tags": [
+        "rev",
+        "pwn",
+        "web",
+        "crypto",
+        "forensics",
+        "OSINT",
+        "misc"
+      ],
+      "recommended": true,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "wolvctf-2026",
+      "sources": [
+        "carga-complementaria.md"
       ],
       "added": "2026-10-22",
       "last_seen": "2026-10-25"
@@ -444,9 +783,46 @@
       "recommended": true,
       "id": "init-ctf-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-23",
+      "last_seen": "2026-10-25",
+      "ctftime_rated": false,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
+    },
+    {
+      "name": "RAN Tour 2026 Buenos Aires (networking)",
+      "url": "https://ar.linkedin.com/company/ransecurity",
+      "format": "otro",
+      "location": "CABA, Buenos Aires, Argentina — Monasterio Santa Catalina de Siena",
+      "organizer": "RAN Security",
+      "description": "El organizador confirma en su cuenta oficial el 19/11/2026 a las 9 ART, en el Monasterio Santa Catalina de Siena, CABA. Exige pre-registro en https://lnkd.in/djq-vUiW y confirmación según disponibilidad. Incluye charlas, debates y networking sobre superficie de ataque, SecOps e IA; no se confirmó un CTF ni hora de cierre.",
+      "why": "La ubicación en CABA facilita conocer empresas y profesionales locales del sector.",
+      "fee": "no verificado",
+      "eligibility": "orientado a líderes y referentes de ciberseguridad; pre-registro sujeto a disponibilidad y confirmación",
+      "team_size": "no aplica: networking y charlas",
+      "career_value": "Networking con RAN Security, patrocinadores y referentes de seguridad; contratación o acceso libre no confirmados.",
+      "start": "2026-11-19T12:00:00.000Z",
+      "end": "2026-11-19T12:00:00.000Z",
+      "tags": [
+        "networking",
+        "SecOps",
+        "IA",
+        "career"
+      ],
+      "recommended": false,
+      "verified_by": [
+        "oficial"
+      ],
+      "id": "ran-tour-2026-bsas",
+      "sources": [
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-24",
       "last_seen": "2026-10-25"
     },
     {
@@ -468,10 +844,15 @@
       "recommended": false,
       "id": "eyesopenctf-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-22",
-      "last_seen": "2026-10-25"
+      "last_seen": "2026-10-25",
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
     },
     {
       "name": "GlacierCTF",
@@ -500,10 +881,16 @@
       "recommended": false,
       "id": "glacierctf-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-22",
-      "last_seen": "2026-10-25"
+      "last_seen": "2026-10-25",
+      "ctftime_rated": true,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
     },
     {
       "name": "Crate-CTF",
@@ -524,7 +911,42 @@
       "recommended": false,
       "id": "crate-ctf-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-22",
+      "last_seen": "2026-10-25",
+      "ctftime_rated": true,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
+    },
+    {
+      "name": "LakeCTF Quals",
+      "url": "https://ctftime.org/event/3474/",
+      "ctftime_url": "https://ctftime.org/event/3474/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "polygl0ts",
+      "prizes": "Los diez primeros equipos académicos son invitados a la final con alojamiento cubierto; premios profesionales por definir.",
+      "description": "Clasificatorio de la temporada 26–27, confirmado en CTFtime. El sitio oficial no devuelve un calendario legible; no se confunde con los clasificatorios de noviembre de 2025 de la temporada anterior. La ficha distingue brackets académico y profesional.",
+      "why": "Valor estimado: práctica técnica complementaria a tu experiencia de desarrollo y análisis de sistemas.",
+      "fee": "no verificado",
+      "eligibility": "brackets académico y profesional; requisitos exactos y límites no verificados",
+      "team_size": "no verificado",
+      "career_value": "Valor estimado: resultados y writeups para el portfolio; reclutamiento no confirmado.",
+      "start": "2026-11-27T18:00:00.000Z",
+      "end": "2026-11-28T18:00:00.000Z",
+      "weight": 45.76,
+      "recommended": false,
+      "ctftime_rated": true,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "lakectf-2026-quals",
+      "sources": [
+        "carga-complementaria.md"
       ],
       "added": "2026-10-22",
       "last_seen": "2026-10-25"
@@ -563,9 +985,50 @@
       "recommended": true,
       "id": "l3m0n-ctf-2026-quals",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-23",
+      "last_seen": "2026-10-25",
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
+    },
+    {
+      "name": "Bloomberg x WiCyS",
+      "url": "https://www.wicys.org/benefits/capture-the-flag/",
+      "format": "jeopardy",
+      "location": "online",
+      "difficulty": "intermedio",
+      "organizer": "Bloomberg y Women in CyberSecurity (WiCyS)",
+      "description": "Competencia virtual de 24 horas, individual con colaboración permitida, para 200 miembros de WiCyS. El oficial fija 3–4/12 a las 9 AM CT (CST en diciembre: 15:00 UTC). La aplicación abre el 26/10 a las 8 AM CT y cierra el 13/11 a la 1 PM CT; la aceptación se notifica el 20/11.",
+      "why": "Puede aportar práctica técnica y contacto profesional si cumplís los requisitos de membresía y selección.",
+      "fee": "no verificado",
+      "eligibility": "miembros WiCyS; estudiantes y niveles early/mid-career con experiencia CTF principiante/intermedia; cupo de 200 y aplicación con selección",
+      "team_size": "individual; se permite colaborar",
+      "career_value": "El oficial ofrece contacto con profesionales de seguridad de Bloomberg; no garantiza entrevistas ni contratación.",
+      "start": "2026-12-03T15:00:00.000Z",
+      "end": "2026-12-04T15:00:00.000Z",
+      "tags": [
+        "web",
+        "network",
+        "crypto",
+        "steganography",
+        "recon",
+        "rev",
+        "pwn"
+      ],
+      "recommended": false,
+      "verified_by": [
+        "oficial"
+      ],
+      "registration_deadline": "2026-11-13T19:00:00.000Z",
+      "id": "bloomberg-wicys-2026",
+      "sources": [
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-21",
       "last_seen": "2026-10-25"
     },
     {
@@ -595,9 +1058,182 @@
       "recommended": false,
       "id": "x3ctf-2026",
       "sources": [
-        "carga-inicial.md"
+        "carga-inicial.md",
+        "carga-complementaria.md"
       ],
       "added": "2026-10-22",
+      "last_seen": "2026-10-25",
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ]
+    },
+    {
+      "name": "bi0sCTF 2026",
+      "url": "https://ctftime.org/event/3480/",
+      "ctftime_url": "https://ctftime.org/event/3480/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "bi0s",
+      "prizes": "Por anunciar.",
+      "description": "CTFtime confirma la edición online de 36 horas organizada por bi0s. El anuncio invita a participantes de distintas generaciones y propone desafíos inspirados en vulnerabilidades recientes. Oficial sin confirmar por problemas de acceso; inscripción y requisitos precisos no verificados.",
+      "why": "Valor estimado: práctica técnica complementaria a tu experiencia de desarrollo y análisis de sistemas.",
+      "fee": "no verificado",
+      "eligibility": "no verificado",
+      "team_size": "no verificado",
+      "career_value": "Valor estimado: resultados y writeups para el portfolio; reclutamiento no confirmado.",
+      "start": "2026-12-05T05:00:00.000Z",
+      "end": "2026-12-06T17:00:00.000Z",
+      "weight": 79.51,
+      "recommended": false,
+      "ctftime_rated": true,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "bi0sctf-2026",
+      "sources": [
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-24",
+      "last_seen": "2026-10-25"
+    },
+    {
+      "name": "niteCTF 2026",
+      "url": "https://ctftime.org/event/3367/",
+      "ctftime_url": "https://ctftime.org/event/3367/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "Cryptonite",
+      "prizes": "Por anunciar.",
+      "description": "CTFtime confirma un evento online de 48 horas para estudiantes y participantes experimentados. Incluye hardware, crypto, web, forensics, pwn y reversing. Oficial sin confirmar: la página requiere JavaScript y no expone un calendario legible.",
+      "why": "Valor estimado: práctica técnica complementaria a tu experiencia de desarrollo y análisis de sistemas.",
+      "fee": "no verificado",
+      "eligibility": "no verificado",
+      "team_size": "no verificado",
+      "career_value": "Valor estimado: práctica diversa y comunidad de Cryptonite; Hex-Rays figura como patrocinador en CTFtime, sin contratación anunciada.",
+      "start": "2026-12-11T12:00:00.000Z",
+      "end": "2026-12-13T12:00:00.000Z",
+      "weight": 59,
+      "tags": [
+        "hardware",
+        "crypto",
+        "web",
+        "forensics",
+        "pwn",
+        "rev"
+      ],
+      "recommended": false,
+      "ctftime_rated": true,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "nitectf-2026",
+      "sources": [
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-24",
+      "last_seen": "2026-10-25"
+    },
+    {
+      "name": "BSides Algiers 2026 CTF",
+      "url": "https://ctftime.org/event/3475/",
+      "ctftime_url": "https://ctftime.org/event/3475/",
+      "format": "jeopardy",
+      "location": "online",
+      "difficulty": "avanzado",
+      "organizer": "Shellmates Club",
+      "prizes": "Por anunciar.",
+      "description": "CTFtime confirma retos de nivel intermedio a extremo en reversing, explotación binaria, crypto y web. Se puede jugar online; solo equipos argelinos pueden jugar presencialmente. El sitio de Shellmates no confirma la edición 2026 y se usa CTFtime como respaldo.",
+      "why": "Valor estimado: práctica técnica complementaria a tu experiencia de desarrollo y análisis de sistemas.",
+      "fee": "no verificado",
+      "eligibility": "online; presencial limitado a equipos argelinos según CTFtime",
+      "team_size": "no verificado",
+      "career_value": "Valor estimado: resultados y writeups para el portfolio; reclutamiento no confirmado.",
+      "start": "2026-12-17T19:00:00.000Z",
+      "end": "2026-12-19T07:00:00.000Z",
+      "weight": 22.9,
+      "tags": [
+        "rev",
+        "pwn",
+        "crypto",
+        "web"
+      ],
+      "recommended": false,
+      "ctftime_rated": true,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "bsides-algiers-2026-ctf",
+      "sources": [
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-24",
+      "last_seen": "2026-10-25"
+    },
+    {
+      "name": "BackdoorCTF 2026",
+      "url": "https://ctftime.org/event/3472/",
+      "ctftime_url": "https://ctftime.org/event/3472/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "InfoSecIITR",
+      "prizes": "Patrocinadores y premios por anunciar.",
+      "description": "CTFtime confirma el Jeopardy online de 24 horas de InfoSecIITR. Incluye pwn, reversing, web, crypto, forensics y misc; la comunidad del evento está en https://discord.gg/chHtsSTQ2. Oficial sin confirmar: no respondió a la consulta.",
+      "why": "Valor estimado: práctica técnica complementaria a tu experiencia de desarrollo y análisis de sistemas.",
+      "fee": "no verificado",
+      "eligibility": "no verificado",
+      "team_size": "no verificado",
+      "career_value": "Valor estimado: resultados y writeups para el portfolio; reclutamiento no confirmado.",
+      "start": "2026-12-19T12:00:00.000Z",
+      "end": "2026-12-20T12:00:00.000Z",
+      "weight": 77.38,
+      "tags": [
+        "pwn",
+        "rev",
+        "web",
+        "crypto",
+        "forensics",
+        "misc"
+      ],
+      "recommended": false,
+      "ctftime_rated": true,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "backdoorctf-2026",
+      "sources": [
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-24",
+      "last_seen": "2026-10-25"
+    },
+    {
+      "name": "ASIS CTF Finals 2026",
+      "url": "https://ctftime.org/event/3062/",
+      "ctftime_url": "https://ctftime.org/event/3062/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "ASIS",
+      "prizes": "Por anunciar.",
+      "description": "CTFtime confirma la final online de 24 horas del 27–28/12. El sitio oficial todavía muestra el clasificatorio de agosto, por lo que no confirma el calendario de esta final; no se interpreta el aviso de fin del clasificatorio como finalización de este evento. Acceso abierto o clasificación previa no verificados.",
+      "why": "Valor estimado: práctica técnica complementaria a tu experiencia de desarrollo y análisis de sistemas.",
+      "fee": "no verificado",
+      "eligibility": "final; requisitos de acceso o clasificación previa no verificados",
+      "team_size": "no verificado",
+      "career_value": "Valor estimado: resultados y writeups para el portfolio; reclutamiento no confirmado.",
+      "start": "2026-12-27T14:00:00.000Z",
+      "end": "2026-12-28T14:00:00.000Z",
+      "weight": 99.38,
+      "recommended": false,
+      "ctftime_rated": true,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "asis-ctf-finals-2026",
+      "sources": [
+        "carga-complementaria.md"
+      ],
+      "added": "2026-10-24",
       "last_seen": "2026-10-25"
     }
   ]
