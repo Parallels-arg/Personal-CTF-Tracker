@@ -528,6 +528,10 @@ button { font: inherit; color: inherit; }
   box-shadow: var(--shadow); animation: toast-in .2s ease-out;
 }
 .toast::before { content: "●"; margin-right: 8px; color: var(--accent); }
+.toast-action {
+  margin-left: 12px; background: none; border: 0; padding: 0; cursor: pointer;
+  font-weight: 600; color: var(--accent); text-decoration: underline; text-underline-offset: 2px;
+}
 .toast.error::before { color: var(--c-red); }
 .toast.warn::before { color: var(--st-interesado); }
 .toast.ok::before { color: var(--rec); }

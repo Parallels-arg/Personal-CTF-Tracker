@@ -168,8 +168,10 @@ function isLive(ev) {
   return ev._start <= now && ev._end >= now;
 }
 
-function toast(msg, kind = "info", ms = 4000) {
-  const el = h("div", { class: `toast ${kind}` }, msg);
+// action = { label, fn }: botón opcional dentro del aviso (p. ej. "Deshacer").
+function toast(msg, kind = "info", ms = 4000, action = null) {
+  const el = h("div", { class: `toast ${kind}` }, msg,
+    action ? h("button", { class: "toast-action", onclick: () => { el.remove(); action.fn(); } }, action.label) : null);
   document.getElementById("toasts").append(el);
   setTimeout(() => el.remove(), ms);
 }
@@ -516,7 +518,7 @@ async function persistStatus(id, st, retry = true) {
 
 let saveChain = Promise.resolve();
 
-function setStatus(id, st) {
+function setStatus(id, st, { undoable = true } = {}) {
   if (!canWrite()) {
     toast("Modo solo lectura: configurá tu token en ⚙ para guardar cambios.", "warn");
     return;
@@ -527,6 +529,14 @@ function setStatus(id, st) {
   applyStatus(id, st);
   render();
   refreshOpenEvent(id);
+  if (undoable) {
+    // Deshacer guarda el estado anterior (es otro commit, el cambio ya se envió).
+    const name = state.events.find((e) => e.id === id)?.name ?? id;
+    toast(`${name} → ${STATE_LABEL[st]}`, "ok", 6000, {
+      label: "Deshacer",
+      fn: () => setStatus(id, prev?.state ?? "sin-clasificar", { undoable: false }),
+    });
+  }
   setSaving(1);
   saveChain = saveChain
     .then(() => persistStatus(id, st))
