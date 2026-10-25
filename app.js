@@ -44,6 +44,9 @@ const state = {
   seen: store.get("ctf.seen", {}), // { id: ISO de la última vez que lo abriste }
   seenSha: null,
   onlyNews: false,
+  // Eventos vistos mientras el filtro de novedades está activo: siguen en la lista hasta
+  // que se cambie de filtro, así se pueden recorrer las novedades una por una.
+  newsKeep: new Set(),
   source: null,
   config: { branch: "main", ...detectRepo(), ...store.get("ctf.config", {}) },
   view: store.get("ctf.view", innerWidth < 720 ? "list" : "calendar"),
@@ -240,12 +243,16 @@ async function loadData() {
 
 let seenTimer = null;
 
-function markSeen(ids) {
+function markSeen(ids, { keep = true } = {}) {
   const now = new Date().toISOString();
   let dirty = false;
   for (const id of ids) {
     const ev = state.events.find((e) => e.id === id);
-    if (ev && hasNews(ev)) { state.seen[id] = now; dirty = true; }
+    if (ev && hasNews(ev)) {
+      state.seen[id] = now;
+      dirty = true;
+      if (keep && state.onlyNews) state.newsKeep.add(id);
+    }
   }
   if (!dirty) return false;
   store.set("ctf.seen", state.seen);
@@ -391,11 +398,17 @@ function matchesQuery(ev) {
     .some((f) => f && f.toLowerCase().includes(q));
 }
 
+// Cambiar de filtro descarta los eventos que se mantenían visibles en modo novedades.
+function setOnlyNews(on) {
+  state.onlyNews = on;
+  state.newsKeep.clear();
+}
+
 // En modo "novedades" se ignoran los filtros de estado: se quiere ver todo lo nuevo de un vistazo.
 function filtered({ includePast }) {
   const now = Date.now();
   return state.events.filter((ev) =>
-    (state.onlyNews ? hasNews(ev) : state.filters.has(statusOf(ev))) &&
+    (state.onlyNews ? hasNews(ev) || state.newsKeep.has(ev.id) : state.filters.has(statusOf(ev))) &&
     matchesQuery(ev) && (includePast || ev._end >= now));
 }
 
@@ -730,14 +743,15 @@ function renderFilters() {
     class: `chip-filter news ${state.onlyNews ? "on" : ""}`,
     title: "Ver solo lo que no abriste o cambió desde la última vez",
     disabled: news.length === 0 && !state.onlyNews,
-    onclick: () => { state.onlyNews = !state.onlyNews; render(); },
+    onclick: () => { setOnlyNews(!state.onlyNews); render(); },
   }, "✦ Novedades", h("span", { class: "n" }, news.length));
 
+  // "Marcar vistas" es explícito: esas sí salen de la lista en el momento.
   const markAll = news.length ? h("button", {
     class: "chip-filter", title: "Marcar todas las novedades como vistas",
     onclick: () => {
       if (!confirm(`¿Marcar ${news.length} novedades como vistas?`)) return;
-      markSeen(news.map((e) => e.id));
+      markSeen(news.map((e) => e.id), { keep: false });
       render();
     },
   }, "✓ marcar vistas") : null;
@@ -746,7 +760,7 @@ function renderFilters() {
     class: `chip-filter ${state.filters.has(s.key) && !state.onlyNews ? "on" : ""}`,
     style: colorVar(s.key),
     onclick: () => {
-      state.onlyNews = false;
+      setOnlyNews(false);
       state.filters.has(s.key) ? state.filters.delete(s.key) : state.filters.add(s.key);
       store.set("ctf.filters", [...state.filters]);
       render();
