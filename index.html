@@ -4,41 +4,65 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CTF Tracker</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230d1117'/><path d='M10 6v20M10 7h12l-3 5 3 5H10' stroke='%233fb950' stroke-width='2.5' fill='none' stroke-linejoin='round'/></svg>">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🚩</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Barra superior estilo "breadcrumb" -->
   <header class="topbar">
-    <div class="brand">
-      <span class="logo">⚑</span>
-      <h1>CTF Tracker</h1>
+    <div class="crumbs">
+      <span class="crumb-icon">🚩</span>
+      <span class="crumb">CTF Tracker</span>
       <span id="mode" class="mode"></span>
     </div>
     <div class="actions">
       <span id="sync" class="sync" hidden>guardando…</span>
-      <button id="btn-upload" class="btn" title="Subir un archivo de sugerencias a inbox/">Subir sugerencias</button>
+      <button id="btn-upload" class="btn ghost" title="Subir un archivo de sugerencias a inbox/">
+        <span class="btn-ico">⇪</span><span class="btn-label">Subir sugerencias</span>
+      </button>
       <input id="file-upload" type="file" accept=".md,.json" hidden>
-      <button id="btn-refresh" class="btn icon" title="Recargar datos">↻</button>
-      <button id="btn-settings" class="btn icon" title="Configuración">⚙</button>
+      <button id="btn-refresh" class="btn ghost icon" title="Recargar datos">↻</button>
+      <button id="btn-settings" class="btn ghost icon" title="Configuración">⚙</button>
     </div>
   </header>
 
-  <section class="toolbar">
-    <div class="seg" role="tablist">
-      <button data-view="calendar" class="seg-btn">Calendario</button>
-      <button data-view="list" class="seg-btn">Lista</button>
-    </div>
-    <input id="search" class="search" type="search" placeholder="Buscar nombre, tag, organizador…">
+  <div class="page">
+    <!-- Encabezado de página -->
+    <section class="hero">
+      <div class="page-icon" aria-hidden="true">🚩</div>
+      <h1>CTF Tracker</h1>
+      <p class="page-desc">Calendario personal de CTFs sugeridos a diario. Clasificá cada uno y seguí lo nuevo de un vistazo.</p>
+      <p id="stats" class="stats"></p>
+    </section>
+
+    <!-- Barra de vistas: pestañas + búsqueda -->
+    <section class="viewbar">
+      <div class="seg" role="tablist">
+        <button data-view="calendar" class="seg-btn" role="tab"><span class="tab-ico">▦</span>Calendario</button>
+        <button data-view="list" class="seg-btn" role="tab"><span class="tab-ico">☰</span>Lista</button>
+      </div>
+      <div class="viewbar-tools">
+        <label class="search-wrap">
+          <span class="search-ico" aria-hidden="true">⌕</span>
+          <input id="search" class="search" type="search" placeholder="Buscar…">
+        </label>
+        <label class="toggle" id="past-toggle" title="Los eventos ya terminados se ocultan por defecto">
+          <input id="show-past" type="checkbox"><span class="switch" aria-hidden="true"></span>terminados
+        </label>
+      </div>
+    </section>
+
     <div id="filters" class="filters"></div>
-    <label class="toggle" id="past-toggle" title="Los eventos ya terminados se ocultan por defecto"><input id="show-past" type="checkbox"> mostrar terminados</label>
-  </section>
 
-  <p id="stats" class="stats"></p>
+    <main id="main"></main>
+  </div>
 
-  <main id="main"></main>
-
-  <dialog id="dlg-event" class="dialog"></dialog>
-  <dialog id="dlg-settings" class="dialog">
+  <dialog id="dlg-event" class="dialog peek"></dialog>
+  <dialog id="dlg-settings" class="dialog modal">
     <form method="dialog" id="settings-form" class="settings">
       <h2>Configuración</h2>
       <p class="muted">Los cambios de estado se guardan como commits en <code>data/status.json</code>

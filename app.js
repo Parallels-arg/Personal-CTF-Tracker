@@ -620,7 +620,7 @@ function renderList() {
   }
   return h("div", {}, [...groups].map(([month, evs]) =>
     h("section", { class: "month-group" },
-      h("h3", {}, month),
+      h("h3", {}, month.replace(/^./, (c) => c.toUpperCase())),
       evs.map((ev) => {
         const st = statusOf(ev);
         return h("article", { class: `card ${st} ${newsClass(ev)}`, style: colorVar(st) },
