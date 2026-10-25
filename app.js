@@ -969,7 +969,10 @@ function eventDetail(ev) {
     section("Valor profesional", ev.career_value),
     h("footer", { class: "links" },
       link(ev.url, "Sitio oficial ↗"),
-      link(ev.ctftime_url, "CTFtime ↗")));
+      link(ev.ctftime_url, "CTFtime ↗"),
+      h("span", { class: "spacer" }),
+      link(googleCalUrl(ev), "📅 Google Calendar"),
+      h("button", { class: "btn ghost", onclick: () => downloadIcs([ev], `${ev.id}.ics`) }, "⬇ .ics")));
 }
 
 // "YYYY-MM-DDTHH:mm" en hora local, el formato de <input type="datetime-local">.
@@ -1164,6 +1167,63 @@ async function runCredsSave(id, entry, okMsg) {
   }
 }
 
+// ---------- exportar a calendarios ----------
+
+const icsStamp = (d) => new Date(d).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+const icsText = (s) => String(s ?? "").replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+const eventDetails = (ev) => [ev.url, ev.ctftime_url, ev.why].filter(Boolean).join("\n");
+
+function googleCalUrl(ev) {
+  const p = new URLSearchParams({
+    action: "TEMPLATE",
+    text: ev.name,
+    dates: `${icsStamp(ev._start)}/${icsStamp(ev._end > ev._start ? ev._end : new Date(+ev._start + 3600000))}`,
+    details: eventDetails(ev),
+    location: ev.location ?? "",
+  });
+  return `https://calendar.google.com/calendar/render?${p}`;
+}
+
+// Un .ics con cada evento (recordatorio 2 h antes) y, para los "Me interesa", el cierre de
+// inscripción como evento aparte (recordatorio 1 día antes).
+function buildIcs(events) {
+  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//CTF Tracker//ES", "CALSCALE:GREGORIAN"];
+  const vevent = (uid, start, end, summary, desc, location, alarm) => lines.push(
+    "BEGIN:VEVENT", `UID:${uid}@ctf-tracker`, `DTSTAMP:${icsStamp(new Date())}`,
+    `DTSTART:${icsStamp(start)}`, `DTEND:${icsStamp(end)}`, `SUMMARY:${icsText(summary)}`,
+    `DESCRIPTION:${icsText(desc)}`, location ? `LOCATION:${icsText(location)}` : null,
+    "BEGIN:VALARM", "ACTION:DISPLAY", `DESCRIPTION:${icsText(summary)}`, `TRIGGER:${alarm}`, "END:VALARM",
+    "END:VEVENT");
+  for (const ev of events) {
+    const end = ev._end > ev._start ? ev._end : new Date(+ev._start + 3600000);
+    vevent(ev.id, ev._start, end, ev.name, eventDetails(ev), ev.location, "-PT2H");
+    if (notifiesDeadline(ev)) {
+      const dl = new Date(ev._deadline);
+      vevent(`${ev.id}-inscripcion`, new Date(+dl - 1800000), dl, `Cierra inscripción: ${ev.name}`, eventDetails(ev), null, "-P1D");
+    }
+  }
+  lines.push("END:VCALENDAR");
+  // Líneas de más de 75 caracteres se pliegan, como pide el formato.
+  return lines.filter(Boolean).map((l) => l.match(/.{1,73}/g).join("\r\n ")).join("\r\n") + "\r\n";
+}
+
+function downloadIcs(events, filename) {
+  const url = URL.createObjectURL(new Blob([buildIcs(events)], { type: "text/calendar;charset=utf-8" }));
+  const a = h("a", { href: url, download: filename });
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function exportMyEvents() {
+  const now = Date.now();
+  const mine = state.events.filter((e) => ["interesado", "inscripto"].includes(statusOf(e)) && e._end >= now);
+  if (!mine.length) return toast("No tenés eventos próximos marcados como me interesa o inscripto.", "warn");
+  downloadIcs(mine, "mis-ctfs.ics");
+  toast(`Descargado mis-ctfs.ics con ${mine.length} eventos. Abrilo para importarlo en tu calendario.`, "ok", 6000);
+}
+
 function openDay(day, events) {
   dlgEvent.dataset.id = "";
   state.navIds = events.map((ev) => ev.id); // ‹ › recorre los eventos de ese día
@@ -1266,7 +1326,12 @@ function renderNow() {
   el.replaceChildren(
     h("div", { class: "now-head" },
       h("span", { class: "now-label" }, "Ahora"),
-      h("span", { class: "muted small" }, "tus eventos: me interesa e inscripto")),
+      h("span", { class: "muted small" }, "tus eventos: me interesa e inscripto"),
+      h("span", { class: "spacer" }),
+      h("button", {
+        class: "btn ghost now-export", onclick: exportMyEvents,
+        title: "Descargar un .ics con tus eventos próximos y los cierres de inscripción, para importar en tu calendario",
+      }, "⬇ exportar a mi calendario")),
     h("div", { class: "now-grid" },
       block("En curso", live, (ev) => `termina ${relTime(ev._end)}`, "Nada en curso."),
       block("Esta semana", week, (ev) => `empieza ${relTime(ev._start)}`, "Nada en los próximos 7 días."),
