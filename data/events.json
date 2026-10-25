@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T01:09:28.678Z",
+  "updated": "2026-10-25T19:27:25.764Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1067,6 +1067,42 @@
       ]
     },
     {
+      "name": "CyberNSK 2027 Qualifier",
+      "url": "https://ctftime.org/event/3489",
+      "ctftime_url": "https://ctftime.org/event/3489",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "Siberian Security League / Novosibirsk State Technical University",
+      "description": "Clasificatorio online de 12 horas, el 28/11 de 06:00 a 18:00 ART, con web, reversing, pwn, forense, IA y hardware. CTFtime lo clasifica como académico y sin puntos globales; la final presencial sería en Novosibirsk. Sitio del organizador: https://quals.sslctf.ru/ (oficial sin confirmar).",
+      "why": "La condición de estudiante universitario podría ser relevante, pero es necesario confirmar la elegibilidad internacional.",
+      "eligibility": "Equipos académicos de estudiantes secundarios o universitarios; aceptación desde Argentina no verificada.",
+      "team_size": "hasta 5",
+      "career_value": "Valor estimado: experiencia en competición académica; networking y contratación desde Argentina no verificados.",
+      "start": "2026-11-28T09:00:00.000Z",
+      "end": "2026-11-28T21:00:00.000Z",
+      "weight": 0,
+      "tags": [
+        "web",
+        "crypto",
+        "rev",
+        "pwn",
+        "forensics",
+        "AI",
+        "hardware"
+      ],
+      "recommended": false,
+      "ctftime_rated": false,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "cybernsk-2027-qualifier",
+      "sources": [
+        "2026-10-25.md"
+      ],
+      "added": "2026-10-25",
+      "last_seen": "2026-10-25"
+    },
+    {
       "name": "Bloomberg x WiCyS",
       "url": "https://www.wicys.org/benefits/capture-the-flag/",
       "format": "jeopardy",
@@ -1305,6 +1341,46 @@
         "carga-complementaria.md"
       ],
       "added": "2026-10-24",
+      "last_seen": "2026-10-25"
+    },
+    {
+      "name": "GaianSpace Perihelion CTF 2027",
+      "url": "https://gaian.space/ctf/",
+      "ctftime_url": "https://ctftime.org/event/3492",
+      "format": "jeopardy",
+      "location": "online",
+      "difficulty": "intermedio",
+      "organizer": "GaianSpace",
+      "description": "CTF online de 24 horas con desafíos de ciberseguridad espacial, comunicaciones, estaciones terrestres y RTOS. El organizador anuncia inscripción abierta y fecha límite el 30/12/2026 a las 18:00 UTC. Se priorizan las fechas del sitio oficial frente a resultados indexados anteriores. Reglas: https://gaian.space/ctf/rules/.",
+      "why": "Buen encaje con la práctica de reversing y explotación y el interés en IoT, protocolos y hardware; permite participar solo.",
+      "eligibility": "Participación internacional; mayores de 18 años o menores con consentimiento parental, sujeta a normativa local.",
+      "team_size": "1–3",
+      "career_value": "Valor estimado: writeups técnicos y exposición a seguridad de sistemas espaciales; contratación no verificada.",
+      "start": "2027-01-02T18:00:00.000Z",
+      "end": "2027-01-03T18:00:00.000Z",
+      "weight": 25,
+      "tags": [
+        "rev",
+        "pwn",
+        "web",
+        "crypto",
+        "forensics",
+        "network",
+        "IoT",
+        "SDR",
+        "misc"
+      ],
+      "recommended": true,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ],
+      "registration_deadline": "2026-12-30T18:00:00.000Z",
+      "id": "gaian-space-perihelion-ctf-2027",
+      "sources": [
+        "2026-10-25.md"
+      ],
+      "added": "2026-10-25",
       "last_seen": "2026-10-25"
     }
   ]
