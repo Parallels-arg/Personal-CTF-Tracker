@@ -553,6 +553,7 @@ button { font: inherit; color: inherit; }
   .viewbar-tools { width: 100%; justify-content: flex-start; }
   .viewbar-tools .search-wrap { flex-basis: 100%; }
   .now-grid { grid-template-columns: 1fr; }
+  .now-block.is-empty { display: none; } /* en celular, solo los bloques con algo */
   .search { width: 100%; }
   .search-wrap { flex: 1; }
 

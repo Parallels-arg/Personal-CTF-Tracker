@@ -989,23 +989,21 @@ const dlgEvent = document.getElementById("dlg-event");
 // ---------- link al evento en la URL (#e=<id>) ----------
 // Abrir un evento agrega una entrada al historial: "atrás" cierra el popup y el link se
 // puede guardar o compartir. Moverse con ‹ › o abrir desde un link reemplaza la entrada.
+// Cerrar el popup solo saca el #e= de la entrada actual (sin navegar), para no depender
+// de un "atrás" asincrónico que podría cruzarse con lo siguiente que hagas.
 
 const HASH_PREFIX = "#e=";
 const hashEventId = () =>
   location.hash.startsWith(HASH_PREFIX) ? decodeURIComponent(location.hash.slice(HASH_PREFIX.length)) : null;
-let hashPushed = false;
 
 function syncHash(id, replace) {
   const url = `${location.pathname}${location.search}${HASH_PREFIX}${encodeURIComponent(id)}`;
   if (replace) history.replaceState({ ev: id }, "", url);
-  else { history.pushState({ ev: id }, "", url); hashPushed = true; }
+  else history.pushState({ ev: id }, "", url);
 }
 
 function clearHash() {
-  if (!hashEventId()) return;
-  if (hashPushed) history.back(); // vuelve a la entrada sin #e=
-  else history.replaceState(null, "", `${location.pathname}${location.search}`);
-  hashPushed = false;
+  if (hashEventId()) history.replaceState(null, "", `${location.pathname}${location.search}`);
 }
 
 addEventListener("popstate", () => {
@@ -1013,8 +1011,7 @@ addEventListener("popstate", () => {
   if (id && state.events.some((e) => e.id === id)) {
     if (!dlgEvent.open || dlgEvent.dataset.id !== id) openEvent(id, { fromHash: true });
   } else if (dlgEvent.open) {
-    hashPushed = false; // el "atrás" ya sacó el #e=
-    dlgEvent.close();
+    closeEventDialog();
   }
 });
 
@@ -1093,7 +1090,7 @@ function eventDetail(ev) {
 
   return h("div", { class: "dlg-body" },
     h("header", { class: "dlg-head", style: colorVar(st) },
-      h("button", { class: "btn icon dlg-close", onclick: () => dlgEvent.close(), title: "Cerrar" }, "✕"),
+      h("button", { class: "btn icon dlg-close", onclick: closeEventDialog, title: "Cerrar" }, "✕"),
       navControls(ev),
       h("h2", {}, ev.name),
       h("div", { class: "dlg-badges" }, badges(ev)),
@@ -1378,7 +1375,7 @@ function openDay(day, events) {
   state.navIds = events.map((ev) => ev.id); // ‹ › recorre los eventos de ese día
   dlgEvent.replaceChildren(h("div", { class: "dlg-body" },
     h("header", { class: "dlg-head" },
-      h("button", { class: "btn icon dlg-close", onclick: () => dlgEvent.close(), title: "Cerrar" }, "✕"),
+      h("button", { class: "btn icon dlg-close", onclick: closeEventDialog, title: "Cerrar" }, "✕"),
       h("h2", {}, fmtDate.format(day).replace(/^./, (c) => c.toUpperCase()))),
     h("ul", { class: "day-list" }, events.map((ev) => {
       const st = statusOf(ev);
@@ -1389,8 +1386,19 @@ function openDay(day, events) {
   if (!dlgEvent.open) dlgEvent.showModal();
 }
 
-dlgEvent.addEventListener("click", (e) => { if (e.target === dlgEvent) dlgEvent.close(); });
-dlgEvent.addEventListener("close", () => { state.credsEditing = null; state.datesEditing = null; clearHash(); });
+dlgEvent.addEventListener("click", (e) => { if (e.target === dlgEvent) closeEventDialog(); });
+// Todo cierre del popup pasa por acá. El evento "close" queda como respaldo (p. ej. Esc),
+// porque no todos los navegadores lo disparan de forma confiable.
+function onEventDialogClosed() {
+  state.credsEditing = null;
+  state.datesEditing = null;
+  clearHash();
+}
+function closeEventDialog() {
+  if (dlgEvent.open) dlgEvent.close();
+  onEventDialogClosed();
+}
+dlgEvent.addEventListener("close", onEventDialogClosed);
 
 // ---------- render: principal ----------
 
@@ -1475,7 +1483,7 @@ function renderNow() {
     class: "now-item", style: colorVar(statusOf(ev)),
     onclick: () => openEvent(ev.id, { list: list.map((e) => e.id) }),
   }, h("span", { class: "now-name" }, ev.name), h("span", { class: "now-when" }, text));
-  const block = (title, list, textFn, empty) => h("div", { class: "now-block" },
+  const block = (title, list, textFn, empty) => h("div", { class: `now-block ${list.length ? "" : "is-empty"}` },
     h("div", { class: "now-title" }, title, h("span", { class: "n" }, list.length)),
     list.length ? list.map((ev) => item(ev, textFn(ev), list)) : h("div", { class: "now-empty" }, empty));
 
