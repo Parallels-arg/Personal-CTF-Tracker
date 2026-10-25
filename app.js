@@ -60,6 +60,7 @@ const state = {
   view: store.get("ctf.view", innerWidth < 720 ? "list" : "calendar"),
   filters: new Set(store.get("ctf.filters", ["sin-clasificar", "interesado", "inscripto"])),
   showPast: store.get("ctf.showPast", false),
+  hideIneligible: store.get("ctf.hideIneligible", false),
   query: "",
   month: startOfMonth(new Date()),
   saving: 0,
@@ -594,7 +595,9 @@ function filtered({ includePast }) {
   const now = Date.now();
   return state.events.filter((ev) =>
     (state.onlyNews ? hasNews(ev) || state.newsKeep.has(ev.id) : state.filters.has(statusOf(ev))) &&
-    matchesQuery(ev) && (includePast || ev._end >= now));
+    matchesQuery(ev) && (includePast || ev._end >= now) &&
+    // "ocultar los que no puedo": nunca oculta algo en lo que ya estás inscripto.
+    !(state.hideIneligible && eligibilityFor(ev) === "no" && statusOf(ev) !== "inscripto"));
 }
 
 // ---------- render: componentes ----------
@@ -628,6 +631,7 @@ function badges(ev) {
     isNew(ev) ? h("span", { class: "badge new", title: "Todavía no lo abriste" }, "● nuevo") : null,
     isChanged(ev) ? h("span", { class: "badge changed", title: "Cambió desde la última vez que lo viste" },
       `↻ cambió: ${changedText(ev)}`) : null,
+    eligibilityBadge(ev),
     ctftimeBadge(ev),
     officialUnconfirmed(ev)
       ? h("span", { class: "badge warn", title: "Solo se pudo confirmar en CTFtime: el sitio oficial no respondía" }, "⚠ oficial sin confirmar")
@@ -653,6 +657,25 @@ function ctftimeInfo(ev) {
 function ctftimeBadge(ev) {
   const ct = ctftimeInfo(ev);
   return h("span", { class: `badge ct ct-${ct.key}`, title: ct.title }, ct.label);
+}
+
+// Evaluación de la IA contra tu perfil: sufijo "· para vos: sí | no | dudoso" en eligibility.
+function eligibilityFor(ev) {
+  const m = /para vos:\s*(sí|si|no|dudoso)\s*\.?\s*$/i.exec(ev.eligibility ?? "");
+  if (!m) return null;
+  const v = m[1].toLowerCase();
+  return v === "si" ? "sí" : v;
+}
+
+const ELIG_BADGE = {
+  "sí": { cls: "elig-yes", text: "✓ podés" },
+  "dudoso": { cls: "elig-maybe", text: "❓ dudoso" },
+  "no": { cls: "elig-no", text: "⛔ no podés" },
+};
+
+function eligibilityBadge(ev) {
+  const e = ELIG_BADGE[eligibilityFor(ev)];
+  return e ? h("span", { class: `badge ${e.cls}`, title: ev.eligibility }, e.text) : null;
 }
 
 const officialUnconfirmed = (ev) => Array.isArray(ev.verified_by) && !ev.verified_by.includes("oficial");
@@ -776,6 +799,7 @@ function renderWeek(weekStart, month, events) {
       : (s.clipL ? "↳ " : `${fmtTime.format(s.ev._start)} `),
     s.ev.recommended ? "★ " : "",
     ct.mark ? h("span", { class: `ct-mark ct-${ct.key}` }, `${ct.mark} `) : null,
+    eligibilityFor(s.ev) === "no" ? "⛔ " : null,
     s.ev.name));
   }
   return week;
@@ -783,7 +807,7 @@ function renderWeek(weekStart, month, events) {
 
 function calendarLegend() {
   return h("p", { class: "legend" },
-    "★ recomendado · ● sin abrir · ↻ cambió · ◆ puntúa en CTFtime · ◇ en CTFtime sin puntuar · sin marca: fuera de CTFtime · ",
+    "★ recomendado · ● sin abrir · ↻ cambió · ◆ puntúa en CTFtime · ◇ en CTFtime sin puntuar · sin marca: fuera de CTFtime · ⛔ no podés participar · ⏳ cierre de inscripción · ",
     h("span", { class: "legend-long" }, "línea fina"), ` = dura más de ${LONG_DAYS} días`);
 }
 
@@ -1324,6 +1348,13 @@ document.getElementById("search").addEventListener("input", (e) => { state.query
 const pastBox = document.getElementById("show-past");
 pastBox.checked = state.showPast;
 pastBox.addEventListener("change", () => { state.showPast = pastBox.checked; store.set("ctf.showPast", state.showPast); render(); });
+const ineligibleBox = document.getElementById("hide-ineligible");
+ineligibleBox.checked = state.hideIneligible;
+ineligibleBox.addEventListener("change", () => {
+  state.hideIneligible = ineligibleBox.checked;
+  store.set("ctf.hideIneligible", state.hideIneligible);
+  render();
+});
 document.getElementById("btn-settings").addEventListener("click", openSettings);
 document.getElementById("btn-refresh").addEventListener("click", reload);
 const fileInput = document.getElementById("file-upload");

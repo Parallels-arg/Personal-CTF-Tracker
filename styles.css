@@ -197,6 +197,9 @@ button { font: inherit; color: inherit; }
 .badge.rec { --c: var(--rec); }
 .badge.live { --c: var(--today); }
 .badge.changed { --c: var(--st-interesado); }
+.badge.elig-yes { --c: var(--c-green); }
+.badge.elig-maybe { --c: var(--c-yellow); }
+.badge.elig-no { --c: var(--c-red); }
 .badge.warn { --c: var(--c-red); background: transparent; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 60%, transparent); }
 .badge.ct { --c: var(--c-gray); font-weight: 400; }
 .badge.ct-rated { --c: var(--ct); font-weight: 500; }
