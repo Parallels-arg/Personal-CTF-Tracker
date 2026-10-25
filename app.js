@@ -616,17 +616,19 @@ function badges(ev) {
   ];
 }
 
-// Estado en CTFtime. Si la IA no informó "ctftime_rated" (datos viejos), un peso > 0 implica que puntúa.
+// Estado en CTFtime. ctftime_rated: true / false / null (peso futuro por definir).
+// Solo si la IA no lo informó (datos viejos), un peso > 0 se toma como que puntúa.
 function ctftimeInfo(ev) {
   if (!ev.ctftime_url) return { key: "off", mark: "", label: "fuera de CTFtime", title: "No figura en CTFtime" };
-  const rated = ev.ctftime_rated ?? (ev.weight > 0 ? true : undefined);
+  const rated = ev.ctftime_rated === undefined ? (ev.weight > 0 ? true : undefined) : ev.ctftime_rated;
   if (rated) {
     return { key: "rated", mark: "◆", label: `◆ CTFtime · puntúa${ev.weight ? ` · peso ${ev.weight}` : ""}`,
       title: "Figura en CTFtime y suma al rating" };
   }
   if (rated === false) return { key: "unrated", mark: "◇", label: "◇ CTFtime · no puntúa", title: "Figura en CTFtime pero no suma al rating" };
-  return { key: "unknown", mark: "◇", label: "◇ CTFtime · puntuación por definir",
-    title: "Figura en CTFtime con peso todavía no definido (Future weight: to be determined)" };
+  return { key: "unknown", mark: "◇",
+    label: `◇ CTFtime · puntuación por definir${ev.weight ? ` · peso actual ${ev.weight}` : ""}`,
+    title: "Figura en CTFtime con peso futuro todavía no definido (Future weight: to be determined)" };
 }
 
 function ctftimeBadge(ev) {

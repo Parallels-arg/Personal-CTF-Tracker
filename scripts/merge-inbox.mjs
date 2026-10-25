@@ -78,7 +78,8 @@ function normalizeEvent(raw, file) {
   if (raw.weight != null && !isNaN(weight)) ev.weight = weight;
   if (Array.isArray(raw.tags)) ev.tags = raw.tags.map(String).map((t) => t.trim()).filter(Boolean);
   if (typeof raw.recommended === "boolean") ev.recommended = raw.recommended;
-  if (typeof raw.ctftime_rated === "boolean") ev.ctftime_rated = raw.ctftime_rated;
+  // true / false, o null = "Future weight: to be determined" (se conserva para no deducirlo del peso).
+  if (typeof raw.ctftime_rated === "boolean" || raw.ctftime_rated === null) ev.ctftime_rated = raw.ctftime_rated;
   if (Array.isArray(raw.verified_by)) {
     const vb = raw.verified_by.map((s) => String(s).trim().toLowerCase()).filter((s) => s === "oficial" || s === "ctftime");
     if (vb.length) ev.verified_by = [...new Set(vb)];

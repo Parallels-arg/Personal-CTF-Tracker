@@ -296,7 +296,8 @@
       "verified_by": [
         "oficial",
         "ctftime"
-      ]
+      ],
+      "ctftime_rated": null
     },
     {
       "name": "Qiangwang Qualifier",
@@ -328,7 +329,8 @@
         "carga-complementaria.md"
       ],
       "added": "2026-10-22",
-      "last_seen": "2026-10-25"
+      "last_seen": "2026-10-25",
+      "ctftime_rated": null
     },
     {
       "name": "Russian CTF Cup X Qualifier",
@@ -503,7 +505,8 @@
       "verified_by": [
         "oficial",
         "ctftime"
-      ]
+      ],
+      "ctftime_rated": null
     },
     {
       "name": "CSCTF 2026",
@@ -544,7 +547,8 @@
       "verified_by": [
         "oficial",
         "ctftime"
-      ]
+      ],
+      "ctftime_rated": null
     },
     {
       "name": "SpookyCTF",
@@ -584,7 +588,8 @@
       "verified_by": [
         "oficial",
         "ctftime"
-      ]
+      ],
+      "ctftime_rated": null
     },
     {
       "name": "First Flag CTF",
@@ -788,7 +793,8 @@
         "carga-complementaria.md"
       ],
       "added": "2026-10-22",
-      "last_seen": "2026-10-25"
+      "last_seen": "2026-10-25",
+      "ctftime_rated": null
     },
     {
       "name": "InIt CTF",
@@ -887,7 +893,8 @@
       "verified_by": [
         "oficial",
         "ctftime"
-      ]
+      ],
+      "ctftime_rated": null
     },
     {
       "name": "GlacierCTF",
@@ -1064,7 +1071,8 @@
       "verified_by": [
         "oficial",
         "ctftime"
-      ]
+      ],
+      "ctftime_rated": null
     },
     {
       "name": "CyberNSK 2027 Qualifier",
@@ -1173,7 +1181,8 @@
       "verified_by": [
         "oficial",
         "ctftime"
-      ]
+      ],
+      "ctftime_rated": null
     },
     {
       "name": "bi0sCTF 2026",
@@ -1381,7 +1390,8 @@
         "2026-10-25.md"
       ],
       "added": "2026-10-25",
-      "last_seen": "2026-10-25"
+      "last_seen": "2026-10-25",
+      "ctftime_rated": null
     }
   ]
 }
