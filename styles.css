@@ -357,6 +357,30 @@ button { font: inherit; color: inherit; }
 .kv dt { color: var(--muted); }
 .kv dd { color: var(--text); overflow-wrap: anywhere; }
 
+/* credenciales privadas */
+.creds {
+  margin: 18px 28px 0; padding: 12px 14px; border-radius: 12px;
+  background: color-mix(in srgb, var(--c-purple) 10%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--c-purple) 30%, transparent);
+}
+.creds .prop-title { margin-bottom: 8px; }
+.creds-where { text-transform: none; letter-spacing: 0; font-weight: 400; }
+.creds-msg { margin: 0; font-size: 13px; color: var(--muted); }
+.creds-kv { grid-template-columns: 96px 1fr; margin-bottom: 8px; }
+.creds-kv dd { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.creds-secret { font-family: var(--mono); letter-spacing: .04em; }
+.creds-notes { white-space: pre-wrap; }
+.creds-copy { padding: 0 6px; font-size: 13px; }
+.creds-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.creds-form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.creds-form label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+.creds-form .wide { grid-column: 1 / -1; }
+.creds-form input, .creds-form textarea {
+  background: var(--surface); color: var(--text); border: 1px solid var(--border-strong);
+  border-radius: var(--radius); padding: 7px 10px; font: 13px var(--sans); outline: none; resize: vertical;
+}
+.creds-form input:focus, .creds-form textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+
 .tags { display: flex; gap: 6px; flex-wrap: wrap; padding: 16px 28px 0; }
 .tag {
   font-size: 12px; padding: 0 8px; border-radius: 99px; line-height: 1.7;
@@ -455,6 +479,8 @@ button { font: inherit; color: inherit; }
   .prop-groups { grid-template-columns: 1fr; padding: 16px 18px 4px; }
   .pg-comp .kv { grid-template-columns: 96px 1fr; }
   .tags, .dlg-section { padding-left: 18px; padding-right: 18px; }
+  .creds { margin: 14px 18px 0; }
+  .creds-form { grid-template-columns: 1fr; }
   .links { padding: 14px 18px 18px; }
   .day-list { padding: 14px 18px 18px; }
 }
