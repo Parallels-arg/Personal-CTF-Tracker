@@ -139,12 +139,6 @@ function deadlineInfo(ev) {
 const fmtShort = new Intl.DateTimeFormat("es-AR", { day: "2-digit", month: "2-digit" });
 const addedText = (ev) => ev.added ? `sugerido el ${fmtShort.format(new Date(`${ev.added}T12:00:00`))}` : null;
 
-function overlapping(ev) {
-  return state.events
-    .filter((o) => o.id !== ev.id && o._start < ev._end && ev._start < o._end)
-    .sort((a, b) => a._start - b._start);
-}
-
 function isLive(ev) {
   const now = Date.now();
   return ev._start <= now && ev._end >= now;
@@ -653,75 +647,65 @@ function refreshOpenEvent(id) {
   if (dlgEvent.open && dlgEvent.dataset.id === id) openEvent(id);
 }
 
+// Popup con todos los datos del evento, agrupados en tarjetas de propiedades.
 function eventDetail(ev) {
-  const rows = [
-    ["Inicio", fmtFull.format(ev._start)],
-    ["Fin", fmtFull.format(ev._end)],
-    ["Duración", durationText(ev)],
-    ["Formato", ev.format],
-    ["Modalidad", ev.location],
-    ["Dificultad", ev.difficulty],
-    ["Inscripción", deadlineInfo(ev)?.text],
-    ["Costo", ev.fee],
-    ["Equipo", ev.team_size],
-    ["Elegibilidad", ev.eligibility],
-    ["CTFtime", ctftimeInfo(ev).label.replace(/^[◆◇] /, "")],
-    ["Verificado en", ev.verified_by?.map((s) => (s === "oficial" ? "sitio oficial" : "CTFtime")).join(" + ")],
-    ["Organiza", ev.organizer],
-    ["Premios", ev.prizes],
-    ["Sugerido el", ev.added],
-    ["Último cambio", ev.changed
-      ? `${fmtDate.format(new Date(ev.changed))} ${fmtTime.format(new Date(ev.changed))} (${changedText(ev)})` : null],
-    ["Visto por última vez", state.seen[ev.id]
-      ? `${fmtDate.format(new Date(state.seen[ev.id]))} ${fmtTime.format(new Date(state.seen[ev.id]))}` : "nunca"],
-  ].filter(([, v]) => v != null && v !== "");
+  const stamp = (iso) => `${fmtDate.format(new Date(iso))} ${fmtTime.format(new Date(iso))}`;
+  const groups = [
+    ["dates", "Fechas", [
+      ["Inicio", fmtFull.format(ev._start)],
+      ["Fin", ev._end > ev._start ? fmtFull.format(ev._end) : null],
+      ["Duración", durationText(ev)],
+      ["Inscripción", deadlineInfo(ev)?.text],
+    ]],
+    ["comp", "Competencia", [
+      ["Formato", ev.format],
+      ["Modalidad", ev.location],
+      ["Dificultad", ev.difficulty],
+      ["Equipo", ev.team_size],
+      ["Costo", ev.fee],
+      ["Elegibilidad", ev.eligibility],
+      ["Organiza", ev.organizer],
+      ["Premios", ev.prizes],
+    ]],
+    ["sources", "Fuentes y seguimiento", [
+      ["CTFtime", ctftimeInfo(ev).label.replace(/^[◆◇] /, "")],
+      ["Verificado en", ev.verified_by?.map((s) => (s === "oficial" ? "sitio oficial" : "CTFtime")).join(" + ")],
+      ["Sugerido el", ev.added],
+      ["Último cambio", ev.changed ? `${stamp(ev.changed)} (${changedText(ev)})` : null],
+      ["Visto por última vez", state.seen[ev.id] ? stamp(state.seen[ev.id]) : "nunca"],
+    ]],
+  ].map(([key, title, rows]) => [key, title, rows.filter(([, v]) => v != null && v !== "")]);
 
-  const section = (title, text) => text ? [h("div", { class: "section-title" }, title), h("p", { class: "desc" }, text)] : null;
+  const section = (title, text) => text ? h("section", { class: "dlg-section" },
+    h("div", { class: "section-title" }, title), h("p", { class: "desc" }, text)) : null;
+  const st = statusOf(ev);
 
   return h("div", { class: "dlg-body" },
-    h("button", { class: "btn icon dlg-close", onclick: () => dlgEvent.close(), title: "Cerrar" }, "✕"),
-    h("h2", {}, ev.name, badges(ev)),
-    h("div", { class: "when" }, whenText(ev)),
-    h("dl", { class: "kv" }, rows.flatMap(([k, v]) => [h("dt", {}, k), h("dd", {}, String(v))])),
+    h("header", { class: "dlg-head", style: colorVar(st) },
+      h("button", { class: "btn icon dlg-close", onclick: () => dlgEvent.close(), title: "Cerrar" }, "✕"),
+      h("h2", {}, ev.name),
+      h("div", { class: "dlg-badges" }, badges(ev)),
+      h("div", { class: "dlg-when" }, whenText(ev)),
+      h("div", { class: "dlg-status" }, h("span", { class: "dlg-label" }, "Estado"), statusPicker(ev))),
+    h("div", { class: "prop-groups" }, groups.filter(([, , rows]) => rows.length).map(([key, title, rows]) =>
+      h("section", { class: `prop-group pg-${key}` },
+        h("div", { class: "prop-title" }, title),
+        h("dl", { class: "kv" }, rows.flatMap(([k, v]) => [h("dt", {}, k), h("dd", {}, String(v))]))))),
     ev.tags?.length ? h("div", { class: "tags" }, ev.tags.map((t) => h("span", { class: "tag" }, t))) : null,
     section("Descripción", ev.description),
     section("Por qué te puede servir", ev.why),
     section("Valor profesional", ev.career_value),
-    h("div", { class: "section-title" }, "Estado"),
-    statusPicker(ev),
-    overlapTable(ev),
-    h("div", { class: "links" },
+    h("footer", { class: "links" },
       link(ev.url, "Sitio oficial ↗"),
       link(ev.ctftime_url, "CTFtime ↗")));
-}
-
-// Comparación lado a lado con todo lo que se pisa en fechas, incluidos descartados (en gris).
-function overlapTable(ev) {
-  const others = overlapping(ev);
-  if (others.length === 0) return null;
-  const row = (e, self) => {
-    const st = statusOf(e);
-    return h("tr", { class: `${st} ${self ? "self" : ""}`, style: colorVar(st) },
-      h("td", {}, self ? h("strong", {}, e.name) : h("button", { class: "linkish", onclick: () => openEvent(e.id) }, e.name),
-        e.recommended ? " ★" : "", ctftimeInfo(e).mark ? ` ${ctftimeInfo(e).mark}` : ""),
-      h("td", { class: "mono" }, whenText(e)),
-      h("td", {}, [e.format, e.location, e.difficulty].filter(Boolean).join(" · ")),
-      h("td", {}, h("span", { class: "st-pill" }, STATE_LABEL[st])));
-  };
-  return [
-    h("div", { class: "section-title" }, `Se superpone con (${others.length})`),
-    h("div", { class: "table-wrap" },
-      h("table", { class: "overlap" },
-        h("thead", {}, h("tr", {}, ["Evento", "Cuándo", "Tipo", "Estado"].map((t) => h("th", {}, t)))),
-        h("tbody", {}, row(ev, true), others.map((e) => row(e, false))))),
-  ];
 }
 
 function openDay(day, events) {
   dlgEvent.dataset.id = "";
   dlgEvent.replaceChildren(h("div", { class: "dlg-body" },
-    h("button", { class: "btn icon dlg-close", onclick: () => dlgEvent.close() }, "✕"),
-    h("h2", {}, fmtDate.format(day)),
+    h("header", { class: "dlg-head" },
+      h("button", { class: "btn icon dlg-close", onclick: () => dlgEvent.close(), title: "Cerrar" }, "✕"),
+      h("h2", {}, fmtDate.format(day).replace(/^./, (c) => c.toUpperCase()))),
     h("ul", { class: "day-list" }, events.map((ev) => {
       const st = statusOf(ev);
       return h("li", {}, h("button", {
