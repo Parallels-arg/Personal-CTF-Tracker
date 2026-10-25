@@ -970,6 +970,7 @@ function renderList() {
         return h("article", { class: `card ${st} ${newsClass(ev)}`, style: colorVar(st) },
           h("div", {},
             h("button", { class: "title", onclick: () => openEvent(ev.id) }, ev.name),
+            state.creds?.[ev.id] ? h("span", { class: "priv-mark", title: "Tenés credenciales o notas privadas" }, " 🔒") : null,
             badges(ev)),
           h("div", { class: "side" }, statusPicker(ev), statusSelect(ev)),
           h("div", { class: "when" }, whenText(ev), h("span", { class: "rel" }, ` · ${relativeLine(ev)}`)),
@@ -1166,12 +1167,12 @@ function datesEditor(ev) {
     }, "Restaurar originales") : null);
 }
 
-// Tarjeta "🔒 Mis credenciales": solo existe con token. Se redibuja en el lugar
+// Tarjeta "🔒 Privado" (credenciales y notas): solo existe con token. Se redibuja en el lugar
 // (sin rehacer el popup) para no perder el scroll al editar.
 function credsSection(ev) {
   if (!canWrite()) return null;
   const box = h("section", { class: "creds" },
-    h("div", { class: "prop-title" }, "🔒 Mis credenciales", h("span", { class: "creds-where" }, ` · privadas en ${privateRepo()}`)));
+    h("div", { class: "prop-title" }, "🔒 Privado: credenciales y notas", h("span", { class: "creds-where" }, ` · privadas en ${privateRepo()}`)));
   const redraw = () => box.replaceWith(credsSection(ev));
 
   if (state.credsError) {
@@ -1191,7 +1192,7 @@ function credsSection(ev) {
   } else {
     box.append(h("button", {
       class: "btn", onclick: () => { state.credsEditing = ev.id; redraw(); },
-    }, "+ Agregar credenciales"));
+    }, "+ Agregar credenciales o notas"));
   }
   return box;
 }
@@ -1228,8 +1229,8 @@ function credsView(ev, c, redraw) {
       h("button", {
         class: "btn danger",
         onclick: async () => {
-          if (!confirm(`¿Borrar las credenciales de ${ev.name}?`)) return;
-          await runCredsSave(ev.id, null, "Credenciales borradas.");
+          if (!confirm(`¿Borrar las credenciales y notas de ${ev.name}?`)) return;
+          await runCredsSave(ev.id, null, "Datos privados borrados.");
           redraw();
         },
       }, "Borrar")));
@@ -1249,7 +1250,7 @@ function credsForm(ev, c = {}, redraw) {
       }
       const btn = form.querySelector("button[type=submit]");
       btn.disabled = true;
-      const ok = await runCredsSave(ev.id, Object.keys(entry).length ? entry : null, "Credenciales guardadas en el repo privado.");
+      const ok = await runCredsSave(ev.id, Object.keys(entry).length ? entry : null, "Guardado en el repo privado.");
       btn.disabled = false;
       if (ok) { state.credsEditing = null; redraw(); }
     },
@@ -1257,7 +1258,7 @@ function credsForm(ev, c = {}, redraw) {
   field("username", "Usuario o email"),
   field("password", "Contraseña", "password"),
   field("team", "Equipo"),
-  h("label", { class: "wide" }, "Notas", h("textarea", { name: "notes", rows: 2, spellcheck: "false" }, c.notes ?? "")),
+  h("label", { class: "wide" }, "Notas privadas (equipo, ideas, recordatorios)", h("textarea", { name: "notes", rows: 3, spellcheck: "false" }, c.notes ?? "")),
   h("div", { class: "creds-actions wide" },
     h("button", { type: "button", class: "btn", onclick: () => { state.credsEditing = null; redraw(); } }, "Cancelar"),
     h("button", { type: "submit", class: "btn primary" }, "Guardar")));
@@ -1273,7 +1274,7 @@ async function runCredsSave(id, entry, okMsg) {
     return true;
   } catch (err) {
     if (prev) state.creds[id] = prev; else delete state.creds[id];
-    toast(`No se pudieron guardar las credenciales: ${err.message}`, "error", 7000);
+    toast(`No se pudieron guardar los datos privados: ${err.message}`, "error", 7000);
     return false;
   } finally {
     setSaving(-1);
