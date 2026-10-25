@@ -10,6 +10,7 @@ const STATES = [
 ];
 const STATE_LABEL = Object.fromEntries(STATES.map((s) => [s.key, s.label]));
 const DAY_MS = 86400000;
+const EXTRA_DEFAULTS = { location: "", difficulty: "", format: "", ctftime: "", recommended: false, sort: "date" };
 
 const fmtDate = new Intl.DateTimeFormat("es-AR", { weekday: "short", day: "numeric", month: "short" });
 const fmtTime = new Intl.DateTimeFormat("es-AR", { hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
@@ -61,6 +62,8 @@ const state = {
   filters: new Set(store.get("ctf.filters", ["sin-clasificar", "interesado", "inscripto"])),
   showPast: store.get("ctf.showPast", false),
   hideIneligible: store.get("ctf.hideIneligible", false),
+  extra: { ...EXTRA_DEFAULTS, ...store.get("ctf.extra", {}) }, // "más filtros" y orden
+  moreOpen: false,
   query: "",
   month: startOfMonth(new Date()),
   saving: 0,
@@ -586,16 +589,73 @@ function setOnlyNews(on) {
 }
 
 // En modo "novedades" se ignoran los filtros de estado: se quiere ver todo lo nuevo de un vistazo.
-// Orden de la lista (por ahora cronológico).
+// ---------- más filtros y orden ----------
+
+const SORT_LABEL = { date: "fecha", recommended: "recomendados primero", weight: "peso CTFtime", deadline: "cierre de inscripción" };
+const AR_PLACES = /argentin|buenos aires|caba|lan[uú]s|la plata|c[oó]rdoba|rosario|mendoza|tucum[aá]n|san justo|unlam/i;
+
+const isOnlineOnly = (ev) => /online/i.test(ev.location ?? "") && !/h[ií]brido|presencial/i.test(ev.location ?? "");
+const CT_FILTER = { puntua: "rated", "no-puntua": "unrated", "por-definir": "unknown", fuera: "off" };
+
+function matchesExtra(ev) {
+  const x = state.extra;
+  if (x.location === "online" && !isOnlineOnly(ev)) return false;
+  if (x.location === "presencial" && (!ev.location || isOnlineOnly(ev))) return false;
+  if (x.location === "argentina" && !AR_PLACES.test(`${ev.location ?? ""} ${ev.organizer ?? ""}`)) return false;
+  if (x.difficulty === "sin-dato" ? ev.difficulty : x.difficulty && (ev.difficulty ?? "").toLowerCase() !== x.difficulty) return false;
+  if (x.format && (ev.format ?? "").toLowerCase() !== x.format) return false;
+  if (x.ctftime && ctftimeInfo(ev).key !== CT_FILTER[x.ctftime]) return false;
+  if (x.recommended && !ev.recommended) return false;
+  return true;
+}
+
+const activeExtraCount = () =>
+  ["location", "difficulty", "format", "ctftime"].filter((k) => state.extra[k]).length + (state.extra.recommended ? 1 : 0);
+
+// Orden de la lista y de la navegación ‹ ›; el calendario siempre es cronológico.
 function sortEvents(list) {
-  return [...list].sort((a, b) => a._start - b._start);
+  const byDate = (a, b) => a._start - b._start;
+  const cmp = {
+    date: byDate,
+    recommended: (a, b) => (b.recommended ? 1 : 0) - (a.recommended ? 1 : 0) || byDate(a, b),
+    weight: (a, b) => (b.weight ?? -1) - (a.weight ?? -1) || byDate(a, b),
+    deadline: (a, b) => {
+      const da = a._deadline && new Date(a._deadline) > Date.now() ? new Date(a._deadline) : Infinity;
+      const db = b._deadline && new Date(b._deadline) > Date.now() ? new Date(b._deadline) : Infinity;
+      return da - db || byDate(a, b);
+    },
+  }[state.extra.sort] ?? byDate;
+  return [...list].sort(cmp);
+}
+
+function renderMoreFilters() {
+  const el = document.getElementById("more-filters");
+  el.hidden = !state.moreOpen;
+  if (!state.moreOpen) return;
+  const set = (k, v) => { state.extra = { ...state.extra, [k]: v }; store.set("ctf.extra", state.extra); render(); };
+  const select = (k, label, options) => h("label", {}, label,
+    h("select", { onchange: (e) => set(k, e.target.value) },
+      options.map(([v, text]) => h("option", { value: v, selected: state.extra[k] === v }, text))));
+  el.replaceChildren(
+    select("location", "Modalidad", [["", "todas"], ["online", "online"], ["presencial", "presencial o híbrido"], ["argentina", "en Argentina"]]),
+    select("difficulty", "Dificultad", [["", "todas"], ["principiante", "principiante"], ["intermedio", "intermedio"], ["avanzado", "avanzado"], ["sin-dato", "sin dato"]]),
+    select("format", "Formato", [["", "todos"], ["jeopardy", "jeopardy"], ["attack-defense", "attack-defense"], ["mixed", "mixto"], ["otro", "otro"]]),
+    select("ctftime", "CTFtime", [["", "todos"], ["puntua", "puntúa"], ["por-definir", "puntuación por definir"], ["no-puntua", "no puntúa"], ["fuera", "fuera de CTFtime"]]),
+    select("sort", "Ordenar la lista por", Object.entries(SORT_LABEL)),
+    h("label", { class: "check" },
+      h("input", { type: "checkbox", checked: state.extra.recommended, onchange: (e) => set("recommended", e.target.checked) }),
+      "solo recomendados"),
+    h("button", {
+      class: "btn ghost", disabled: !activeExtraCount() && state.extra.sort === "date",
+      onclick: () => { state.extra = { ...EXTRA_DEFAULTS }; store.set("ctf.extra", state.extra); render(); },
+    }, "Limpiar"));
 }
 
 function filtered({ includePast }) {
   const now = Date.now();
   return state.events.filter((ev) =>
     (state.onlyNews ? hasNews(ev) || state.newsKeep.has(ev.id) : state.filters.has(statusOf(ev))) &&
-    matchesQuery(ev) && (includePast || ev._end >= now) &&
+    matchesQuery(ev) && matchesExtra(ev) && (includePast || ev._end >= now) &&
     // "ocultar los que no puedo": nunca oculta algo en lo que ya estás inscripto.
     !(state.hideIneligible && eligibilityFor(ev) === "no" && statusOf(ev) !== "inscripto"));
 }
@@ -837,16 +897,17 @@ function renderCalendar() {
 // ---------- render: lista ----------
 
 function renderList() {
-  const events = filtered({ includePast: state.showPast });
+  const events = sortEvents(filtered({ includePast: state.showPast }));
   if (events.length === 0) {
     return h("div", { class: "empty" },
       state.events.length === 0
         ? "Todavía no hay eventos. Subí un archivo a inbox/ (o usá «Subir sugerencias») y esperá a que corra la Action."
         : state.onlyNews ? "Sin novedades: ya viste todo." : "Ningún evento coincide con los filtros.");
   }
+  // Por fecha se agrupa por mes; con otro orden, una sola lista.
   const groups = new Map();
   for (const ev of events) {
-    const key = fmtMonth.format(ev._start);
+    const key = state.extra.sort === "date" ? fmtMonth.format(ev._start) : `ordenado por ${SORT_LABEL[state.extra.sort]}`;
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(ev);
   }
@@ -1280,7 +1341,14 @@ function renderFilters() {
     },
   }, h("span", { class: "dot" }), s.label, h("span", { class: "n" }, counts[s.key])));
 
-  document.getElementById("filters").replaceChildren(newsChip, markAll ?? "", ...statusChips);
+  const n = activeExtraCount();
+  const moreBtn = h("button", {
+    class: `chip-filter more-btn ${state.moreOpen || n ? "on" : ""}`,
+    title: "Filtrar por modalidad, dificultad, formato y CTFtime, y elegir el orden",
+    onclick: () => { state.moreOpen = !state.moreOpen; render(); },
+  }, `⚲ Más filtros${n ? ` (${n})` : ""}`, state.extra.sort !== "date" ? ` · ${SORT_LABEL[state.extra.sort]}` : "");
+
+  document.getElementById("filters").replaceChildren(newsChip, markAll ?? "", ...statusChips, moreBtn);
 }
 
 function renderStats() {
@@ -1353,6 +1421,7 @@ function render() {
   renderMode();
   renderNow();
   renderFilters();
+  renderMoreFilters();
   renderStats();
   document.getElementById("main").replaceChildren(state.view === "calendar" ? renderCalendar() : renderList());
 }

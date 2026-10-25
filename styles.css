@@ -185,6 +185,19 @@ button { font: inherit; color: inherit; }
 .chip-filter.news.on { color: var(--text-strong); }
 .chip-filter:disabled { opacity: .4; cursor: default; background: transparent; }
 
+.chip-filter.more-btn { --c: var(--accent); }
+.more-filters {
+  display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 14px;
+  margin: -6px 0 16px; padding: 12px 14px; border-radius: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+}
+.more-filters label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+.more-filters label.check { flex-direction: row; align-items: center; gap: 6px; font-size: 13px; color: var(--text); padding-bottom: 6px; }
+.more-filters select {
+  background: var(--bg); color: var(--text); border: 1px solid var(--border-strong); border-radius: var(--radius);
+  padding: 5px 8px; font: 13px var(--sans);
+}
+
 /* ---------- etiquetas (badges) ---------- */
 .badge {
   display: inline-flex; align-items: center; gap: 3px; white-space: nowrap; vertical-align: middle;
