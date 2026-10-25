@@ -6,7 +6,7 @@ La web ya resuelve la vista de calendario, las barras multi-día, los estados, l
 superposiciones y ocultar lo terminado. La IA solo tiene que **encontrar y verificar eventos**
 y escribir un archivo con el formato de abajo.
 
-> Para migrar lo que ya venías siguiendo en el chat, usá una sola vez `PROMPT_CARGA_INICIAL.md`.
+> Para recuperar los eventos que omitió la carga inicial, usá una sola vez `PROMPT_CARGA_COMPLEMENTARIA.md`.
 
 ---
 
@@ -22,8 +22,8 @@ dejás en un archivo de mi repo Parallels-arg/Personal-CTF-Tracker para mi CTF T
      modalidad, tamaño de equipo), incluilo con el MISMO "id" y los datos corregidos. La página
      lo marca como "actualizado".
    - No incluyas eventos que ya terminaron (hora ART).
-2. Buscá y verificá cada evento en su sitio oficial y en CTFtime. Si el sitio oficial y CTFtime
-   no coinciden, usá el sitio oficial y aclaralo en "description".
+2. Verificá cada evento con AL MENOS UNA fuente confiable (ver "Verificación y CTFtime").
+   Si el sitio oficial y CTFtime no coinciden, usá el sitio oficial y aclaralo en "description".
 3. Creá inbox/AAAA-MM-DD.md (fecha de hoy) con el formato de abajo, commit y push a main.
    NO toques ningún otro archivo. En especial, NUNCA modifiques data/status.json: mis estados
    (me interesa, inscripto, descartado) los manejo yo desde la web.
@@ -39,6 +39,20 @@ dejás en un archivo de mi repo Parallels-arg/Personal-CTF-Tracker para mi CTF T
 - Categorías: RE, pwn, web, crypto, forensics, OSINT, AD/network, misc.
 - Cualquier formato: individual o en equipo, gratis o pago, o con acceso restringido.
   Si es pago o restringido, decilo en "fee" / "eligibility".
+
+## Verificación y CTFtime
+Que un evento no esté en CTFtime NO es motivo para excluirlo: muchos eventos de Argentina
+(universitarios, meetups, empresas) nunca aparecen ahí. La página muestra para cada evento si
+figura en CTFtime y si puntúa, así que solo tenés que informarlo bien:
+- "verified_by": lista de fuentes donde confirmaste fechas y datos: "oficial" (sitio, anuncio o
+  redes oficiales del organizador o la institución) y/o "ctftime".
+  - Con el oficial alcanza: ["oficial"].
+  - Si el oficial está caído o ilegible pero CTFtime tiene la ficha, incluilo igual con
+    ["ctftime"] y aclaralo en "description". La página lo marca como "oficial sin confirmar".
+  - Si no lo confirmaste en ninguna de las dos, NO lo incluyas.
+- Si figura en CTFtime: completá "ctftime_url", "weight" (peso actual, aunque sea 0) y
+  "ctftime_rated": true si suma puntos al rating de CTFtime, false si la ficha dice que no
+  puntúa ("not rated"). Si no figura en CTFtime, omití esos tres campos.
 
 ## Reglas de veracidad
 - No inventes elegibilidad, disponibilidad, costos ni requisitos. Si no lo pudiste verificar,
@@ -61,6 +75,8 @@ Un título, un resumen corto del día (qué es nuevo, qué cambió) y UN bloque 
       "end": "2026-11-16T12:00:00Z",
       "url": "https://sitio-oficial.example",
       "ctftime_url": "https://ctftime.org/event/1234",
+      "ctftime_rated": true,
+      "verified_by": ["oficial", "ctftime"],
       "registration_deadline": "2026-11-10T23:59:00-03:00",
       "format": "jeopardy",
       "location": "online",
@@ -81,13 +97,15 @@ Un título, un resumen corto del día (qué es nuevo, qué cambió) y UN bloque 
 }
 
 Campos:
-- Obligatorios: id, name, start, url. Todos los demás son opcionales: si no estás seguro, omitilo.
+- Obligatorios: id, name, start, url, verified_by. Todos los demás son opcionales: si no estás
+  seguro, omitilo.
+- url: sitio oficial; si no hay o está caído, la ficha de CTFtime.
 - id: slug en minúsculas con el año (p. ej. "spookyctf-2026"). Es estable: nunca lo cambies para
   un mismo evento.
 - format: jeopardy | attack-defense | mixed | otro.
 - location: "online", "Ciudad, País" o "híbrido (Ciudad)".
 - difficulty: principiante | intermedio | avanzado.
-- weight: peso CTFtime, solo si existe.
+- weight / ctftime_rated / ctftime_url: solo si el evento figura en CTFtime.
 - JSON válido: sin comentarios, sin comas finales, comillas dobles.
 ```
 
@@ -111,6 +129,7 @@ Campos:
       "start": "2026-11-14T12:00:00Z",
       "end": "2026-11-15T12:00:00Z",
       "url": "https://example.com/ctf",
+      "verified_by": ["oficial"],
       "registration_deadline": "2026-11-13T23:59:00-03:00",
       "format": "jeopardy",
       "location": "online",

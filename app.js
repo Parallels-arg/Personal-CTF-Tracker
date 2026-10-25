@@ -423,8 +423,7 @@ function metaText(ev) {
     ev.format,
     ev.location,
     ev.difficulty,
-    ev.weight != null ? `peso ${ev.weight}` : null,
-    ev.fee,
+    ev.fee ? `costo: ${ev.fee}` : null,
     durationText(ev),
     addedText(ev),
   ].filter(Boolean).join(" · ");
@@ -437,8 +436,31 @@ function badges(ev) {
     isNew(ev) ? h("span", { class: "badge new", title: "Todavía no lo abriste" }, "● nuevo") : null,
     isChanged(ev) ? h("span", { class: "badge changed", title: "Cambió desde la última vez que lo viste" },
       `↻ cambió: ${changedText(ev)}`) : null,
+    ctftimeBadge(ev),
+    officialUnconfirmed(ev)
+      ? h("span", { class: "badge warn", title: "Solo se pudo confirmar en CTFtime: el sitio oficial no respondía" }, "⚠ oficial sin confirmar")
+      : null,
   ];
 }
+
+// Estado en CTFtime. Si la IA no informó "ctftime_rated" (datos viejos), un peso > 0 implica que puntúa.
+function ctftimeInfo(ev) {
+  if (!ev.ctftime_url) return { key: "off", mark: "", label: "fuera de CTFtime", title: "No figura en CTFtime" };
+  const rated = ev.ctftime_rated ?? (ev.weight > 0 ? true : undefined);
+  if (rated) {
+    return { key: "rated", mark: "◆", label: `◆ CTFtime · puntúa${ev.weight ? ` · peso ${ev.weight}` : ""}`,
+      title: "Figura en CTFtime y suma al rating" };
+  }
+  if (rated === false) return { key: "unrated", mark: "◇", label: "◇ CTFtime · no puntúa", title: "Figura en CTFtime pero no suma al rating" };
+  return { key: "unknown", mark: "◇", label: "◇ CTFtime · ¿puntúa?", title: "Figura en CTFtime; falta confirmar si puntúa (peso 0 o sin dato)" };
+}
+
+function ctftimeBadge(ev) {
+  const ct = ctftimeInfo(ev);
+  return h("span", { class: `badge ct ct-${ct.key}`, title: ct.title }, ct.label);
+}
+
+const officialUnconfirmed = (ev) => Array.isArray(ev.verified_by) && !ev.verified_by.includes("oficial");
 
 const FIELD_LABEL = {
   start: "fechas", end: "fechas", url: "link", registration_deadline: "inscripción",
@@ -464,10 +486,26 @@ function lastDay(ev) {
 
 const dayIndex = (weekStart, d) => Math.round((startOfDay(d) - weekStart) / DAY_MS);
 
-// Una semana es una grilla de 7 columnas: fila 1 para los números de día, una fila por
-// carril de barras y una final para los "+N más". Las barras multi-día abarcan varias columnas.
+// Eventos de más de una semana (p. ej. CTFs de dos meses): van en carriles finitos aparte,
+// debajo de los normales, para no ocupar la primera fila de todas las semanas.
+const LONG_DAYS = 7;
+const isLongEvent = (ev) => ev._end - ev._start > LONG_DAYS * DAY_MS;
+
+// Asignación greedy de carriles: cada barra va al primer carril libre desde su columna.
+function assignLanes(segs) {
+  const laneEnds = [];
+  for (const s of segs) {
+    s.lane = laneEnds.findIndex((end) => end < s.from);
+    if (s.lane === -1) s.lane = laneEnds.length;
+    laneEnds[s.lane] = s.to;
+  }
+  return laneEnds.length;
+}
+
+// Una semana es una grilla de 7 columnas: fila 1 para los números de día, los carriles de
+// barras normales, los carriles finitos de eventos largos y una fila final para los "+N más".
 function renderWeek(weekStart, month, events) {
-  const MAX_LANES = 3;
+  const MAX_LANES = 3, MAX_LONG_LANES = 2;
   const weekEnd = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 7);
   const today = startOfDay(new Date()).getTime();
 
@@ -475,25 +513,21 @@ function renderWeek(weekStart, month, events) {
     .filter((ev) => ev._start < weekEnd && lastDay(ev) >= weekStart)
     .map((ev) => {
       const a = dayIndex(weekStart, ev._start), b = dayIndex(weekStart, lastDay(ev));
-      return { ev, from: Math.max(a, 0), to: Math.min(b, 6), clipL: a < 0, clipR: b > 6 };
+      return { ev, from: Math.max(a, 0), to: Math.min(b, 6), clipL: a < 0, clipR: b > 6, long: isLongEvent(ev) };
     })
     .sort((p, q) => p.from - q.from || (q.to - q.from) - (p.to - p.from) || p.ev._start - q.ev._start);
+  const short = segs.filter((s) => !s.long), long = segs.filter((s) => s.long);
 
-  // Asignación greedy de carriles: cada barra va al primer carril libre desde su columna.
-  const laneEnds = [];
-  for (const s of segs) {
-    s.lane = laneEnds.findIndex((end) => end < s.from);
-    if (s.lane === -1) s.lane = laneEnds.length;
-    laneEnds[s.lane] = s.to;
-  }
-  const lanes = Math.min(laneEnds.length, MAX_LANES);
+  const lanes = Math.min(assignLanes(short), MAX_LANES);
+  const longLanes = Math.min(assignLanes(long), MAX_LONG_LANES);
+  const isHidden = (s) => s.lane >= (s.long ? MAX_LONG_LANES : MAX_LANES);
   const hidden = Array(7).fill(0);
-  for (const s of segs) if (s.lane >= MAX_LANES) for (let c = s.from; c <= s.to; c++) hidden[c]++;
+  for (const s of segs) if (isHidden(s)) for (let c = s.from; c <= s.to; c++) hidden[c]++;
 
-  const rows = lanes + 2;
+  const rows = lanes + longLanes + 2;
   const week = h("div", {
     class: "cal-week",
-    style: `grid-template-rows: var(--num-h) repeat(${lanes}, var(--lane-h)) auto 1fr`,
+    style: `grid-template-rows: var(--num-h) repeat(${lanes}, var(--lane-h)) repeat(${longLanes}, var(--long-h)) auto 1fr`,
   });
 
   for (let c = 0; c < 7; c++) {
@@ -506,7 +540,7 @@ function renderWeek(weekStart, month, events) {
     if (hidden[c]) {
       const next = new Date(day.getTime() + DAY_MS);
       const onDay = segs.filter((s) => s.from <= c && s.to >= c).map((s) => s.ev);
-      const hiddenNews = segs.some((s) => s.lane >= MAX_LANES && s.from <= c && s.to >= c && hasNews(s.ev));
+      const hiddenNews = segs.some((s) => isHidden(s) && s.from <= c && s.to >= c && hasNews(s.ev));
       week.append(h("button", {
         class: `more ${hiddenNews ? "has-news" : ""}`, style: `grid-column: ${c + 1}; grid-row: ${rows}`,
         title: hiddenNews ? "Hay novedades entre los ocultos" : null,
@@ -515,19 +549,33 @@ function renderWeek(weekStart, month, events) {
     }
   }
 
-  for (const s of segs.filter((s) => s.lane < MAX_LANES)) {
+  for (const s of segs.filter((s) => !isHidden(s))) {
     const st = statusOf(s.ev);
+    const ct = ctftimeInfo(s.ev);
+    const row = s.long ? lanes + s.lane + 2 : s.lane + 2;
     week.append(h("button", {
-      class: ["ev-bar", st, newsClass(s.ev), s.clipL && "clip-l", s.clipR && "clip-r"].filter(Boolean).join(" "),
-      style: `${colorVar(st)}; grid-column: ${s.from + 1} / ${s.to + 2}; grid-row: ${s.lane + 2}`,
-      title: [s.ev.name, whenText(s.ev), STATE_LABEL[st],
+      class: ["ev-bar", st, newsClass(s.ev), s.long && "ev-long", s.clipL && "clip-l", s.clipR && "clip-r"].filter(Boolean).join(" "),
+      style: `${colorVar(st)}; grid-column: ${s.from + 1} / ${s.to + 2}; grid-row: ${row}`,
+      title: [s.ev.name, whenText(s.ev), STATE_LABEL[st], ct.label.replace(/^[◆◇] /, ""),
         isNew(s.ev) && "nuevo (sin abrir)", isChanged(s.ev) && `cambió: ${changedText(s.ev)}`].filter(Boolean).join(" — "),
       onclick: () => openEvent(s.ev.id),
     },
     isNew(s.ev) ? h("span", { class: "news-mark" }, "● ") : isChanged(s.ev) ? h("span", { class: "news-mark" }, "↻ ") : null,
-    s.clipL ? "↳ " : `${fmtTime.format(s.ev._start)} `, s.ev.recommended ? "★ " : "", s.ev.name));
+    // Un evento largo muestra la hora solo donde arranca; en las semanas siguientes, hasta cuándo dura.
+    s.long
+      ? (s.clipL ? `↳ hasta ${fmtShort.format(s.ev._end)} · ` : `${fmtTime.format(s.ev._start)} `)
+      : (s.clipL ? "↳ " : `${fmtTime.format(s.ev._start)} `),
+    s.ev.recommended ? "★ " : "",
+    ct.mark ? h("span", { class: `ct-mark ct-${ct.key}` }, `${ct.mark} `) : null,
+    s.ev.name));
   }
   return week;
+}
+
+function calendarLegend() {
+  return h("p", { class: "legend" },
+    "★ recomendado · ● sin abrir · ↻ cambió · ◆ puntúa en CTFtime · ◇ en CTFtime sin puntuar · sin marca: fuera de CTFtime · ",
+    h("span", { class: "legend-long" }, "línea fina"), ` = dura más de ${LONG_DAYS} días`);
 }
 
 function renderCalendar() {
@@ -549,7 +597,8 @@ function renderCalendar() {
       h("h2", {}, fmtMonth.format(state.month).replace(/^./, (c) => c.toUpperCase())),
       h("button", { class: "btn icon", onclick: () => shift(1), title: "Mes siguiente" }, "›"),
       h("button", { class: "btn", onclick: () => { state.month = startOfMonth(new Date()); render(); } }, "Hoy")),
-    grid);
+    grid,
+    calendarLegend());
 }
 
 // ---------- render: lista ----------
@@ -615,7 +664,8 @@ function eventDetail(ev) {
     ["Costo", ev.fee],
     ["Equipo", ev.team_size],
     ["Elegibilidad", ev.eligibility],
-    ["Peso CTFtime", ev.weight],
+    ["CTFtime", ctftimeInfo(ev).label.replace(/^[◆◇] /, "")],
+    ["Verificado en", ev.verified_by?.map((s) => (s === "oficial" ? "sitio oficial" : "CTFtime")).join(" + ")],
     ["Organiza", ev.organizer],
     ["Premios", ev.prizes],
     ["Sugerido el", ev.added],
@@ -652,7 +702,7 @@ function overlapTable(ev) {
     const st = statusOf(e);
     return h("tr", { class: `${st} ${self ? "self" : ""}`, style: colorVar(st) },
       h("td", {}, self ? h("strong", {}, e.name) : h("button", { class: "linkish", onclick: () => openEvent(e.id) }, e.name),
-        e.recommended ? " ★" : ""),
+        e.recommended ? " ★" : "", ctftimeInfo(e).mark ? ` ${ctftimeInfo(e).mark}` : ""),
       h("td", { class: "mono" }, whenText(e)),
       h("td", {}, [e.format, e.location, e.difficulty].filter(Boolean).join(" · ")),
       h("td", {}, h("span", { class: "st-pill" }, STATE_LABEL[st])));

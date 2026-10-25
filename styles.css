@@ -13,6 +13,7 @@
   --st-inscripto: #a371f7;
   --rec: #3fb950; /* recomendación de la IA: verde, independiente del estado */
   --news: #79c0ff; /* novedades sin abrir */
+  --ct: #f0883e;   /* puntúa en CTFtime */
   --st-descartado: #f85149;
 
   --radius: 8px;
@@ -95,7 +96,7 @@ code { font-family: var(--mono); font-size: .9em; }
 .cal-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
 .cal-head h2 { font: 600 16px var(--mono); margin: 0 8px; min-width: 160px; }
 .cal {
-  --num-h: 24px; --lane-h: 22px; --week-min: 112px;
+  --num-h: 24px; --lane-h: 22px; --long-h: 15px; --week-min: 112px;
   border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
 }
 .cal-dows, .cal-week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
@@ -119,6 +120,22 @@ code { font-family: var(--mono); font-size: .9em; }
 .ev-bar.clip-l { margin-left: 0; border-left: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; }
 .ev-bar.clip-r { margin-right: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; }
 .ev-bar.descartado { text-decoration: line-through; opacity: .5; }
+
+/* Eventos largos (> 1 semana): línea fina con texto chico en vez de una barra llena. */
+.ev-bar.ev-long {
+  font-size: 10px; font-weight: 400; color: var(--muted); padding: 0 4px;
+  background: transparent; border-left: 0; border-radius: 0;
+  border-bottom: 2px solid var(--c);
+}
+.ev-bar.ev-long:hover { color: var(--text); background: color-mix(in srgb, var(--c) 15%, transparent); }
+.ev-bar.ev-long.unseen { font-weight: 600; color: var(--text); box-shadow: none; border-bottom-style: dashed; }
+.ev-bar.ev-long.updated { box-shadow: none; }
+
+/* Marcas de CTFtime: ◆ puntúa, ◇ figura sin puntuar o sin confirmar. */
+.ct-mark.ct-rated { color: var(--ct); }
+.ct-mark.ct-unrated, .ct-mark.ct-unknown { color: var(--muted); }
+.legend { color: var(--muted); font-size: 11px; margin: 8px 2px 0; }
+.legend-long { border-bottom: 2px solid var(--muted); padding: 0 2px; }
 
 /* ---------- novedades: sin abrir (●) y con cambios desde la última visita (↻) ---------- */
 .ev-bar.unseen { font-weight: 700; box-shadow: inset 0 0 0 1px var(--news); }
@@ -162,10 +179,15 @@ code { font-family: var(--mono); font-size: .9em; }
 .card .side { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; grid-row: 1 / 4; grid-column: 2; }
 .badge {
   font: 600 10px var(--mono); text-transform: uppercase; padding: 1px 6px; border-radius: 4px;
-  background: var(--today); color: #fff; margin-left: 6px; vertical-align: middle;
+  background: var(--today); color: #fff; margin: 2px 0 2px 6px; vertical-align: middle;
+  display: inline-block; white-space: nowrap;
 }
 .badge.live { background: var(--st-descartado); }
 .badge.new { background: var(--news); color: #04101f; }
+.badge.ct { background: transparent; border: 1px solid var(--border); color: var(--muted); text-transform: none; font-weight: 500; }
+.badge.ct-rated { border-color: var(--ct); color: var(--ct); }
+.badge.ct-off { border-style: dashed; }
+.badge.warn { background: transparent; border: 1px solid var(--st-descartado); color: var(--st-descartado); text-transform: none; }
 .badge.rec { background: var(--rec); color: #04140a; }
 .badge.changed { background: var(--st-interesado); color: #1a1300; }
 .deadline { font: 12px var(--mono); color: var(--muted); }
@@ -237,7 +259,8 @@ code { font-family: var(--mono); font-size: .9em; }
 
 /* ---------- móvil ---------- */
 @media (max-width: 720px) {
-  .cal { --num-h: 20px; --lane-h: 6px; --week-min: 64px; }
+  .cal { --num-h: 20px; --lane-h: 6px; --long-h: 3px; --week-min: 64px; }
+  .ev-bar.ev-long { background: var(--c); opacity: .45; border-bottom: 0; }
   .cal-day { padding: 2px; }
   .ev-bar { font-size: 0; padding: 0; margin: 0 2px; border-left: 0; background: var(--c); }
   .ev-bar.descartado { text-decoration: none; opacity: .35; }
