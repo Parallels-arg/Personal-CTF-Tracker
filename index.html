@@ -39,6 +39,9 @@
       <p id="stats" class="stats"></p>
     </section>
 
+    <!-- Franja "Ahora": en curso, esta semana y cierres de inscripción de tus eventos -->
+    <section id="now" class="now"></section>
+
     <!-- Barra de vistas: pestañas + búsqueda -->
     <section class="viewbar">
       <div class="seg" role="tablist">
@@ -53,10 +56,17 @@
         <label class="toggle" id="past-toggle" title="Los eventos ya terminados se ocultan por defecto">
           <input id="show-past" type="checkbox"><span class="switch" aria-hidden="true"></span>terminados
         </label>
+        <label class="toggle" id="compact-toggle" title="Lista más densa: oculta los detalles largos de cada evento">
+          <input id="compact" type="checkbox"><span class="switch" aria-hidden="true"></span>compacta
+        </label>
+        <label class="toggle" title="Oculta los eventos donde la IA evaluó que no podés participar (nunca oculta los inscriptos)">
+          <input id="hide-ineligible" type="checkbox"><span class="switch" aria-hidden="true"></span>ocultar los que no puedo
+        </label>
       </div>
     </section>
 
     <div id="filters" class="filters"></div>
+    <div id="more-filters" class="more-filters" hidden></div>
 
     <main id="main"></main>
   </div>

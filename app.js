@@ -10,6 +10,7 @@ const STATES = [
 ];
 const STATE_LABEL = Object.fromEntries(STATES.map((s) => [s.key, s.label]));
 const DAY_MS = 86400000;
+const EXTRA_DEFAULTS = { location: "", difficulty: "", format: "", ctftime: "", recommended: false, sort: "date" };
 
 const fmtDate = new Intl.DateTimeFormat("es-AR", { weekday: "short", day: "numeric", month: "short" });
 const fmtTime = new Intl.DateTimeFormat("es-AR", { hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
@@ -54,11 +55,16 @@ const state = {
   // Eventos vistos mientras el filtro de novedades está activo: siguen en la lista hasta
   // que se cambie de filtro, así se pueden recorrer las novedades una por una.
   newsKeep: new Set(),
+  navIds: [],         // secuencia que recorren ‹ › en el popup
   source: null,
   config: { branch: "main", ...detectRepo(), ...store.get("ctf.config", {}) },
   view: store.get("ctf.view", innerWidth < 720 ? "list" : "calendar"),
   filters: new Set(store.get("ctf.filters", ["sin-clasificar", "interesado", "inscripto"])),
   showPast: store.get("ctf.showPast", false),
+  hideIneligible: store.get("ctf.hideIneligible", false),
+  compact: store.get("ctf.compact", false),
+  extra: { ...EXTRA_DEFAULTS, ...store.get("ctf.extra", {}) }, // "más filtros" y orden
+  moreOpen: false,
   query: "",
   month: startOfMonth(new Date()),
   saving: 0,
@@ -149,13 +155,24 @@ function deadlineInfo(ev) {
 const fmtShort = new Intl.DateTimeFormat("es-AR", { day: "2-digit", month: "2-digit" });
 const addedText = (ev) => ev.added ? `sugerido el ${fmtShort.format(new Date(`${ev.added}T12:00:00`))}` : null;
 
+// "en 3 días", "en 5 h", "hace 20 min": tiempo relativo legible.
+function relTime(d) {
+  const diff = d - Date.now();
+  const abs = Math.abs(diff);
+  const mins = Math.round(abs / 60000), hours = Math.round(abs / 3600000), days = Math.round(abs / DAY_MS);
+  const amount = mins < 60 ? `${Math.max(mins, 1)} min` : hours < 48 ? `${hours} h` : `${days} días`;
+  return diff >= 0 ? `en ${amount}` : `hace ${amount}`;
+}
+
 function isLive(ev) {
   const now = Date.now();
   return ev._start <= now && ev._end >= now;
 }
 
-function toast(msg, kind = "info", ms = 4000) {
-  const el = h("div", { class: `toast ${kind}` }, msg);
+// action = { label, fn }: botón opcional dentro del aviso (p. ej. "Deshacer").
+function toast(msg, kind = "info", ms = 4000, action = null) {
+  const el = h("div", { class: `toast ${kind}` }, msg,
+    action ? h("button", { class: "toast-action", onclick: () => { el.remove(); action.fn(); } }, action.label) : null);
   document.getElementById("toasts").append(el);
   setTimeout(() => el.remove(), ms);
 }
@@ -502,7 +519,7 @@ async function persistStatus(id, st, retry = true) {
 
 let saveChain = Promise.resolve();
 
-function setStatus(id, st) {
+function setStatus(id, st, { undoable = true } = {}) {
   if (!canWrite()) {
     toast("Modo solo lectura: configurá tu token en ⚙ para guardar cambios.", "warn");
     return;
@@ -513,6 +530,14 @@ function setStatus(id, st) {
   applyStatus(id, st);
   render();
   refreshOpenEvent(id);
+  if (undoable) {
+    // Deshacer guarda el estado anterior (es otro commit, el cambio ya se envió).
+    const name = state.events.find((e) => e.id === id)?.name ?? id;
+    toast(`${name} → ${STATE_LABEL[st]}`, "ok", 6000, {
+      label: "Deshacer",
+      fn: () => setStatus(id, prev?.state ?? "sin-clasificar", { undoable: false }),
+    });
+  }
   setSaving(1);
   saveChain = saveChain
     .then(() => persistStatus(id, st))
@@ -575,11 +600,75 @@ function setOnlyNews(on) {
 }
 
 // En modo "novedades" se ignoran los filtros de estado: se quiere ver todo lo nuevo de un vistazo.
+// ---------- más filtros y orden ----------
+
+const SORT_LABEL = { date: "fecha", recommended: "recomendados primero", weight: "peso CTFtime", deadline: "cierre de inscripción" };
+const AR_PLACES = /argentin|buenos aires|caba|lan[uú]s|la plata|c[oó]rdoba|rosario|mendoza|tucum[aá]n|san justo|unlam/i;
+
+const isOnlineOnly = (ev) => /online/i.test(ev.location ?? "") && !/h[ií]brido|presencial/i.test(ev.location ?? "");
+const CT_FILTER = { puntua: "rated", "no-puntua": "unrated", "por-definir": "unknown", fuera: "off" };
+
+function matchesExtra(ev) {
+  const x = state.extra;
+  if (x.location === "online" && !isOnlineOnly(ev)) return false;
+  if (x.location === "presencial" && (!ev.location || isOnlineOnly(ev))) return false;
+  if (x.location === "argentina" && !AR_PLACES.test(`${ev.location ?? ""} ${ev.organizer ?? ""}`)) return false;
+  if (x.difficulty === "sin-dato" ? ev.difficulty : x.difficulty && (ev.difficulty ?? "").toLowerCase() !== x.difficulty) return false;
+  if (x.format && (ev.format ?? "").toLowerCase() !== x.format) return false;
+  if (x.ctftime && ctftimeInfo(ev).key !== CT_FILTER[x.ctftime]) return false;
+  if (x.recommended && !ev.recommended) return false;
+  return true;
+}
+
+const activeExtraCount = () =>
+  ["location", "difficulty", "format", "ctftime"].filter((k) => state.extra[k]).length + (state.extra.recommended ? 1 : 0);
+
+// Orden de la lista y de la navegación ‹ ›; el calendario siempre es cronológico.
+function sortEvents(list) {
+  const byDate = (a, b) => a._start - b._start;
+  const cmp = {
+    date: byDate,
+    recommended: (a, b) => (b.recommended ? 1 : 0) - (a.recommended ? 1 : 0) || byDate(a, b),
+    weight: (a, b) => (b.weight ?? -1) - (a.weight ?? -1) || byDate(a, b),
+    deadline: (a, b) => {
+      const da = a._deadline && new Date(a._deadline) > Date.now() ? new Date(a._deadline) : Infinity;
+      const db = b._deadline && new Date(b._deadline) > Date.now() ? new Date(b._deadline) : Infinity;
+      return da - db || byDate(a, b);
+    },
+  }[state.extra.sort] ?? byDate;
+  return [...list].sort(cmp);
+}
+
+function renderMoreFilters() {
+  const el = document.getElementById("more-filters");
+  el.hidden = !state.moreOpen;
+  if (!state.moreOpen) return;
+  const set = (k, v) => { state.extra = { ...state.extra, [k]: v }; store.set("ctf.extra", state.extra); render(); };
+  const select = (k, label, options) => h("label", {}, label,
+    h("select", { onchange: (e) => set(k, e.target.value) },
+      options.map(([v, text]) => h("option", { value: v, selected: state.extra[k] === v }, text))));
+  el.replaceChildren(
+    select("location", "Modalidad", [["", "todas"], ["online", "online"], ["presencial", "presencial o híbrido"], ["argentina", "en Argentina"]]),
+    select("difficulty", "Dificultad", [["", "todas"], ["principiante", "principiante"], ["intermedio", "intermedio"], ["avanzado", "avanzado"], ["sin-dato", "sin dato"]]),
+    select("format", "Formato", [["", "todos"], ["jeopardy", "jeopardy"], ["attack-defense", "attack-defense"], ["mixed", "mixto"], ["otro", "otro"]]),
+    select("ctftime", "CTFtime", [["", "todos"], ["puntua", "puntúa"], ["por-definir", "puntuación por definir"], ["no-puntua", "no puntúa"], ["fuera", "fuera de CTFtime"]]),
+    select("sort", "Ordenar la lista por", Object.entries(SORT_LABEL)),
+    h("label", { class: "check" },
+      h("input", { type: "checkbox", checked: state.extra.recommended, onchange: (e) => set("recommended", e.target.checked) }),
+      "solo recomendados"),
+    h("button", {
+      class: "btn ghost", disabled: !activeExtraCount() && state.extra.sort === "date",
+      onclick: () => { state.extra = { ...EXTRA_DEFAULTS }; store.set("ctf.extra", state.extra); render(); },
+    }, "Limpiar"));
+}
+
 function filtered({ includePast }) {
   const now = Date.now();
   return state.events.filter((ev) =>
     (state.onlyNews ? hasNews(ev) || state.newsKeep.has(ev.id) : state.filters.has(statusOf(ev))) &&
-    matchesQuery(ev) && (includePast || ev._end >= now));
+    matchesQuery(ev) && matchesExtra(ev) && (includePast || ev._end >= now) &&
+    // "ocultar los que no puedo": nunca oculta algo en lo que ya estás inscripto.
+    !(state.hideIneligible && eligibilityFor(ev) === "no" && statusOf(ev) !== "inscripto"));
 }
 
 // ---------- render: componentes ----------
@@ -593,6 +682,16 @@ function statusPicker(ev) {
       title: canWrite() ? `Marcar como "${s.label}"` : "Solo lectura",
       onclick: (e) => { e.stopPropagation(); setStatus(ev.id, s.key); },
     }, s.label)));
+}
+
+// En celular, el estado de cada tarjeta es un único selector (ocupa un renglón en vez de dos).
+function statusSelect(ev) {
+  const current = statusOf(ev);
+  return h("select", {
+    class: "status-select", style: colorVar(current), "aria-label": "Estado",
+    onclick: (e) => e.stopPropagation(),
+    onchange: (e) => { setStatus(ev.id, e.target.value); if (!canWrite()) render(); },
+  }, STATES.map((s) => h("option", { value: s.key, selected: s.key === current }, s.label)));
 }
 
 function metaText(ev) {
@@ -613,6 +712,7 @@ function badges(ev) {
     isNew(ev) ? h("span", { class: "badge new", title: "Todavía no lo abriste" }, "● nuevo") : null,
     isChanged(ev) ? h("span", { class: "badge changed", title: "Cambió desde la última vez que lo viste" },
       `↻ cambió: ${changedText(ev)}`) : null,
+    eligibilityBadge(ev),
     ctftimeBadge(ev),
     officialUnconfirmed(ev)
       ? h("span", { class: "badge warn", title: "Solo se pudo confirmar en CTFtime: el sitio oficial no respondía" }, "⚠ oficial sin confirmar")
@@ -640,6 +740,25 @@ function ctftimeBadge(ev) {
   return h("span", { class: `badge ct ct-${ct.key}`, title: ct.title }, ct.label);
 }
 
+// Evaluación de la IA contra tu perfil: sufijo "· para vos: sí | no | dudoso" en eligibility.
+function eligibilityFor(ev) {
+  const m = /para vos:\s*(sí|si|no|dudoso)\s*\.?\s*$/i.exec(ev.eligibility ?? "");
+  if (!m) return null;
+  const v = m[1].toLowerCase();
+  return v === "si" ? "sí" : v;
+}
+
+const ELIG_BADGE = {
+  "sí": { cls: "elig-yes", text: "✓ podés" },
+  "dudoso": { cls: "elig-maybe", text: "❓ dudoso" },
+  "no": { cls: "elig-no", text: "⛔ no podés" },
+};
+
+function eligibilityBadge(ev) {
+  const e = ELIG_BADGE[eligibilityFor(ev)];
+  return e ? h("span", { class: `badge ${e.cls}`, title: ev.eligibility }, e.text) : null;
+}
+
 const officialUnconfirmed = (ev) => Array.isArray(ev.verified_by) && !ev.verified_by.includes("oficial");
 
 const FIELD_LABEL = {
@@ -657,7 +776,35 @@ const notifiesDeadline = (ev) => statusOf(ev) === "interesado" && Boolean(ev._de
 
 function deadlineLine(ev) {
   const dl = notifiesDeadline(ev) ? deadlineInfo(ev) : null;
-  return dl ? h("div", { class: `deadline ${dl.cls}` }, dl.text) : null;
+  if (!dl) return null;
+  const when = new Date(ev._deadline);
+  return h("div", { class: `deadline ${dl.cls}` }, dl.text, when > Date.now() ? ` · cierra ${relTime(when)}` : "");
+}
+
+// "empieza en 3 días" / "termina en 5 h" / "terminó hace 2 días".
+function relativeLine(ev) {
+  const now = Date.now();
+  if (ev._start > now) return `empieza ${relTime(ev._start)}`;
+  if (ev._end >= now) return `en curso · termina ${relTime(ev._end)}`;
+  return `terminó ${relTime(ev._end)}`;
+}
+
+// Choques con tus eventos (inscripto / me interesa). Los eventos de más de una semana no
+// cuentan: se pisarían con todo y no ayudan a decidir.
+function conflictsWithMine(ev) {
+  if (statusOf(ev) === "descartado" || isLongEvent(ev) || ev._end < Date.now()) return [];
+  const rank = { inscripto: 0, interesado: 1 };
+  return state.events
+    .filter((o) => o.id !== ev.id && statusOf(o) in rank && !isLongEvent(o)
+      && o._start < ev._end && ev._start < o._end)
+    .sort((a, b) => rank[statusOf(a)] - rank[statusOf(b)] || a._start - b._start);
+}
+
+function conflictLine(ev) {
+  const list = conflictsWithMine(ev);
+  if (!list.length) return null;
+  const names = list.slice(0, 3).map((o) => `${o.name} (${STATE_LABEL[statusOf(o)].toLowerCase()})`);
+  return h("div", { class: "conflict" }, `⚠ se pisa con ${names.join(", ")}${list.length > 3 ? ` y ${list.length - 3} más` : ""}`);
 }
 
 // ---------- render: calendario ----------
@@ -716,13 +863,16 @@ function renderWeek(weekStart, month, events) {
 
   for (let c = 0; c < 7; c++) {
     const day = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + c);
-    const cls = ["cal-day", day.getMonth() !== month && "other", day.getTime() === today && "today"];
+    const next = new Date(day.getTime() + DAY_MS);
+    // Tocar el día (en cualquier parte, útil en celular donde las barras son finitas) abre sus eventos.
+    const dayEvents = segs.filter((s) => s.from <= c && s.to >= c).map((s) => s.ev);
+    const cls = ["cal-day", day.getMonth() !== month && "other", day.getTime() === today && "today", dayEvents.length && "has-events"];
     week.append(h("div", {
       class: cls.filter(Boolean).join(" "),
       style: `grid-column: ${c + 1}; grid-row: 1 / ${rows + 2}`,
+      onclick: dayEvents.length ? () => openDay(day, dayEvents) : null,
     }, h("span", { class: "num" }, day.getDate())));
     // ⏳ el día que cierra la inscripción de un evento "Me interesa" que todavía no cerró.
-    const next = new Date(day.getTime() + DAY_MS);
     const closing = events.filter((ev) => notifiesDeadline(ev)
       && new Date(ev._deadline) >= day && new Date(ev._deadline) < next && new Date(ev._deadline) > Date.now());
     if (closing.length) {
@@ -761,6 +911,7 @@ function renderWeek(weekStart, month, events) {
       : (s.clipL ? "↳ " : `${fmtTime.format(s.ev._start)} `),
     s.ev.recommended ? "★ " : "",
     ct.mark ? h("span", { class: `ct-mark ct-${ct.key}` }, `${ct.mark} `) : null,
+    eligibilityFor(s.ev) === "no" ? "⛔ " : null,
     s.ev.name));
   }
   return week;
@@ -768,7 +919,7 @@ function renderWeek(weekStart, month, events) {
 
 function calendarLegend() {
   return h("p", { class: "legend" },
-    "★ recomendado · ● sin abrir · ↻ cambió · ◆ puntúa en CTFtime · ◇ en CTFtime sin puntuar · sin marca: fuera de CTFtime · ",
+    "★ recomendado · ● sin abrir · ↻ cambió · ◆ puntúa en CTFtime · ◇ en CTFtime sin puntuar · sin marca: fuera de CTFtime · ⛔ no podés participar · ⏳ cierre de inscripción · ",
     h("span", { class: "legend-long" }, "línea fina"), ` = dura más de ${LONG_DAYS} días`);
 }
 
@@ -798,16 +949,17 @@ function renderCalendar() {
 // ---------- render: lista ----------
 
 function renderList() {
-  const events = filtered({ includePast: state.showPast });
+  const events = sortEvents(filtered({ includePast: state.showPast }));
   if (events.length === 0) {
     return h("div", { class: "empty" },
       state.events.length === 0
         ? "Todavía no hay eventos. Subí un archivo a inbox/ (o usá «Subir sugerencias») y esperá a que corra la Action."
         : state.onlyNews ? "Sin novedades: ya viste todo." : "Ningún evento coincide con los filtros.");
   }
+  // Por fecha se agrupa por mes; con otro orden, una sola lista.
   const groups = new Map();
   for (const ev of events) {
-    const key = fmtMonth.format(ev._start);
+    const key = state.extra.sort === "date" ? fmtMonth.format(ev._start) : `ordenado por ${SORT_LABEL[state.extra.sort]}`;
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(ev);
   }
@@ -819,11 +971,13 @@ function renderList() {
         return h("article", { class: `card ${st} ${newsClass(ev)}`, style: colorVar(st) },
           h("div", {},
             h("button", { class: "title", onclick: () => openEvent(ev.id) }, ev.name),
+            state.creds?.[ev.id] ? h("span", { class: "priv-mark", title: "Tenés credenciales o notas privadas" }, " 🔒") : null,
             badges(ev)),
-          h("div", { class: "side" }, statusPicker(ev)),
-          h("div", { class: "when" }, whenText(ev)),
+          h("div", { class: "side" }, statusPicker(ev), statusSelect(ev)),
+          h("div", { class: "when" }, whenText(ev), h("span", { class: "rel" }, ` · ${relativeLine(ev)}`)),
           h("div", { class: "meta" }, metaText(ev)),
           deadlineLine(ev),
+          conflictLine(ev),
           ev.why ? h("p", { class: "why" }, ev.why) : null);
       }))));
 }
@@ -832,9 +986,50 @@ function renderList() {
 
 const dlgEvent = document.getElementById("dlg-event");
 
-function openEvent(id) {
+// ---------- link al evento en la URL (#e=<id>) ----------
+// Abrir un evento agrega una entrada al historial: "atrás" cierra el popup y el link se
+// puede guardar o compartir. Moverse con ‹ › o abrir desde un link reemplaza la entrada.
+// Cerrar el popup solo saca el #e= de la entrada actual (sin navegar), para no depender
+// de un "atrás" asincrónico que podría cruzarse con lo siguiente que hagas.
+
+const HASH_PREFIX = "#e=";
+const hashEventId = () =>
+  location.hash.startsWith(HASH_PREFIX) ? decodeURIComponent(location.hash.slice(HASH_PREFIX.length)) : null;
+
+function syncHash(id, replace) {
+  const url = `${location.pathname}${location.search}${HASH_PREFIX}${encodeURIComponent(id)}`;
+  if (replace) history.replaceState({ ev: id }, "", url);
+  else history.pushState({ ev: id }, "", url);
+}
+
+function clearHash() {
+  if (hashEventId()) history.replaceState(null, "", `${location.pathname}${location.search}`);
+}
+
+addEventListener("popstate", () => {
+  const id = hashEventId();
+  if (id && state.events.some((e) => e.id === id)) {
+    if (!dlgEvent.open || dlgEvent.dataset.id !== id) openEvent(id, { fromHash: true });
+  } else if (dlgEvent.open) {
+    closeEventDialog();
+  }
+});
+
+// Orden en que se recorren los eventos con ‹ › en el popup: el de la vista actual.
+function currentOrder() {
+  return sortEvents(filtered({ includePast: state.showPast })).map((e) => e.id);
+}
+
+// opts.list fija la secuencia a recorrer (p. ej. los eventos de un día). Si el popup ya
+// está abierto se conserva la secuencia actual; si se abre de cero, se toma la de la vista.
+function openEvent(id, opts = {}) {
   const ev = state.events.find((e) => e.id === id);
   if (!ev) return;
+  const wasOpen = dlgEvent.open;
+  if (opts.list) state.navIds = opts.list;
+  else if (!wasOpen) state.navIds = currentOrder();
+  if (!state.navIds.includes(id)) state.navIds = [id];
+  syncHash(id, wasOpen || opts.fromHash);
   dlgEvent.dataset.id = id;
   // El detalle se arma antes de marcarlo como visto, para que todavía muestre qué cambió.
   dlgEvent.replaceChildren(eventDetail(ev));
@@ -844,6 +1039,18 @@ function openEvent(id) {
 
 function refreshOpenEvent(id) {
   if (dlgEvent.open && dlgEvent.dataset.id === id) openEvent(id);
+}
+
+// "‹ 3 / 12 ›" en la cabecera del popup.
+function navControls(ev) {
+  const ids = state.navIds;
+  const i = ids.indexOf(ev.id);
+  if (ids.length < 2 || i < 0) return null;
+  const go = (j) => { state.credsEditing = null; state.datesEditing = null; openEvent(ids[j]); dlgEvent.scrollTop = 0; };
+  return h("div", { class: "dlg-nav" },
+    h("button", { class: "btn ghost icon", title: "Anterior", disabled: i === 0, onclick: () => go(i - 1) }, "‹"),
+    h("span", { class: "dlg-nav-pos" }, `${i + 1} / ${ids.length}`),
+    h("button", { class: "btn ghost icon", title: "Siguiente", disabled: i === ids.length - 1, onclick: () => go(i + 1) }, "›"));
 }
 
 // Popup con todos los datos del evento, agrupados en tarjetas de propiedades.
@@ -883,7 +1090,8 @@ function eventDetail(ev) {
 
   return h("div", { class: "dlg-body" },
     h("header", { class: "dlg-head", style: colorVar(st) },
-      h("button", { class: "btn icon dlg-close", onclick: () => dlgEvent.close(), title: "Cerrar" }, "✕"),
+      h("button", { class: "btn icon dlg-close", onclick: closeEventDialog, title: "Cerrar" }, "✕"),
+      navControls(ev),
       h("h2", {}, ev.name),
       h("div", { class: "dlg-badges" }, badges(ev)),
       h("div", { class: "dlg-when" }, whenText(ev),
@@ -907,7 +1115,10 @@ function eventDetail(ev) {
     section("Valor profesional", ev.career_value),
     h("footer", { class: "links" },
       link(ev.url, "Sitio oficial ↗"),
-      link(ev.ctftime_url, "CTFtime ↗")));
+      link(ev.ctftime_url, "CTFtime ↗"),
+      h("span", { class: "spacer" }),
+      link(googleCalUrl(ev), "📅 Google Calendar"),
+      h("button", { class: "btn ghost", onclick: () => downloadIcs([ev], `${ev.id}.ics`) }, "⬇ .ics")));
 }
 
 // "YYYY-MM-DDTHH:mm" en hora local, el formato de <input type="datetime-local">.
@@ -988,12 +1199,12 @@ function datesEditor(ev) {
     }, "Restaurar originales") : null);
 }
 
-// Tarjeta "🔒 Mis credenciales": solo existe con token. Se redibuja en el lugar
+// Tarjeta "🔒 Privado" (credenciales y notas): solo existe con token. Se redibuja en el lugar
 // (sin rehacer el popup) para no perder el scroll al editar.
 function credsSection(ev) {
   if (!canWrite()) return null;
   const box = h("section", { class: "creds" },
-    h("div", { class: "prop-title" }, "🔒 Mis credenciales", h("span", { class: "creds-where" }, ` · privadas en ${privateRepo()}`)));
+    h("div", { class: "prop-title" }, "🔒 Privado: credenciales y notas", h("span", { class: "creds-where" }, ` · privadas en ${privateRepo()}`)));
   const redraw = () => box.replaceWith(credsSection(ev));
 
   if (state.credsError) {
@@ -1013,7 +1224,7 @@ function credsSection(ev) {
   } else {
     box.append(h("button", {
       class: "btn", onclick: () => { state.credsEditing = ev.id; redraw(); },
-    }, "+ Agregar credenciales"));
+    }, "+ Agregar credenciales o notas"));
   }
   return box;
 }
@@ -1050,8 +1261,8 @@ function credsView(ev, c, redraw) {
       h("button", {
         class: "btn danger",
         onclick: async () => {
-          if (!confirm(`¿Borrar las credenciales de ${ev.name}?`)) return;
-          await runCredsSave(ev.id, null, "Credenciales borradas.");
+          if (!confirm(`¿Borrar las credenciales y notas de ${ev.name}?`)) return;
+          await runCredsSave(ev.id, null, "Datos privados borrados.");
           redraw();
         },
       }, "Borrar")));
@@ -1071,7 +1282,7 @@ function credsForm(ev, c = {}, redraw) {
       }
       const btn = form.querySelector("button[type=submit]");
       btn.disabled = true;
-      const ok = await runCredsSave(ev.id, Object.keys(entry).length ? entry : null, "Credenciales guardadas en el repo privado.");
+      const ok = await runCredsSave(ev.id, Object.keys(entry).length ? entry : null, "Guardado en el repo privado.");
       btn.disabled = false;
       if (ok) { state.credsEditing = null; redraw(); }
     },
@@ -1079,7 +1290,7 @@ function credsForm(ev, c = {}, redraw) {
   field("username", "Usuario o email"),
   field("password", "Contraseña", "password"),
   field("team", "Equipo"),
-  h("label", { class: "wide" }, "Notas", h("textarea", { name: "notes", rows: 2, spellcheck: "false" }, c.notes ?? "")),
+  h("label", { class: "wide" }, "Notas privadas (equipo, ideas, recordatorios)", h("textarea", { name: "notes", rows: 3, spellcheck: "false" }, c.notes ?? "")),
   h("div", { class: "creds-actions wide" },
     h("button", { type: "button", class: "btn", onclick: () => { state.credsEditing = null; redraw(); } }, "Cancelar"),
     h("button", { type: "submit", class: "btn primary" }, "Guardar")));
@@ -1095,18 +1306,76 @@ async function runCredsSave(id, entry, okMsg) {
     return true;
   } catch (err) {
     if (prev) state.creds[id] = prev; else delete state.creds[id];
-    toast(`No se pudieron guardar las credenciales: ${err.message}`, "error", 7000);
+    toast(`No se pudieron guardar los datos privados: ${err.message}`, "error", 7000);
     return false;
   } finally {
     setSaving(-1);
   }
 }
 
+// ---------- exportar a calendarios ----------
+
+const icsStamp = (d) => new Date(d).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+const icsText = (s) => String(s ?? "").replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+const eventDetails = (ev) => [ev.url, ev.ctftime_url, ev.why].filter(Boolean).join("\n");
+
+function googleCalUrl(ev) {
+  const p = new URLSearchParams({
+    action: "TEMPLATE",
+    text: ev.name,
+    dates: `${icsStamp(ev._start)}/${icsStamp(ev._end > ev._start ? ev._end : new Date(+ev._start + 3600000))}`,
+    details: eventDetails(ev),
+    location: ev.location ?? "",
+  });
+  return `https://calendar.google.com/calendar/render?${p}`;
+}
+
+// Un .ics con cada evento (recordatorio 2 h antes) y, para los "Me interesa", el cierre de
+// inscripción como evento aparte (recordatorio 1 día antes).
+function buildIcs(events) {
+  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//CTF Tracker//ES", "CALSCALE:GREGORIAN"];
+  const vevent = (uid, start, end, summary, desc, location, alarm) => lines.push(
+    "BEGIN:VEVENT", `UID:${uid}@ctf-tracker`, `DTSTAMP:${icsStamp(new Date())}`,
+    `DTSTART:${icsStamp(start)}`, `DTEND:${icsStamp(end)}`, `SUMMARY:${icsText(summary)}`,
+    `DESCRIPTION:${icsText(desc)}`, location ? `LOCATION:${icsText(location)}` : null,
+    "BEGIN:VALARM", "ACTION:DISPLAY", `DESCRIPTION:${icsText(summary)}`, `TRIGGER:${alarm}`, "END:VALARM",
+    "END:VEVENT");
+  for (const ev of events) {
+    const end = ev._end > ev._start ? ev._end : new Date(+ev._start + 3600000);
+    vevent(ev.id, ev._start, end, ev.name, eventDetails(ev), ev.location, "-PT2H");
+    if (notifiesDeadline(ev)) {
+      const dl = new Date(ev._deadline);
+      vevent(`${ev.id}-inscripcion`, new Date(+dl - 1800000), dl, `Cierra inscripción: ${ev.name}`, eventDetails(ev), null, "-P1D");
+    }
+  }
+  lines.push("END:VCALENDAR");
+  // Líneas de más de 75 caracteres se pliegan, como pide el formato.
+  return lines.filter(Boolean).map((l) => l.match(/.{1,73}/g).join("\r\n ")).join("\r\n") + "\r\n";
+}
+
+function downloadIcs(events, filename) {
+  const url = URL.createObjectURL(new Blob([buildIcs(events)], { type: "text/calendar;charset=utf-8" }));
+  const a = h("a", { href: url, download: filename });
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function exportMyEvents() {
+  const now = Date.now();
+  const mine = state.events.filter((e) => ["interesado", "inscripto"].includes(statusOf(e)) && e._end >= now);
+  if (!mine.length) return toast("No tenés eventos próximos marcados como me interesa o inscripto.", "warn");
+  downloadIcs(mine, "mis-ctfs.ics");
+  toast(`Descargado mis-ctfs.ics con ${mine.length} eventos. Abrilo para importarlo en tu calendario.`, "ok", 6000);
+}
+
 function openDay(day, events) {
   dlgEvent.dataset.id = "";
+  state.navIds = events.map((ev) => ev.id); // ‹ › recorre los eventos de ese día
   dlgEvent.replaceChildren(h("div", { class: "dlg-body" },
     h("header", { class: "dlg-head" },
-      h("button", { class: "btn icon dlg-close", onclick: () => dlgEvent.close(), title: "Cerrar" }, "✕"),
+      h("button", { class: "btn icon dlg-close", onclick: closeEventDialog, title: "Cerrar" }, "✕"),
       h("h2", {}, fmtDate.format(day).replace(/^./, (c) => c.toUpperCase()))),
     h("ul", { class: "day-list" }, events.map((ev) => {
       const st = statusOf(ev);
@@ -1117,8 +1386,19 @@ function openDay(day, events) {
   if (!dlgEvent.open) dlgEvent.showModal();
 }
 
-dlgEvent.addEventListener("click", (e) => { if (e.target === dlgEvent) dlgEvent.close(); });
-dlgEvent.addEventListener("close", () => { state.credsEditing = null; state.datesEditing = null; });
+dlgEvent.addEventListener("click", (e) => { if (e.target === dlgEvent) closeEventDialog(); });
+// Todo cierre del popup pasa por acá. El evento "close" queda como respaldo (p. ej. Esc),
+// porque no todos los navegadores lo disparan de forma confiable.
+function onEventDialogClosed() {
+  state.credsEditing = null;
+  state.datesEditing = null;
+  clearHash();
+}
+function closeEventDialog() {
+  if (dlgEvent.open) dlgEvent.close();
+  onEventDialogClosed();
+}
+dlgEvent.addEventListener("close", onEventDialogClosed);
 
 // ---------- render: principal ----------
 
@@ -1157,7 +1437,14 @@ function renderFilters() {
     },
   }, h("span", { class: "dot" }), s.label, h("span", { class: "n" }, counts[s.key])));
 
-  document.getElementById("filters").replaceChildren(newsChip, markAll ?? "", ...statusChips);
+  const n = activeExtraCount();
+  const moreBtn = h("button", {
+    class: `chip-filter more-btn ${state.moreOpen || n ? "on" : ""}`,
+    title: "Filtrar por modalidad, dificultad, formato y CTFtime, y elegir el orden",
+    onclick: () => { state.moreOpen = !state.moreOpen; render(); },
+  }, `⚲ Más filtros${n ? ` (${n})` : ""}`, state.extra.sort !== "date" ? ` · ${SORT_LABEL[state.extra.sort]}` : "");
+
+  document.getElementById("filters").replaceChildren(newsChip, markAll ?? "", ...statusChips, moreBtn);
 }
 
 function renderStats() {
@@ -1181,6 +1468,40 @@ function renderStats() {
   ].filter(Boolean).join(" · ");
 }
 
+// Franja "Ahora": lo que importa de tus eventos (me interesa e inscripto) sin recorrer el calendario.
+function renderNow() {
+  const el = document.getElementById("now");
+  const now = Date.now();
+  const mine = state.events.filter((e) => ["interesado", "inscripto"].includes(statusOf(e)));
+  const live = mine.filter((e) => e._start <= now && e._end >= now).sort((a, b) => a._end - b._end);
+  const week = mine.filter((e) => e._start > now && e._start - now <= 7 * DAY_MS).sort((a, b) => a._start - b._start);
+  const closing = state.events
+    .filter((e) => notifiesDeadline(e) && new Date(e._deadline) > now && new Date(e._deadline) - now <= 14 * DAY_MS)
+    .sort((a, b) => new Date(a._deadline) - new Date(b._deadline));
+
+  const item = (ev, text, list) => h("button", {
+    class: "now-item", style: colorVar(statusOf(ev)),
+    onclick: () => openEvent(ev.id, { list: list.map((e) => e.id) }),
+  }, h("span", { class: "now-name" }, ev.name), h("span", { class: "now-when" }, text));
+  const block = (title, list, textFn, empty) => h("div", { class: `now-block ${list.length ? "" : "is-empty"}` },
+    h("div", { class: "now-title" }, title, h("span", { class: "n" }, list.length)),
+    list.length ? list.map((ev) => item(ev, textFn(ev), list)) : h("div", { class: "now-empty" }, empty));
+
+  el.replaceChildren(
+    h("div", { class: "now-head" },
+      h("span", { class: "now-label" }, "Ahora"),
+      h("span", { class: "muted small" }, "tus eventos: me interesa e inscripto"),
+      h("span", { class: "spacer" }),
+      h("button", {
+        class: "btn ghost now-export", onclick: exportMyEvents,
+        title: "Descargar un .ics con tus eventos próximos y los cierres de inscripción, para importar en tu calendario",
+      }, "⬇ exportar a mi calendario")),
+    h("div", { class: "now-grid" },
+      block("En curso", live, (ev) => `termina ${relTime(ev._end)}`, "Nada en curso."),
+      block("Esta semana", week, (ev) => `empieza ${relTime(ev._start)}`, "Nada en los próximos 7 días."),
+      block("Cierres de inscripción", closing, (ev) => `cierra ${relTime(new Date(ev._deadline))}`, "Sin cierres en 14 días.")));
+}
+
 function renderMode() {
   const el = document.getElementById("mode");
   const { owner, repo } = state.config;
@@ -1193,8 +1514,12 @@ function renderMode() {
 
 function render() {
   for (const b of document.querySelectorAll(".seg-btn")) b.classList.toggle("active", b.dataset.view === state.view);
+  document.getElementById("compact-toggle").hidden = state.view !== "list";
+  document.getElementById("main").classList.toggle("compact", state.compact && state.view === "list");
   renderMode();
+  renderNow();
   renderFilters();
+  renderMoreFilters();
   renderStats();
   document.getElementById("main").replaceChildren(state.view === "calendar" ? renderCalendar() : renderList());
 }
@@ -1246,7 +1571,14 @@ async function reload() {
     toast(`Error cargando datos: ${err.message}`, "error", 8000);
   }
   render();
+  // La primera carga abre el evento del link (#e=<id>), si lo hay.
+  if (!booted) {
+    booted = true;
+    const id = hashEventId();
+    if (id && state.events.some((e) => e.id === id)) openEvent(id, { fromHash: true });
+  }
 }
+let booted = false;
 
 for (const b of document.querySelectorAll(".seg-btn")) {
   b.addEventListener("click", () => { state.view = b.dataset.view; store.set("ctf.view", state.view); render(); });
@@ -1255,6 +1587,16 @@ document.getElementById("search").addEventListener("input", (e) => { state.query
 const pastBox = document.getElementById("show-past");
 pastBox.checked = state.showPast;
 pastBox.addEventListener("change", () => { state.showPast = pastBox.checked; store.set("ctf.showPast", state.showPast); render(); });
+const compactBox = document.getElementById("compact");
+compactBox.checked = state.compact;
+compactBox.addEventListener("change", () => { state.compact = compactBox.checked; store.set("ctf.compact", state.compact); render(); });
+const ineligibleBox = document.getElementById("hide-ineligible");
+ineligibleBox.checked = state.hideIneligible;
+ineligibleBox.addEventListener("change", () => {
+  state.hideIneligible = ineligibleBox.checked;
+  store.set("ctf.hideIneligible", state.hideIneligible);
+  render();
+});
 document.getElementById("btn-settings").addEventListener("click", openSettings);
 document.getElementById("btn-refresh").addEventListener("click", reload);
 const fileInput = document.getElementById("file-upload");
