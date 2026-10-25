@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T01:09:07.873Z",
+  "updated": "2026-10-25T01:09:28.678Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -695,7 +695,7 @@
       "weight": 0,
       "tags": [
         "forensics",
-        "network",
+        "cloud",
         "malware",
         "rev",
         "pwn",
