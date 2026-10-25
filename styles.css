@@ -332,6 +332,8 @@ button { font: inherit; color: inherit; }
 .card .meta { color: var(--muted); font-size: 13px; }
 .card .why { font-size: 13px; grid-column: 1 / -1; margin: 4px 0 0; color: var(--muted); }
 .card .side { grid-row: 1 / 4; grid-column: 2; display: flex; justify-content: flex-end; }
+.card .when .rel { color: var(--muted); }
+.conflict { font-size: 13px; color: color-mix(in srgb, var(--c-orange) 70%, var(--text-strong)); }
 .deadline { font-size: 13px; color: var(--muted); }
 .deadline::before { content: "⏳ "; }
 .deadline.urgent { color: var(--st-interesado); font-weight: 600; }

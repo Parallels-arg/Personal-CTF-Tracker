@@ -755,7 +755,35 @@ const notifiesDeadline = (ev) => statusOf(ev) === "interesado" && Boolean(ev._de
 
 function deadlineLine(ev) {
   const dl = notifiesDeadline(ev) ? deadlineInfo(ev) : null;
-  return dl ? h("div", { class: `deadline ${dl.cls}` }, dl.text) : null;
+  if (!dl) return null;
+  const when = new Date(ev._deadline);
+  return h("div", { class: `deadline ${dl.cls}` }, dl.text, when > Date.now() ? ` · cierra ${relTime(when)}` : "");
+}
+
+// "empieza en 3 días" / "termina en 5 h" / "terminó hace 2 días".
+function relativeLine(ev) {
+  const now = Date.now();
+  if (ev._start > now) return `empieza ${relTime(ev._start)}`;
+  if (ev._end >= now) return `en curso · termina ${relTime(ev._end)}`;
+  return `terminó ${relTime(ev._end)}`;
+}
+
+// Choques con tus eventos (inscripto / me interesa). Los eventos de más de una semana no
+// cuentan: se pisarían con todo y no ayudan a decidir.
+function conflictsWithMine(ev) {
+  if (statusOf(ev) === "descartado" || isLongEvent(ev) || ev._end < Date.now()) return [];
+  const rank = { inscripto: 0, interesado: 1 };
+  return state.events
+    .filter((o) => o.id !== ev.id && statusOf(o) in rank && !isLongEvent(o)
+      && o._start < ev._end && ev._start < o._end)
+    .sort((a, b) => rank[statusOf(a)] - rank[statusOf(b)] || a._start - b._start);
+}
+
+function conflictLine(ev) {
+  const list = conflictsWithMine(ev);
+  if (!list.length) return null;
+  const names = list.slice(0, 3).map((o) => `${o.name} (${STATE_LABEL[statusOf(o)].toLowerCase()})`);
+  return h("div", { class: "conflict" }, `⚠ se pisa con ${names.join(", ")}${list.length > 3 ? ` y ${list.length - 3} más` : ""}`);
 }
 
 // ---------- render: calendario ----------
@@ -921,9 +949,10 @@ function renderList() {
             h("button", { class: "title", onclick: () => openEvent(ev.id) }, ev.name),
             badges(ev)),
           h("div", { class: "side" }, statusPicker(ev)),
-          h("div", { class: "when" }, whenText(ev)),
+          h("div", { class: "when" }, whenText(ev), h("span", { class: "rel" }, ` · ${relativeLine(ev)}`)),
           h("div", { class: "meta" }, metaText(ev)),
           deadlineLine(ev),
+          conflictLine(ev),
           ev.why ? h("p", { class: "why" }, ev.why) : null);
       }))));
 }
