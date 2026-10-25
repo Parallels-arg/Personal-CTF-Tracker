@@ -54,6 +54,7 @@ const state = {
   // Eventos vistos mientras el filtro de novedades está activo: siguen en la lista hasta
   // que se cambie de filtro, así se pueden recorrer las novedades una por una.
   newsKeep: new Set(),
+  navIds: [],         // secuencia que recorren ‹ › en el popup
   source: null,
   config: { branch: "main", ...detectRepo(), ...store.get("ctf.config", {}) },
   view: store.get("ctf.view", innerWidth < 720 ? "list" : "calendar"),
@@ -575,6 +576,11 @@ function setOnlyNews(on) {
 }
 
 // En modo "novedades" se ignoran los filtros de estado: se quiere ver todo lo nuevo de un vistazo.
+// Orden de la lista (por ahora cronológico).
+function sortEvents(list) {
+  return [...list].sort((a, b) => a._start - b._start);
+}
+
 function filtered({ includePast }) {
   const now = Date.now();
   return state.events.filter((ev) =>
@@ -832,9 +838,19 @@ function renderList() {
 
 const dlgEvent = document.getElementById("dlg-event");
 
-function openEvent(id) {
+// Orden en que se recorren los eventos con ‹ › en el popup: el de la vista actual.
+function currentOrder() {
+  return sortEvents(filtered({ includePast: state.showPast })).map((e) => e.id);
+}
+
+// opts.list fija la secuencia a recorrer (p. ej. los eventos de un día). Si el popup ya
+// está abierto se conserva la secuencia actual; si se abre de cero, se toma la de la vista.
+function openEvent(id, opts = {}) {
   const ev = state.events.find((e) => e.id === id);
   if (!ev) return;
+  if (opts.list) state.navIds = opts.list;
+  else if (!dlgEvent.open) state.navIds = currentOrder();
+  if (!state.navIds.includes(id)) state.navIds = [id];
   dlgEvent.dataset.id = id;
   // El detalle se arma antes de marcarlo como visto, para que todavía muestre qué cambió.
   dlgEvent.replaceChildren(eventDetail(ev));
@@ -844,6 +860,18 @@ function openEvent(id) {
 
 function refreshOpenEvent(id) {
   if (dlgEvent.open && dlgEvent.dataset.id === id) openEvent(id);
+}
+
+// "‹ 3 / 12 ›" en la cabecera del popup.
+function navControls(ev) {
+  const ids = state.navIds;
+  const i = ids.indexOf(ev.id);
+  if (ids.length < 2 || i < 0) return null;
+  const go = (j) => { state.credsEditing = null; state.datesEditing = null; openEvent(ids[j]); dlgEvent.scrollTop = 0; };
+  return h("div", { class: "dlg-nav" },
+    h("button", { class: "btn ghost icon", title: "Anterior", disabled: i === 0, onclick: () => go(i - 1) }, "‹"),
+    h("span", { class: "dlg-nav-pos" }, `${i + 1} / ${ids.length}`),
+    h("button", { class: "btn ghost icon", title: "Siguiente", disabled: i === ids.length - 1, onclick: () => go(i + 1) }, "›"));
 }
 
 // Popup con todos los datos del evento, agrupados en tarjetas de propiedades.
@@ -884,6 +912,7 @@ function eventDetail(ev) {
   return h("div", { class: "dlg-body" },
     h("header", { class: "dlg-head", style: colorVar(st) },
       h("button", { class: "btn icon dlg-close", onclick: () => dlgEvent.close(), title: "Cerrar" }, "✕"),
+      navControls(ev),
       h("h2", {}, ev.name),
       h("div", { class: "dlg-badges" }, badges(ev)),
       h("div", { class: "dlg-when" }, whenText(ev),
@@ -1104,6 +1133,7 @@ async function runCredsSave(id, entry, okMsg) {
 
 function openDay(day, events) {
   dlgEvent.dataset.id = "";
+  state.navIds = events.map((ev) => ev.id); // ‹ › recorre los eventos de ese día
   dlgEvent.replaceChildren(h("div", { class: "dlg-body" },
     h("header", { class: "dlg-head" },
       h("button", { class: "btn icon dlg-close", onclick: () => dlgEvent.close(), title: "Cerrar" }, "✕"),
