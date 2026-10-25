@@ -74,6 +74,11 @@
         <input name="token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
       </label>
       <p class="muted small">El token queda guardado solo en este navegador (localStorage). Nunca se sube al repo.</p>
+      <label>Repo PRIVADO para tus credenciales de CTF
+        <input name="privateRepo" autocomplete="off" spellcheck="false" placeholder="ctf-private">
+      </label>
+      <p class="muted small">Tiene que ser privado y estar entre los repos de tu token (Contents: read &amp; write).
+        Si es público, la página se niega a usarlo.</p>
       <div class="row">
         <button type="button" id="btn-forget" class="btn danger">Borrar token</button>
         <span class="spacer"></span>

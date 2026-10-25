@@ -44,6 +44,10 @@ const state = {
   seen: store.get("ctf.seen", {}), // { id: ISO de la última vez que lo abriste }
   seenSha: null,
   onlyNews: false,
+  creds: null,        // { idEvento: { username, password, team, notes, updated } } — solo en memoria
+  credsSha: null,
+  credsError: null,
+  credsEditing: null, // id del evento cuyas credenciales se están editando
   // Eventos vistos mientras el filtro de novedades está activo: siguen en la lista hasta
   // que se cambie de filtro, así se pueden recorrer las novedades una por una.
   newsKeep: new Set(),
@@ -157,13 +161,15 @@ function toast(msg, kind = "info", ms = 4000) {
 
 const canWrite = () => Boolean(state.config.owner && state.config.repo && state.config.token);
 
+// opts.repo ("dueño/nombre") apunta a otro repo, p. ej. el privado de credenciales.
 async function gh(path, opts = {}) {
   const { owner, repo, token } = state.config;
+  const { repo: target = `${owner}/${repo}`, ...fetchOpts } = opts;
   const headers = { Accept: "application/vnd.github+json", ...opts.headers };
   if (token) headers.Authorization = `Bearer ${token}`;
   if (opts.body) headers["Content-Type"] = "application/json";
-  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/${path}`, {
-    ...opts, headers, cache: "no-store",
+  const res = await fetch(`https://api.github.com/repos/${target}${path ? `/${path}` : ""}`, {
+    ...fetchOpts, headers, cache: "no-store",
   });
   if (!res.ok) {
     let detail = "";
@@ -176,6 +182,82 @@ async function gh(path, opts = {}) {
 }
 
 const ref = () => `?ref=${encodeURIComponent(state.config.branch || "main")}`;
+
+// ---------- credenciales (repo privado aparte) ----------
+// Viven en credentials.json de un repo PRIVADO que solo tu token puede leer. Se guardan solo
+// en memoria: nunca en localStorage ni en el repo público. Sin token, la sección no existe.
+
+const CREDS_FILE = "credentials.json";
+const privateRepo = () => {
+  const p = (state.config.privateRepo || "ctf-private").trim();
+  return p.includes("/") ? p : `${state.config.owner}/${p}`;
+};
+
+async function fetchCredsFile() {
+  const meta = await (await gh(`contents/${CREDS_FILE}`, { repo: privateRepo() })).json();
+  return { sha: meta.sha, creds: JSON.parse(b64decode(meta.content)).credentials ?? {} };
+}
+
+async function loadCreds() {
+  state.creds = null;
+  state.credsSha = null;
+  state.credsError = null;
+  if (!canWrite()) return;
+  try {
+    // Antes de leer o escribir nada, confirmar que el repo es privado.
+    const info = await (await gh("", { repo: privateRepo() })).json();
+    if (!info.private) {
+      state.credsError = `${privateRepo()} es público: no se leen ni guardan credenciales ahí.`;
+      return;
+    }
+    try {
+      const file = await fetchCredsFile();
+      state.creds = file.creds;
+      state.credsSha = file.sha;
+    } catch (err) {
+      if (err.status !== 404) throw err;
+      state.creds = {}; // repo privado sin credenciales todavía: se crea al primer guardado
+    }
+  } catch (err) {
+    state.credsError = err.status === 404
+      ? `Sin acceso a ${privateRepo()}: creá ese repo privado y agregalo a los repos de tu token.`
+      : `No se pudieron leer las credenciales (${err.message}).`;
+  }
+}
+
+// entry = null borra las credenciales del evento.
+async function saveCreds(id, entry) {
+  const apply = (map) => {
+    if (entry) map[id] = { ...entry, updated: new Date().toISOString() };
+    else delete map[id];
+  };
+  apply(state.creds);
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const res = await gh(`contents/${CREDS_FILE}`, {
+        repo: privateRepo(),
+        method: "PUT",
+        body: JSON.stringify({
+          message: `credenciales: ${id}`,
+          content: b64encode(JSON.stringify({ credentials: state.creds }, null, 2) + "\n"),
+          sha: state.credsSha ?? undefined,
+        }),
+      });
+      state.credsSha = (await res.json()).content.sha;
+      return;
+    } catch (err) {
+      // Cambió desde otro dispositivo: traer lo remoto y reaplicar solo este evento.
+      if (attempt === 0 && (err.status === 409 || err.status === 422)) {
+        const file = await fetchCredsFile();
+        state.credsSha = file.sha;
+        state.creds = file.creds;
+        apply(state.creds);
+        continue;
+      }
+      throw err;
+    }
+  }
+}
 
 async function fetchRepoJson(path) {
   const meta = await (await gh(`contents/${path}${ref()}`)).json();
@@ -700,6 +782,7 @@ function eventDetail(ev) {
       h("div", { class: "dlg-badges" }, badges(ev)),
       h("div", { class: "dlg-when" }, whenText(ev)),
       h("div", { class: "dlg-status" }, h("span", { class: "dlg-label" }, "Estado"), statusPicker(ev))),
+    credsSection(ev),
     h("div", { class: "prop-groups" }, groups.filter(([, , rows]) => rows.length).map(([key, title, rows]) =>
       h("section", { class: `prop-group pg-${key}` },
         h("div", { class: "prop-title" }, title),
@@ -711,6 +794,120 @@ function eventDetail(ev) {
     h("footer", { class: "links" },
       link(ev.url, "Sitio oficial ↗"),
       link(ev.ctftime_url, "CTFtime ↗")));
+}
+
+// Tarjeta "🔒 Mis credenciales": solo existe con token. Se redibuja en el lugar
+// (sin rehacer el popup) para no perder el scroll al editar.
+function credsSection(ev) {
+  if (!canWrite()) return null;
+  const box = h("section", { class: "creds" },
+    h("div", { class: "prop-title" }, "🔒 Mis credenciales", h("span", { class: "creds-where" }, ` · privadas en ${privateRepo()}`)));
+  const redraw = () => box.replaceWith(credsSection(ev));
+
+  if (state.credsError) {
+    box.append(h("p", { class: "creds-msg" }, state.credsError));
+    return box;
+  }
+  if (!state.creds) {
+    box.append(h("p", { class: "creds-msg" }, "Cargando…"));
+    return box;
+  }
+
+  const c = state.creds[ev.id];
+  if (state.credsEditing === ev.id) {
+    box.append(credsForm(ev, c, redraw));
+  } else if (c) {
+    box.append(credsView(ev, c, redraw));
+  } else {
+    box.append(h("button", {
+      class: "btn", onclick: () => { state.credsEditing = ev.id; redraw(); },
+    }, "+ Agregar credenciales"));
+  }
+  return box;
+}
+
+function copyButton(text, what) {
+  return h("button", {
+    class: "btn ghost icon creds-copy", title: `Copiar ${what}`,
+    onclick: async () => {
+      try { await navigator.clipboard.writeText(text); toast(`${what[0].toUpperCase()}${what.slice(1)} copiado.`, "ok", 2000); }
+      catch { toast("No se pudo copiar al portapapeles.", "error"); }
+    },
+  }, "⧉");
+}
+
+function credsView(ev, c, redraw) {
+  const pwd = h("span", { class: "creds-secret" }, "••••••••");
+  let shown = false;
+  const rows = [
+    c.username ? ["Usuario", h("span", {}, c.username), copyButton(c.username, "usuario")] : null,
+    c.password ? ["Contraseña", pwd,
+      h("button", {
+        class: "btn ghost icon creds-copy", title: "Mostrar u ocultar",
+        onclick: () => { shown = !shown; pwd.textContent = shown ? c.password : "••••••••"; },
+      }, "👁"),
+      copyButton(c.password, "contraseña")] : null,
+    c.team ? ["Equipo", h("span", {}, c.team)] : null,
+    c.notes ? ["Notas", h("span", { class: "creds-notes" }, c.notes)] : null,
+  ].filter(Boolean);
+
+  return h("div", {},
+    h("dl", { class: "kv creds-kv" }, rows.flatMap(([k, ...v]) => [h("dt", {}, k), h("dd", {}, v)])),
+    h("div", { class: "creds-actions" },
+      h("button", { class: "btn", onclick: () => { state.credsEditing = ev.id; redraw(); } }, "Editar"),
+      h("button", {
+        class: "btn danger",
+        onclick: async () => {
+          if (!confirm(`¿Borrar las credenciales de ${ev.name}?`)) return;
+          await runCredsSave(ev.id, null, "Credenciales borradas.");
+          redraw();
+        },
+      }, "Borrar")));
+}
+
+function credsForm(ev, c = {}, redraw) {
+  const field = (name, label, type = "text") => h("label", {},
+    label, h("input", { name, type, value: c[name] ?? "", autocomplete: type === "password" ? "new-password" : "off", spellcheck: "false" }));
+  const form = h("form", {
+    class: "creds-form",
+    onsubmit: async (e) => {
+      e.preventDefault();
+      const entry = {};
+      for (const k of ["username", "password", "team", "notes"]) {
+        const v = form.elements[k].value.trim();
+        if (v) entry[k] = v;
+      }
+      const btn = form.querySelector("button[type=submit]");
+      btn.disabled = true;
+      const ok = await runCredsSave(ev.id, Object.keys(entry).length ? entry : null, "Credenciales guardadas en el repo privado.");
+      btn.disabled = false;
+      if (ok) { state.credsEditing = null; redraw(); }
+    },
+  },
+  field("username", "Usuario o email"),
+  field("password", "Contraseña", "password"),
+  field("team", "Equipo"),
+  h("label", { class: "wide" }, "Notas", h("textarea", { name: "notes", rows: 2, spellcheck: "false" }, c.notes ?? "")),
+  h("div", { class: "creds-actions wide" },
+    h("button", { type: "button", class: "btn", onclick: () => { state.credsEditing = null; redraw(); } }, "Cancelar"),
+    h("button", { type: "submit", class: "btn primary" }, "Guardar")));
+  return form;
+}
+
+async function runCredsSave(id, entry, okMsg) {
+  const prev = state.creds[id];
+  setSaving(1);
+  try {
+    await saveCreds(id, entry);
+    toast(okMsg, "ok");
+    return true;
+  } catch (err) {
+    if (prev) state.creds[id] = prev; else delete state.creds[id];
+    toast(`No se pudieron guardar las credenciales: ${err.message}`, "error", 7000);
+    return false;
+  } finally {
+    setSaving(-1);
+  }
 }
 
 function openDay(day, events) {
@@ -729,6 +926,7 @@ function openDay(day, events) {
 }
 
 dlgEvent.addEventListener("click", (e) => { if (e.target === dlgEvent) dlgEvent.close(); });
+dlgEvent.addEventListener("close", () => { state.credsEditing = null; });
 
 // ---------- render: principal ----------
 
@@ -806,18 +1004,19 @@ function render() {
 
 // ---------- configuración ----------
 
+const CONFIG_KEYS = ["owner", "repo", "branch", "token", "privateRepo"];
 const dlgSettings = document.getElementById("dlg-settings");
 const settingsForm = document.getElementById("settings-form");
 
 function openSettings() {
-  for (const k of ["owner", "repo", "branch", "token"]) settingsForm.elements[k].value = state.config[k] ?? "";
+  for (const k of CONFIG_KEYS) settingsForm.elements[k].value = state.config[k] ?? "";
   dlgSettings.showModal();
 }
 
 dlgSettings.addEventListener("close", async () => {
   if (dlgSettings.returnValue !== "save") return;
   const cfg = {};
-  for (const k of ["owner", "repo", "branch", "token"]) {
+  for (const k of CONFIG_KEYS) {
     const v = settingsForm.elements[k].value.trim();
     if (v) cfg[k] = v;
   }
@@ -830,6 +1029,8 @@ dlgSettings.addEventListener("close", async () => {
 document.getElementById("btn-forget").addEventListener("click", () => {
   settingsForm.elements.token.value = "";
   delete state.config.token;
+  state.creds = null; // sin token, las credenciales salen de memoria
+  state.credsError = null;
   store.set("ctf.config", state.config);
   dlgSettings.close();
   render();
@@ -840,7 +1041,7 @@ document.getElementById("btn-forget").addEventListener("click", () => {
 
 async function reload() {
   try {
-    await loadData();
+    await Promise.all([loadData(), loadCreds()]);
     if (state.source === "pages" && canWrite()) {
       toast("No se pudo leer el repo por la API; mostrando la copia publicada.", "warn");
     }
