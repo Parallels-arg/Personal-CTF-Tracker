@@ -95,6 +95,10 @@
     "crate-ctf-2026": {
       "state": "interesado",
       "updated": "2026-10-25T01:52:41.941Z"
+    },
+    "lakectf-2026-quals": {
+      "state": "descartado",
+      "updated": "2026-10-25T01:53:36.618Z"
     }
   }
 }
