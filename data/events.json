@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T01:06:08.442Z",
+  "updated": "2026-10-25T01:09:07.873Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -681,6 +681,41 @@
       "last_seen": "2026-10-25"
     },
     {
+      "name": "TVX CTF 2026",
+      "url": "https://ctftime.org/event/3486/",
+      "ctftime_url": "https://ctftime.org/event/3486/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "Tech Visions",
+      "description": "Jeopardy online de diez horas con retos de DFIR, cloud, malware, reversing, pwn, web, crypto y OSINT. Fechas y formato confirmados en CTFtime; oficial sin confirmar porque https://ctf-techvisions.com/ no fue accesible durante la consulta. CTFtime lo marca casual, sin puntos para el rating global; costo, elegibilidad y tamaño de equipo no verificados. En ART se disputa el 13/11 de 07:00 a 17:00.",
+      "why": "Puede servirte para combinar reversing y seguridad web con investigación de incidentes, aprovechando tu base de desarrollo y sistemas.",
+      "career_value": "Valor estimado: retos y posibles writeups para tu portfolio; no se verificaron reclutamiento ni oportunidades laborales.",
+      "start": "2026-11-13T10:00:00.000Z",
+      "end": "2026-11-13T20:00:00.000Z",
+      "weight": 0,
+      "tags": [
+        "forensics",
+        "network",
+        "malware",
+        "rev",
+        "pwn",
+        "web",
+        "crypto",
+        "OSINT"
+      ],
+      "recommended": false,
+      "ctftime_rated": false,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "tvx-ctf-2026",
+      "sources": [
+        "2026-10-24.md"
+      ],
+      "added": "2026-10-25",
+      "last_seen": "2026-10-25"
+    },
+    {
       "name": "Platypwn 2026",
       "url": "https://platypwnies.de/events/platypwn/",
       "ctftime_url": "https://ctftime.org/event/3082/",
@@ -891,6 +926,42 @@
         "oficial",
         "ctftime"
       ]
+    },
+    {
+      "name": "Outback Overflow 2026",
+      "url": "https://hscyber.org/",
+      "ctftime_url": "https://ctftime.org/event/3425/",
+      "format": "jeopardy",
+      "location": "online",
+      "difficulty": "principiante",
+      "organizer": "High School Cybersecurity Community (HSCC)",
+      "description": "Primera edición de HSCC, con retos para principiantes y avanzados. El oficial confirma acceso internacional y equipos de hasta cuatro en https://outbackoverflow26.hscyber.org/; la página anuncia inscripción aún no abierta, mientras el organizador recibe expresiones de interés en CTFtime. Sus 10:00 AEDT del 21–22/11 coinciden con CTFtime: 20–21/11 a las 20:00 ART. El peso actual es 0 y el futuro está por determinar: se omite ctftime_rated porque no se confirmó si sumará al rating.",
+      "why": "Te ofrece una entrada accesible a reversing y web, con margen para intentar retos más difíciles y buscar compañeros en Discord.",
+      "fee": "gratis",
+      "eligibility": "abierto a todos, incluida participación internacional; los premios para secundarios requieren validación escolar",
+      "team_size": "hasta 4",
+      "career_value": "Valor estimado: práctica y contactos con una comunidad estudiantil; no se verificó contratación.",
+      "start": "2026-11-20T23:00:00.000Z",
+      "end": "2026-11-21T23:00:00.000Z",
+      "weight": 0,
+      "tags": [
+        "web",
+        "crypto",
+        "forensics",
+        "rev",
+        "OSINT"
+      ],
+      "recommended": true,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ],
+      "id": "outback-overflow-2026",
+      "sources": [
+        "2026-10-24.md"
+      ],
+      "added": "2026-10-25",
+      "last_seen": "2026-10-25"
     },
     {
       "name": "Crate-CTF",
