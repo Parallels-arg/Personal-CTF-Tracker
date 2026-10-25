@@ -139,8 +139,8 @@ const hasNews = (ev) => isNew(ev) || isChanged(ev);
 
 // Fecha límite de inscripción todavía abierta; urgente si cierra en menos de 3 días.
 function deadlineInfo(ev) {
-  if (!ev.registration_deadline) return null;
-  const dl = new Date(ev.registration_deadline);
+  if (!ev._deadline) return null;
+  const dl = new Date(ev._deadline);
   const left = (dl - Date.now()) / DAY_MS;
   if (left < 0) return { text: `inscripción cerrada (${fmtDate.format(dl)})`, cls: "closed" };
   return { text: `inscripción hasta ${fmtDate.format(dl)} ${fmtTime.format(dl)}`, cls: left < 3 ? "urgent" : "" };
@@ -282,11 +282,15 @@ async function fetchOverridesFile() {
 }
 
 // Fechas efectivas del evento: la corrección manual, si existe, gana sobre lo que dijo la IA.
+// Una corrección puede tocar solo las fechas (start + end), solo el cierre de inscripción, o ambos.
 function applyOverride(ev) {
   const o = state.overrides[ev.id];
   ev._start = new Date(o?.start ?? ev.start);
   ev._end = new Date(o?.end ?? o?.start ?? ev.end ?? ev.start);
+  ev._deadline = o?.registration_deadline ?? ev.registration_deadline ?? null;
   ev._override = o ?? null;
+  ev._manualDates = Boolean(o?.start || o?.end);
+  ev._manualDeadline = Boolean(o?.registration_deadline);
   return ev;
 }
 
@@ -647,8 +651,12 @@ const changedText = (ev) => [...new Set((ev.changed_fields ?? []).map((f) => FIE
 // Clase para resaltar a simple vista lo que no viste (lista y calendario).
 const newsClass = (ev) => (isNew(ev) ? "unseen" : isChanged(ev) ? "updated" : "");
 
+// El cierre de inscripción solo se avisa en los eventos "Me interesa": si ya estás inscripto
+// o lo descartaste, no aporta. En el popup el dato se ve igual para todos.
+const notifiesDeadline = (ev) => statusOf(ev) === "interesado" && Boolean(ev._deadline);
+
 function deadlineLine(ev) {
-  const dl = deadlineInfo(ev);
+  const dl = notifiesDeadline(ev) ? deadlineInfo(ev) : null;
   return dl ? h("div", { class: `deadline ${dl.cls}` }, dl.text) : null;
 }
 
@@ -713,8 +721,18 @@ function renderWeek(weekStart, month, events) {
       class: cls.filter(Boolean).join(" "),
       style: `grid-column: ${c + 1}; grid-row: 1 / ${rows + 2}`,
     }, h("span", { class: "num" }, day.getDate())));
+    // ⏳ el día que cierra la inscripción de un evento "Me interesa" que todavía no cerró.
+    const next = new Date(day.getTime() + DAY_MS);
+    const closing = events.filter((ev) => notifiesDeadline(ev)
+      && new Date(ev._deadline) >= day && new Date(ev._deadline) < next && new Date(ev._deadline) > Date.now());
+    if (closing.length) {
+      week.append(h("button", {
+        class: "dl-mark", style: `grid-column: ${c + 1}; grid-row: 1`,
+        title: `Cierra la inscripción: ${closing.map((ev) => `${ev.name} (${fmtTime.format(new Date(ev._deadline))})`).join(", ")}`,
+        onclick: () => openDay(day, closing),
+      }, closing.length > 1 ? `⏳${closing.length}` : "⏳"));
+    }
     if (hidden[c]) {
-      const next = new Date(day.getTime() + DAY_MS);
       const onDay = segs.filter((s) => s.from <= c && s.to >= c).map((s) => s.ev);
       const hiddenNews = segs.some((s) => isHidden(s) && s.from <= c && s.to >= c && hasNews(s.ev));
       week.append(h("button", {
@@ -836,7 +854,9 @@ function eventDetail(ev) {
       ["Inicio", fmtFull.format(ev._start)],
       ["Fin", ev._end > ev._start ? fmtFull.format(ev._end) : null],
       ["Duración", durationText(ev)],
-      ["Inscripción", deadlineInfo(ev)?.text],
+      // Siempre visible: si no hay dato se dice, para saber que falta.
+      ["Inscripción", (deadlineInfo(ev)?.text.replace(/^inscripción /, "") ?? "sin fecha confirmada")
+        + (ev._manualDeadline ? " · ✎ manual" : "")],
     ]],
     ["comp", "Competencia", [
       ["Formato", ev.format],
@@ -867,12 +887,12 @@ function eventDetail(ev) {
       h("h2", {}, ev.name),
       h("div", { class: "dlg-badges" }, badges(ev)),
       h("div", { class: "dlg-when" }, whenText(ev),
-        ev._override ? h("span", { class: "manual-tag", title: "Fechas corregidas a mano" }, "✎ manual") : null,
+        ev._manualDates ? h("span", { class: "manual-tag", title: "Fechas corregidas a mano" }, "✎ manual") : null,
         canWrite() && state.datesEditing !== ev.id
           ? h("button", {
             class: "linkish-btn",
             onclick: () => { state.datesEditing = ev.id; openEvent(ev.id); dlgEvent.scrollTop = 0; },
-          }, "✎ editar fechas")
+          }, "✎ editar fechas / inscripción")
           : null),
       h("div", { class: "dlg-status" }, h("span", { class: "dlg-label" }, "Estado"), statusPicker(ev))),
     datesEditor(ev),
@@ -896,36 +916,49 @@ function toLocalInput(d) {
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
 }
 
-// Editor de fechas (si se está editando) o aviso de fechas corregidas a mano con las originales.
+// Editor de fechas e inscripción (si se está editando) o aviso de lo corregido a mano.
 function datesEditor(ev) {
   const original = `${fmtFull.format(new Date(ev.start))} → ${fmtFull.format(new Date(ev.end ?? ev.start))}`;
+  const originalDeadline = ev.registration_deadline ? fmtFull.format(new Date(ev.registration_deadline)) : "sin dato";
   const reopen = () => openEvent(ev.id);
 
   if (state.datesEditing === ev.id) {
-    const input = (name, label, d) => h("label", {}, label,
-      h("input", { name, type: "datetime-local", value: toLocalInput(d), required: name === "start" }));
+    const input = (name, label, d, required) => h("label", {}, label,
+      h("input", { name, type: "datetime-local", value: d ? toLocalInput(d) : "", required }));
     const form = h("form", {
       class: "dates-form",
       onsubmit: async (e) => {
         e.preventDefault();
         const start = new Date(form.elements.start.value);
         const end = form.elements.end.value ? new Date(form.elements.end.value) : start;
-        if (isNaN(start) || isNaN(end)) return toast("Fecha inválida.", "error");
+        const dl = form.elements.deadline.value ? new Date(form.elements.deadline.value) : null;
+        if (isNaN(start) || isNaN(end) || (dl && isNaN(dl))) return toast("Fecha inválida.", "error");
         if (end < start) return toast("El fin no puede ser anterior al inicio.", "error");
+
+        // Se guarda solo lo que difiere de la IA; las fechas van siempre juntas (inicio + fin).
+        const entry = {};
+        const same = (a, b) => b != null && Math.abs(a - new Date(b)) < 60000; // el input no tiene segundos
+        if (!same(start, ev.start) || !same(end, ev.end ?? ev.start)) {
+          entry.start = start.toISOString();
+          entry.end = end.toISOString();
+        }
+        if (dl && !same(dl, ev.registration_deadline)) entry.registration_deadline = dl.toISOString();
+
         const btn = form.querySelector("button[type=submit]");
         btn.disabled = true;
-        const ok = await setOverride(ev, { start: start.toISOString(), end: end.toISOString() });
+        const ok = await setOverride(ev, Object.keys(entry).length ? entry : null);
         btn.disabled = false;
         if (ok) { state.datesEditing = null; render(); reopen(); }
       },
     },
-    h("div", { class: "prop-title wide" }, "✎ Editar fechas · hora local de este dispositivo"),
-    input("start", "Inicio", ev._start),
+    h("div", { class: "prop-title wide" }, "✎ Editar fechas e inscripción · hora local de este dispositivo"),
+    input("start", "Inicio", ev._start, true),
     input("end", "Fin", ev._end),
-    h("p", { class: "dates-orig wide" }, `Según la IA: ${original}`),
+    input("deadline", "Cierre de inscripción (opcional)", ev._deadline ? new Date(ev._deadline) : null),
+    h("p", { class: "dates-orig wide" }, `Según la IA: ${original} · inscripción: ${originalDeadline}`),
     h("div", { class: "creds-actions wide" },
       ev._override ? h("button", {
-        type: "button", class: "btn", title: "Volver a las fechas que informó la IA",
+        type: "button", class: "btn", title: "Volver a las fechas e inscripción que informó la IA",
         onclick: async () => {
           if (await setOverride(ev, null)) { state.datesEditing = null; render(); reopen(); }
         },
@@ -937,13 +970,18 @@ function datesEditor(ev) {
   }
 
   if (!ev._override) return null;
-  // La IA cambió las fechas después de la corrección manual: avisar para revisar.
-  const aiNewer = ev.changed && (ev.changed_fields ?? []).some((f) => f === "start" || f === "end")
+  // La IA cambió fechas o inscripción después de la corrección manual: avisar para revisar.
+  const watched = [ev._manualDates && "start", ev._manualDates && "end", ev._manualDeadline && "registration_deadline"];
+  const aiNewer = ev.changed && (ev.changed_fields ?? []).some((f) => watched.includes(f))
     && new Date(ev.changed) > new Date(ev._override.updated);
+  const what = [
+    ev._manualDates && `fechas (según la IA: ${original})`,
+    ev._manualDeadline && `cierre de inscripción (según la IA: ${originalDeadline})`,
+  ].filter(Boolean).join(" y ");
   return h("section", { class: `dates-note ${aiNewer ? "warn" : ""}` },
     h("span", {}, aiNewer
-      ? `⚠ La IA informó fechas nuevas después de tu corrección: ${original}`
-      : `Fechas corregidas a mano. Según la IA: ${original}`),
+      ? `⚠ La IA informó datos nuevos después de tu corrección de ${what}.`
+      : `Corregido a mano: ${what}.`),
     canWrite() ? h("button", {
       class: "linkish-btn",
       onclick: async () => { if (await setOverride(ev, null)) { render(); reopen(); } },
@@ -1129,7 +1167,12 @@ function renderStats() {
   const fresh = upcoming.filter(isNew).length;
   const changed = upcoming.filter(isChanged).length;
   const next = upcoming.filter((e) => statusOf(e) === "inscripto").sort((a, b) => a._start - b._start)[0];
+  // Próximo cierre de inscripción entre los "Me interesa".
+  const closing = state.events
+    .filter((e) => notifiesDeadline(e) && new Date(e._deadline) > now)
+    .sort((a, b) => new Date(a._deadline) - new Date(b._deadline))[0];
   document.getElementById("stats").textContent = [
+    closing ? `⏳ inscripción de ${closing.name} cierra ${fmtDate.format(new Date(closing._deadline))}` : null,
     `${upcoming.length} próximos`,
     `${pending} sin clasificar`,
     fresh ? `${fresh} sin abrir` : null,
