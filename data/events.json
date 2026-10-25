@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T19:27:25.764Z",
+  "updated": "2026-10-25T22:07:06.324Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -231,7 +231,7 @@
       "description": "Competencia internacional que combina CTF y cryptic hunt durante 36 horas. El oficial confirma el nuevo formato obligatorio de equipos de 3 y ofrece registro; no se verificó un cierre de inscripción.",
       "why": "Complementa tu práctica técnica con criptografía y resolución de pistas.",
       "fee": "no verificado",
-      "eligibility": "abierto a todos",
+      "eligibility": "abierto a todos; permite participación independiente sin afiliación escolar",
       "team_size": "exactamente 3",
       "career_value": "Valor estimado: práctica en equipo y contacto con la comunidad; Intel y Jane Street figuran como socios, sin reclutamiento confirmado.",
       "start": "2026-10-27T03:30:00.000Z",
@@ -245,7 +245,8 @@
       "id": "sudocrypt-v16",
       "sources": [
         "carga-inicial.md",
-        "carga-complementaria.md"
+        "carga-complementaria.md",
+        "enriquecimiento-2026-10-25.md"
       ],
       "added": "2026-10-20",
       "last_seen": "2026-10-25",
@@ -253,6 +254,10 @@
       "verified_by": [
         "oficial",
         "ctftime"
+      ],
+      "changed": "2026-10-25T22:07:06.316Z",
+      "changed_fields": [
+        "eligibility"
       ]
     },
     {
@@ -515,13 +520,13 @@
       "format": "jeopardy",
       "location": "online",
       "organizer": "Chronos Security",
-      "prizes": "Los tres primeros de cada track deben entregar writeups dentro de las 24 horas posteriores al cierre; detalle de premios no verificado.",
+      "prizes": "Top 3 por track, importes por anunciar; writeups en las 24 h posteriores al cierre. Certificados de participación y logros tras los resultados.",
       "description": "El calendario oficial publica 6–8/11/2026, inicio 15:00 EET (13:00 UTC), durante 48 horas. El conflicto de fechas reportado previamente no aparece en las fechas consultadas: ahora coinciden con CTFtime. El HTML oficial también contiene un aviso de operación concluida, contradictorio con ese calendario futuro; se preserva el horario explícito y conviene reconfirmarlo antes de competir. Cada integrante debe registrarse; el equipo se bloquea al inicio.",
       "why": "Los escenarios de aplicaciones, Windows y sectores como salud y finanzas conectan con tu trabajo en sistemas empresariales.",
       "fee": "gratis",
-      "eligibility": "abierto mundialmente; tracks Juniors (<18), Seniors (18+) y Fighters (sin restricción de edad)",
+      "eligibility": "mundial; Juniors: todos menores de 18; Seniors: todos de 18+; Fighters: sin restricción de edad",
       "team_size": "1–5",
-      "career_value": "Valor estimado: práctica técnica y posibles writeups para tu portfolio; reclutamiento y contactos laborales no verificados.",
+      "career_value": "El registro permite optar por compartir datos y desempeño con sponsors y partners para oportunidades laborales, educativas o de colaboración; no garantiza ofertas.",
       "start": "2026-11-06T13:00:00.000Z",
       "end": "2026-11-08T13:00:00.000Z",
       "weight": 0,
@@ -540,7 +545,8 @@
       "id": "csctf-2026",
       "sources": [
         "carga-inicial.md",
-        "carga-complementaria.md"
+        "carga-complementaria.md",
+        "enriquecimiento-2026-10-25.md"
       ],
       "added": "2026-10-21",
       "last_seen": "2026-10-25",
@@ -548,7 +554,11 @@
         "oficial",
         "ctftime"
       ],
-      "ctftime_rated": null
+      "ctftime_rated": null,
+      "changed": "2026-10-25T22:07:06.316Z",
+      "changed_fields": [
+        "eligibility"
+      ]
     },
     {
       "name": "SpookyCTF",
@@ -981,8 +991,8 @@
       "why": "Valor estimado: una jornada de ocho horas permite practicar distintos problemas sin comprometer todo el fin de semana.",
       "fee": "no verificado",
       "eligibility": "no verificado",
-      "team_size": "individual o en grupo; límite no verificado",
-      "career_value": "Valor estimado: práctica en una competencia organizada por una institución de investigación en defensa; no se verificaron oportunidades laborales.",
+      "team_size": "individual o equipo sin límite de integrantes; cada persona solo puede integrar un equipo",
+      "career_value": "La plataforma oficial enlaza vacantes y proyectos de tesis en FOI; elegibilidad laboral desde Argentina no confirmada.",
       "start": "2026-11-21T13:00:00.000Z",
       "end": "2026-11-21T21:00:00.000Z",
       "weight": 37,
@@ -990,14 +1000,29 @@
       "id": "crate-ctf-2026",
       "sources": [
         "carga-inicial.md",
-        "carga-complementaria.md"
+        "carga-complementaria.md",
+        "enriquecimiento-2026-10-25.md"
       ],
       "added": "2026-10-22",
       "last_seen": "2026-10-25",
-      "ctftime_rated": true,
+      "ctftime_rated": null,
       "verified_by": [
         "oficial",
         "ctftime"
+      ],
+      "tags": [
+        "forensics",
+        "rev",
+        "pwn",
+        "web",
+        "crypto",
+        "OSINT",
+        "network",
+        "misc"
+      ],
+      "changed": "2026-10-25T22:07:06.316Z",
+      "changed_fields": [
+        "team_size"
       ]
     },
     {
