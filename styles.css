@@ -141,7 +141,7 @@ button { font: inherit; color: inherit; }
 .seg-btn:hover { color: var(--text); background: var(--hover); }
 .seg-btn.active { color: var(--text-strong); border-bottom-color: var(--text-strong); }
 .tab-ico { font-size: 13px; opacity: .8; }
-.viewbar-tools { display: flex; align-items: center; gap: 10px; padding-bottom: 6px; }
+.viewbar-tools { display: flex; align-items: center; gap: 8px 14px; padding-bottom: 6px; flex-wrap: wrap; justify-content: flex-end; }
 .search-wrap {
   display: flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: var(--radius);
   color: var(--muted); transition: background .12s;
@@ -333,6 +333,11 @@ button { font: inherit; color: inherit; }
 .card .why { font-size: 13px; grid-column: 1 / -1; margin: 4px 0 0; color: var(--muted); }
 .card .side { grid-row: 1 / 4; grid-column: 2; display: flex; justify-content: flex-end; }
 .card .when .rel { color: var(--muted); }
+/* vista compacta de la lista */
+.compact .card { padding-top: 6px; padding-bottom: 6px; }
+.compact .card::before { top: 10px; }
+.compact .card .meta, .compact .card .why { display: none; }
+.compact .card .title { font-size: 14px; }
 .conflict { font-size: 13px; color: color-mix(in srgb, var(--c-orange) 70%, var(--text-strong)); }
 .deadline { font-size: 13px; color: var(--muted); }
 .deadline::before { content: "⏳ "; }
@@ -545,7 +550,8 @@ button { font: inherit; color: inherit; }
   .page-icon { font-size: 40px; }
   .hero h1 { font-size: 28px; }
   .page-desc { font-size: 14px; }
-  .viewbar-tools { width: 100%; justify-content: space-between; }
+  .viewbar-tools { width: 100%; justify-content: flex-start; }
+  .viewbar-tools .search-wrap { flex-basis: 100%; }
   .now-grid { grid-template-columns: 1fr; }
   .search { width: 100%; }
   .search-wrap { flex: 1; }

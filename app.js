@@ -62,6 +62,7 @@ const state = {
   filters: new Set(store.get("ctf.filters", ["sin-clasificar", "interesado", "inscripto"])),
   showPast: store.get("ctf.showPast", false),
   hideIneligible: store.get("ctf.hideIneligible", false),
+  compact: store.get("ctf.compact", false),
   extra: { ...EXTRA_DEFAULTS, ...store.get("ctf.extra", {}) }, // "más filtros" y orden
   moreOpen: false,
   query: "",
@@ -985,6 +986,38 @@ function renderList() {
 
 const dlgEvent = document.getElementById("dlg-event");
 
+// ---------- link al evento en la URL (#e=<id>) ----------
+// Abrir un evento agrega una entrada al historial: "atrás" cierra el popup y el link se
+// puede guardar o compartir. Moverse con ‹ › o abrir desde un link reemplaza la entrada.
+
+const HASH_PREFIX = "#e=";
+const hashEventId = () =>
+  location.hash.startsWith(HASH_PREFIX) ? decodeURIComponent(location.hash.slice(HASH_PREFIX.length)) : null;
+let hashPushed = false;
+
+function syncHash(id, replace) {
+  const url = `${location.pathname}${location.search}${HASH_PREFIX}${encodeURIComponent(id)}`;
+  if (replace) history.replaceState({ ev: id }, "", url);
+  else { history.pushState({ ev: id }, "", url); hashPushed = true; }
+}
+
+function clearHash() {
+  if (!hashEventId()) return;
+  if (hashPushed) history.back(); // vuelve a la entrada sin #e=
+  else history.replaceState(null, "", `${location.pathname}${location.search}`);
+  hashPushed = false;
+}
+
+addEventListener("popstate", () => {
+  const id = hashEventId();
+  if (id && state.events.some((e) => e.id === id)) {
+    if (!dlgEvent.open || dlgEvent.dataset.id !== id) openEvent(id, { fromHash: true });
+  } else if (dlgEvent.open) {
+    hashPushed = false; // el "atrás" ya sacó el #e=
+    dlgEvent.close();
+  }
+});
+
 // Orden en que se recorren los eventos con ‹ › en el popup: el de la vista actual.
 function currentOrder() {
   return sortEvents(filtered({ includePast: state.showPast })).map((e) => e.id);
@@ -995,9 +1028,11 @@ function currentOrder() {
 function openEvent(id, opts = {}) {
   const ev = state.events.find((e) => e.id === id);
   if (!ev) return;
+  const wasOpen = dlgEvent.open;
   if (opts.list) state.navIds = opts.list;
-  else if (!dlgEvent.open) state.navIds = currentOrder();
+  else if (!wasOpen) state.navIds = currentOrder();
   if (!state.navIds.includes(id)) state.navIds = [id];
+  syncHash(id, wasOpen || opts.fromHash);
   dlgEvent.dataset.id = id;
   // El detalle se arma antes de marcarlo como visto, para que todavía muestre qué cambió.
   dlgEvent.replaceChildren(eventDetail(ev));
@@ -1355,7 +1390,7 @@ function openDay(day, events) {
 }
 
 dlgEvent.addEventListener("click", (e) => { if (e.target === dlgEvent) dlgEvent.close(); });
-dlgEvent.addEventListener("close", () => { state.credsEditing = null; state.datesEditing = null; });
+dlgEvent.addEventListener("close", () => { state.credsEditing = null; state.datesEditing = null; clearHash(); });
 
 // ---------- render: principal ----------
 
@@ -1471,6 +1506,8 @@ function renderMode() {
 
 function render() {
   for (const b of document.querySelectorAll(".seg-btn")) b.classList.toggle("active", b.dataset.view === state.view);
+  document.getElementById("compact-toggle").hidden = state.view !== "list";
+  document.getElementById("main").classList.toggle("compact", state.compact && state.view === "list");
   renderMode();
   renderNow();
   renderFilters();
@@ -1526,7 +1563,14 @@ async function reload() {
     toast(`Error cargando datos: ${err.message}`, "error", 8000);
   }
   render();
+  // La primera carga abre el evento del link (#e=<id>), si lo hay.
+  if (!booted) {
+    booted = true;
+    const id = hashEventId();
+    if (id && state.events.some((e) => e.id === id)) openEvent(id, { fromHash: true });
+  }
 }
+let booted = false;
 
 for (const b of document.querySelectorAll(".seg-btn")) {
   b.addEventListener("click", () => { state.view = b.dataset.view; store.set("ctf.view", state.view); render(); });
@@ -1535,6 +1579,9 @@ document.getElementById("search").addEventListener("input", (e) => { state.query
 const pastBox = document.getElementById("show-past");
 pastBox.checked = state.showPast;
 pastBox.addEventListener("change", () => { state.showPast = pastBox.checked; store.set("ctf.showPast", state.showPast); render(); });
+const compactBox = document.getElementById("compact");
+compactBox.checked = state.compact;
+compactBox.addEventListener("change", () => { state.compact = compactBox.checked; store.set("ctf.compact", state.compact); render(); });
 const ineligibleBox = document.getElementById("hide-ineligible");
 ineligibleBox.checked = state.hideIneligible;
 ineligibleBox.addEventListener("change", () => {
