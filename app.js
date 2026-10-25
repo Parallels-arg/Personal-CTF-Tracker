@@ -44,6 +44,9 @@ const state = {
   seen: store.get("ctf.seen", {}), // { id: ISO de la última vez que lo abriste }
   seenSha: null,
   onlyNews: false,
+  overrides: {},      // { idEvento: { start, end, updated } } — fechas corregidas a mano
+  overridesSha: null,
+  datesEditing: null, // id del evento cuyas fechas se están editando
   creds: null,        // { idEvento: { username, password, team, notes, updated } } — solo en memoria
   credsSha: null,
   credsError: null,
@@ -271,6 +274,22 @@ async function fetchSeenFile() {
   catch (err) { if (err.status === 404) return { sha: null, data: { seen: {} } }; throw err; }
 }
 
+// overrides.json: fechas corregidas a mano. Vive aparte de events.json para que una
+// sugerencia nueva de la IA nunca pise la corrección.
+async function fetchOverridesFile() {
+  try { return await fetchRepoJson("data/overrides.json"); }
+  catch (err) { if (err.status === 404) return { sha: null, data: { overrides: {} } }; throw err; }
+}
+
+// Fechas efectivas del evento: la corrección manual, si existe, gana sobre lo que dijo la IA.
+function applyOverride(ev) {
+  const o = state.overrides[ev.id];
+  ev._start = new Date(o?.start ?? ev.start);
+  ev._end = new Date(o?.end ?? o?.start ?? ev.end ?? ev.start);
+  ev._override = o ?? null;
+  return ev;
+}
+
 // Une dos registros de vistos quedándose con la visita más reciente de cada evento.
 function mergeSeen(a, b) {
   const out = { ...a };
@@ -281,42 +300,107 @@ function mergeSeen(a, b) {
 // Con repo configurado se lee por la API (siempre fresco); si falla, desde la copia
 // servida por Pages, que puede tardar un minuto en reflejar los últimos commits.
 async function loadData() {
-  let events, statuses, seen = {}, sha = null, seenSha = null, source;
+  let events, statuses, seen = {}, overrides = {}, sha = null, seenSha = null, overridesSha = null, source;
   if (state.config.owner && state.config.repo) {
     try {
-      const [evRes, st, sn] = await Promise.all([
+      const [evRes, st, sn, ov] = await Promise.all([
         gh(`contents/data/events.json${ref()}`, { headers: { Accept: "application/vnd.github.raw+json" } }),
         fetchStatusFile(),
         fetchSeenFile(),
+        fetchOverridesFile(),
       ]);
       events = (await evRes.json()).events;
       statuses = st.data.statuses;
       sha = st.sha;
       seen = sn.data.seen;
       seenSha = sn.sha;
+      overrides = ov.data.overrides;
+      overridesSha = ov.sha;
       source = "github";
     } catch (err) {
       console.warn("Lectura por API falló, uso la copia local:", err);
     }
   }
   if (!events) {
-    const [a, b, c] = await Promise.all([
+    const [a, b, c, o] = await Promise.all([
       fetch("data/events.json", { cache: "no-store" }),
       fetch("data/status.json", { cache: "no-store" }),
       fetch("data/seen.json", { cache: "no-store" }).catch(() => null),
+      fetch("data/overrides.json", { cache: "no-store" }).catch(() => null),
     ]);
     events = (await a.json()).events;
     statuses = (await b.json()).statuses;
     if (c?.ok) seen = (await c.json()).seen;
+    if (o?.ok) overrides = (await o.json()).overrides;
     source = "pages";
   }
-  state.events = events.map((e) => ({ ...e, _start: new Date(e.start), _end: new Date(e.end ?? e.start) }));
+  state.overrides = overrides ?? {};
+  state.overridesSha = overridesSha;
+  state.events = events.map((e) => applyOverride({ ...e }));
   state.statuses = statuses ?? {};
   state.statusSha = sha;
   state.seen = mergeSeen(state.seen, seen);
   state.seenSha = seenSha;
   state.source = source;
   store.set("ctf.seen", state.seen);
+}
+
+// ---------- fechas corregidas a mano ----------
+
+// entry = { start, end } en ISO; null restaura las fechas que informó la IA.
+async function saveOverride(id, entry) {
+  const apply = (map) => {
+    if (entry) map[id] = { ...entry, updated: new Date().toISOString() };
+    else delete map[id];
+  };
+  apply(state.overrides);
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const res = await gh("contents/data/overrides.json", {
+        method: "PUT",
+        body: JSON.stringify({
+          message: entry ? `fechas: ${id} corregidas a mano` : `fechas: ${id} restauradas`,
+          content: b64encode(JSON.stringify({ overrides: state.overrides }, null, 2) + "\n"),
+          sha: state.overridesSha ?? undefined,
+          branch: state.config.branch || "main",
+        }),
+      });
+      state.overridesSha = (await res.json()).content.sha;
+      return;
+    } catch (err) {
+      // Cambió desde otro dispositivo: traer lo remoto y reaplicar solo este evento.
+      if (attempt === 0 && (err.status === 409 || err.status === 422)) {
+        const remote = await fetchOverridesFile();
+        state.overridesSha = remote.sha;
+        state.overrides = remote.data.overrides ?? {};
+        apply(state.overrides);
+        continue;
+      }
+      throw err;
+    }
+  }
+}
+
+async function setOverride(ev, entry) {
+  if (!canWrite()) {
+    toast("Modo solo lectura: configurá tu token en ⚙ para editar fechas.", "warn");
+    return false;
+  }
+  const prev = state.overrides[ev.id];
+  setSaving(1);
+  try {
+    await saveOverride(ev.id, entry);
+    for (const e of state.events) applyOverride(e); // por si llegaron cambios de otro dispositivo
+    toast(entry ? "Fechas actualizadas." : "Se restauraron las fechas originales.", "ok");
+    return true;
+  } catch (err) {
+    if (prev) state.overrides[ev.id] = prev; else delete state.overrides[ev.id];
+    applyOverride(ev);
+    toast(`No se pudieron guardar las fechas: ${err.message}`, "error", 7000);
+    return false;
+  } finally {
+    setSaving(-1);
+  }
 }
 
 // ---------- vistos ----------
@@ -780,8 +864,16 @@ function eventDetail(ev) {
       h("button", { class: "btn icon dlg-close", onclick: () => dlgEvent.close(), title: "Cerrar" }, "✕"),
       h("h2", {}, ev.name),
       h("div", { class: "dlg-badges" }, badges(ev)),
-      h("div", { class: "dlg-when" }, whenText(ev)),
+      h("div", { class: "dlg-when" }, whenText(ev),
+        ev._override ? h("span", { class: "manual-tag", title: "Fechas corregidas a mano" }, "✎ manual") : null,
+        canWrite() && state.datesEditing !== ev.id
+          ? h("button", {
+            class: "linkish-btn",
+            onclick: () => { state.datesEditing = ev.id; openEvent(ev.id); dlgEvent.scrollTop = 0; },
+          }, "✎ editar fechas")
+          : null),
       h("div", { class: "dlg-status" }, h("span", { class: "dlg-label" }, "Estado"), statusPicker(ev))),
+    datesEditor(ev),
     credsSection(ev),
     h("div", { class: "prop-groups" }, groups.filter(([, , rows]) => rows.length).map(([key, title, rows]) =>
       h("section", { class: `prop-group pg-${key}` },
@@ -794,6 +886,66 @@ function eventDetail(ev) {
     h("footer", { class: "links" },
       link(ev.url, "Sitio oficial ↗"),
       link(ev.ctftime_url, "CTFtime ↗")));
+}
+
+// "YYYY-MM-DDTHH:mm" en hora local, el formato de <input type="datetime-local">.
+function toLocalInput(d) {
+  const p = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+
+// Editor de fechas (si se está editando) o aviso de fechas corregidas a mano con las originales.
+function datesEditor(ev) {
+  const original = `${fmtFull.format(new Date(ev.start))} → ${fmtFull.format(new Date(ev.end ?? ev.start))}`;
+  const reopen = () => openEvent(ev.id);
+
+  if (state.datesEditing === ev.id) {
+    const input = (name, label, d) => h("label", {}, label,
+      h("input", { name, type: "datetime-local", value: toLocalInput(d), required: name === "start" }));
+    const form = h("form", {
+      class: "dates-form",
+      onsubmit: async (e) => {
+        e.preventDefault();
+        const start = new Date(form.elements.start.value);
+        const end = form.elements.end.value ? new Date(form.elements.end.value) : start;
+        if (isNaN(start) || isNaN(end)) return toast("Fecha inválida.", "error");
+        if (end < start) return toast("El fin no puede ser anterior al inicio.", "error");
+        const btn = form.querySelector("button[type=submit]");
+        btn.disabled = true;
+        const ok = await setOverride(ev, { start: start.toISOString(), end: end.toISOString() });
+        btn.disabled = false;
+        if (ok) { state.datesEditing = null; render(); reopen(); }
+      },
+    },
+    h("div", { class: "prop-title wide" }, "✎ Editar fechas · hora local de este dispositivo"),
+    input("start", "Inicio", ev._start),
+    input("end", "Fin", ev._end),
+    h("p", { class: "dates-orig wide" }, `Según la IA: ${original}`),
+    h("div", { class: "creds-actions wide" },
+      ev._override ? h("button", {
+        type: "button", class: "btn", title: "Volver a las fechas que informó la IA",
+        onclick: async () => {
+          if (await setOverride(ev, null)) { state.datesEditing = null; render(); reopen(); }
+        },
+      }, "Restaurar originales") : null,
+      h("span", { class: "spacer" }),
+      h("button", { type: "button", class: "btn", onclick: () => { state.datesEditing = null; reopen(); } }, "Cancelar"),
+      h("button", { type: "submit", class: "btn primary" }, "Guardar")));
+    return h("section", { class: "dates-edit" }, form);
+  }
+
+  if (!ev._override) return null;
+  // La IA cambió las fechas después de la corrección manual: avisar para revisar.
+  const aiNewer = ev.changed && (ev.changed_fields ?? []).some((f) => f === "start" || f === "end")
+    && new Date(ev.changed) > new Date(ev._override.updated);
+  return h("section", { class: `dates-note ${aiNewer ? "warn" : ""}` },
+    h("span", {}, aiNewer
+      ? `⚠ La IA informó fechas nuevas después de tu corrección: ${original}`
+      : `Fechas corregidas a mano. Según la IA: ${original}`),
+    canWrite() ? h("button", {
+      class: "linkish-btn",
+      onclick: async () => { if (await setOverride(ev, null)) { render(); reopen(); } },
+    }, "Restaurar originales") : null);
 }
 
 // Tarjeta "🔒 Mis credenciales": solo existe con token. Se redibuja en el lugar
@@ -926,7 +1078,7 @@ function openDay(day, events) {
 }
 
 dlgEvent.addEventListener("click", (e) => { if (e.target === dlgEvent) dlgEvent.close(); });
-dlgEvent.addEventListener("close", () => { state.credsEditing = null; });
+dlgEvent.addEventListener("close", () => { state.credsEditing = null; state.datesEditing = null; });
 
 // ---------- render: principal ----------
 
