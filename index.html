@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CTF Tracker</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230d1117'/><path d='M10 6v20M10 7h12l-3 5 3 5H10' stroke='%233fb950' stroke-width='2.5' fill='none' stroke-linejoin='round'/></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">⚑</span>
+      <h1>CTF Tracker</h1>
+      <span id="mode" class="mode"></span>
+    </div>
+    <div class="actions">
+      <span id="sync" class="sync" hidden>guardando…</span>
+      <button id="btn-upload" class="btn" title="Subir un archivo de sugerencias a inbox/">Subir sugerencias</button>
+      <input id="file-upload" type="file" accept=".md,.json" hidden>
+      <button id="btn-refresh" class="btn icon" title="Recargar datos">↻</button>
+      <button id="btn-settings" class="btn icon" title="Configuración">⚙</button>
+    </div>
+  </header>
+
+  <section class="toolbar">
+    <div class="seg" role="tablist">
+      <button data-view="calendar" class="seg-btn">Calendario</button>
+      <button data-view="list" class="seg-btn">Lista</button>
+    </div>
+    <input id="search" class="search" type="search" placeholder="Buscar nombre, tag, organizador…">
+    <div id="filters" class="filters"></div>
+    <label class="toggle" id="past-toggle" title="Los eventos ya terminados se ocultan por defecto"><input id="show-past" type="checkbox"> mostrar terminados</label>
+  </section>
+
+  <p id="stats" class="stats"></p>
+
+  <main id="main"></main>
+
+  <dialog id="dlg-event" class="dialog"></dialog>
+  <dialog id="dlg-settings" class="dialog">
+    <form method="dialog" id="settings-form" class="settings">
+      <h2>Configuración</h2>
+      <p class="muted">Los cambios de estado se guardan como commits en <code>data/status.json</code>
+        del repo. Sin token la página es de solo lectura.</p>
+      <label>Usuario / organización <input name="owner" autocomplete="off" spellcheck="false"></label>
+      <label>Repositorio <input name="repo" autocomplete="off" spellcheck="false"></label>
+      <label>Rama <input name="branch" autocomplete="off" spellcheck="false" placeholder="main"></label>
+      <label>Token de GitHub (fine-grained, solo este repo, Contents: read &amp; write)
+        <input name="token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
+      </label>
+      <p class="muted small">El token queda guardado solo en este navegador (localStorage). Nunca se sube al repo.</p>
+      <div class="row">
+        <button type="button" id="btn-forget" class="btn danger">Borrar token</button>
+        <span class="spacer"></span>
+        <button value="cancel" class="btn">Cancelar</button>
+        <button value="save" class="btn primary">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

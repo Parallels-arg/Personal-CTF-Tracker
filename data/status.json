@@ -1,0 +1,80 @@
+{
+  "statuses": {
+    "cruxipher-2026": {
+      "state": "inscripto",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "sudocrypt-v16": {
+      "state": "interesado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "hi-cyber-con-ctf-2026": {
+      "state": "interesado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "csctf-2026": {
+      "state": "interesado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "spookyctf-2026": {
+      "state": "interesado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "first-flag-ctf-2026": {
+      "state": "interesado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "africa-battlectf-2026-quals": {
+      "state": "descartado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "hitcon-ctf-2026": {
+      "state": "descartado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "rstcon-ctf-2026": {
+      "state": "descartado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "hack-lu-ctf-2026": {
+      "state": "descartado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "void-ctf-2026-quals": {
+      "state": "descartado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "qiangwang-2026-quals": {
+      "state": "descartado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "russian-ctf-cup-x-quals": {
+      "state": "descartado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "hack-the-unla-2026": {
+      "state": "descartado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "stealthcup-2026": {
+      "state": "descartado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "hkcert-ctf-2026-quals": {
+      "state": "descartado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "bloomberg-wicys-2026": {
+      "state": "descartado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "ran-tour-2026-bsas": {
+      "state": "descartado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    },
+    "csaw-ctf-2026-finals": {
+      "state": "descartado",
+      "updated": "2026-10-24T12:00:00.000Z"
+    }
+  }
+}

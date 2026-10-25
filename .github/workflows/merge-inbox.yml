@@ -1,0 +1,45 @@
+name: merge-inbox
+
+on:
+  push:
+    branches: [main]
+    paths: ["inbox/*.md", "inbox/*.json"]
+  workflow_dispatch:
+
+# Evita que dos merges corran a la vez y se pisen.
+concurrency:
+  group: merge-inbox
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Integrar inbox/ en data/events.json
+        run: node scripts/merge-inbox.mjs
+
+      - name: Commit y push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A inbox data
+          if git diff --cached --quiet; then
+            echo "Sin cambios."
+            exit 0
+          fi
+          git commit -m "inbox: integrar sugerencias $(date -u +%Y-%m-%d)"
+          # Si mientras tanto entró otro commit (p. ej. un cambio de estado desde la web), rebase y reintento.
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1
