@@ -452,7 +452,8 @@ function ctftimeInfo(ev) {
       title: "Figura en CTFtime y suma al rating" };
   }
   if (rated === false) return { key: "unrated", mark: "◇", label: "◇ CTFtime · no puntúa", title: "Figura en CTFtime pero no suma al rating" };
-  return { key: "unknown", mark: "◇", label: "◇ CTFtime · ¿puntúa?", title: "Figura en CTFtime; falta confirmar si puntúa (peso 0 o sin dato)" };
+  return { key: "unknown", mark: "◇", label: "◇ CTFtime · puntuación por definir",
+    title: "Figura en CTFtime con peso todavía no definido (Future weight: to be determined)" };
 }
 
 function ctftimeBadge(ev) {

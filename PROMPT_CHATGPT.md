@@ -52,7 +52,9 @@ figura en CTFtime y si puntúa, así que solo tenés que informarlo bien:
   - Si no lo confirmaste en ninguna de las dos, NO lo incluyas.
 - Si figura en CTFtime: completá "ctftime_url", "weight" (peso actual, aunque sea 0) y
   "ctftime_rated": true si suma puntos al rating de CTFtime, false si la ficha dice que no
-  puntúa ("not rated"). Si no figura en CTFtime, omití esos tres campos.
+  puntúa ("not rated" o Future weight 0 fijado), null si el peso todavía no está definido
+  ("Future weight: to be determined"). Si no figura en CTFtime, omití esos tres campos.
+- Si un evento solo tiene hora de inicio confirmada, omití "end": no inventes la duración.
 
 ## Reglas de veracidad
 - No inventes elegibilidad, disponibilidad, costos ni requisitos. Si no lo pudiste verificar,
