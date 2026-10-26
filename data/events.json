@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T11:59:13.298Z",
+  "updated": "2026-10-26T14:58:54.283Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -521,10 +521,10 @@
       "location": "online",
       "organizer": "Chronos Security",
       "prizes": "Top 3 por track, importes por anunciar; writeups en las 24 h posteriores al cierre. Certificados de participación y logros tras los resultados.",
-      "description": "El calendario oficial publica 6–8/11/2026, inicio 15:00 EET (13:00 UTC), durante 48 horas. El conflicto de fechas reportado previamente no aparece en las fechas consultadas: ahora coinciden con CTFtime. El HTML oficial también contiene un aviso de operación concluida, contradictorio con ese calendario futuro; se preserva el horario explícito y conviene reconfirmarlo antes de competir. Cada integrante debe registrarse; el equipo se bloquea al inicio.",
+      "description": "Las reglas, FAQ y calendario oficiales confirman 6–8/11/2026, inicio 15:00 EET (13:00 UTC), durante 48 horas. En la revisión actual las páginas legibles presentan el evento como futuro; se retira la advertencia anterior de operación concluida. Cada integrante debe registrarse y el equipo de 1–5 se bloquea al inicio.",
       "why": "Los escenarios de aplicaciones, Windows y sectores como salud y finanzas conectan con tu trabajo en sistemas empresariales.",
       "fee": "gratis",
-      "eligibility": "mundial; Juniors: todos menores de 18; Seniors: todos de 18+; Fighters: sin restricción de edad",
+      "eligibility": "mundial; Juniors: todos menores de 18; Seniors: todos de 18+; Fighters: sin restricción de edad, permite participar desde Argentina · para vos: sí",
       "team_size": "1–5",
       "career_value": "El registro permite optar por compartir datos y desempeño con sponsors y partners para oportunidades laborales, educativas o de colaboración; no garantiza ofertas.",
       "start": "2026-11-06T13:00:00.000Z",
@@ -546,16 +546,17 @@
       "sources": [
         "carga-inicial.md",
         "carga-complementaria.md",
-        "enriquecimiento-2026-10-25.md"
+        "enriquecimiento-2026-10-25.md",
+        "enriquecimiento-2026-10-26.md"
       ],
       "added": "2026-10-21",
-      "last_seen": "2026-10-25",
+      "last_seen": "2026-10-26",
       "verified_by": [
         "oficial",
         "ctftime"
       ],
       "ctftime_rated": null,
-      "changed": "2026-10-25T22:07:06.316Z",
+      "changed": "2026-10-26T14:58:54.276Z",
       "changed_fields": [
         "eligibility"
       ]
@@ -934,11 +935,12 @@
       "id": "glacierctf-2026",
       "sources": [
         "carga-inicial.md",
-        "carga-complementaria.md"
+        "carga-complementaria.md",
+        "enriquecimiento-2026-10-26.md"
       ],
       "added": "2026-10-22",
-      "last_seen": "2026-10-25",
-      "ctftime_rated": true,
+      "last_seen": "2026-10-26",
+      "ctftime_rated": null,
       "verified_by": [
         "oficial",
         "ctftime"
@@ -1287,7 +1289,7 @@
       "location": "online",
       "organizer": "Cryptonite",
       "prizes": "Por anunciar.",
-      "description": "CTFtime confirma un evento online de 48 horas para estudiantes y participantes experimentados. Incluye hardware, crypto, web, forensics, pwn y reversing. Oficial sin confirmar: la página requiere JavaScript y no expone un calendario legible.",
+      "description": "CTF online de 48 horas para estudiantes y participantes experimentados, con hardware, crypto, web, forensics, pwn y reversing; fechas confirmadas en CTFtime. Oficial sin confirmar: la web queda en blanco por un error al crear el contexto WebGL; la versión sin JavaScript no aporta contenido y las redes consultadas no permitieron confirmar los datos de inscripción de esta edición.",
       "why": "Valor estimado: práctica técnica complementaria a tu experiencia de desarrollo y análisis de sistemas.",
       "fee": "no verificado",
       "eligibility": "no verificado",
@@ -1305,16 +1307,17 @@
         "rev"
       ],
       "recommended": false,
-      "ctftime_rated": true,
+      "ctftime_rated": null,
       "verified_by": [
         "ctftime"
       ],
       "id": "nitectf-2026",
       "sources": [
-        "carga-complementaria.md"
+        "carga-complementaria.md",
+        "enriquecimiento-2026-10-26.md"
       ],
       "added": "2026-10-24",
-      "last_seen": "2026-10-25"
+      "last_seen": "2026-10-26"
     },
     {
       "name": "BSides Algiers 2026 CTF",
