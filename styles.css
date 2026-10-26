@@ -231,7 +231,7 @@ button { font: inherit; color: inherit; }
 .cal-head .btn:not(.icon) { border-color: var(--border-strong); font-size: 13px; }
 
 .cal {
-  --num-h: 28px; --lane-h: 24px; --long-h: 16px; --more-h: 18px;
+  --num-h: 28px; --lane-h: 24px; --long-h: 16px; --more-h: 16px; --week-h: 156px;
   background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
   box-shadow: 0 1px 2px rgba(60, 52, 44, .04);
 }
@@ -242,7 +242,7 @@ button { font: inherit; color: inherit; }
   color: var(--muted); font-size: 12px; text-align: center; padding: 6px 0;
   border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
 }
-.cal-week { row-gap: 3px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.cal-week { height: var(--week-h); row-gap: 2px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
 .cal-day { padding: 4px 6px; min-width: 0; margin-bottom: -6px; border-right: 1px solid var(--border); text-align: right; }
 .cal-week > div:nth-of-type(6), .cal-week > div:nth-of-type(7) { background: color-mix(in srgb, var(--bg) 70%, var(--surface)); }
 .cal-day.other .num { color: var(--faint); }
@@ -259,7 +259,7 @@ button { font: inherit; color: inherit; }
 /* barras de eventos: tarjetitas con el tono del estado */
 .ev-bar {
   z-index: 1; min-width: 0; margin: 0 5px; cursor: pointer; text-align: left;
-  font-size: 12px; font-weight: 500; line-height: 1; padding: 0 7px; border: 0; border-radius: 4px;
+  font-size: var(--bar-fs, 12px); font-weight: 500; line-height: 1; padding: 0 7px; border: 0; border-radius: 4px;
   color: var(--text-strong);
   background: color-mix(in srgb, var(--c) var(--tag-mix), var(--surface));
   box-shadow: inset 3px 0 0 var(--c);
@@ -271,10 +271,9 @@ button { font: inherit; color: inherit; }
 .ev-bar.clip-r { margin-right: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; }
 .ev-bar.descartado { text-decoration: line-through; opacity: .45; }
 
-/* eventos largos (> 1 semana): línea fina */
 /* eventos largos (> 1 semana): banda tenue y fina, sin competir con los eventos cortos */
 .ev-bar.ev-long {
-  font-size: 11px; font-weight: 400; color: var(--muted); padding: 0 6px;
+  font-size: min(11px, var(--bar-fs, 11px)); font-weight: 400; color: var(--muted); padding: 0 6px;
   background: color-mix(in srgb, var(--c) 11%, transparent); border-radius: 3px;
   box-shadow: inset 2px 0 0 color-mix(in srgb, var(--c) 70%, transparent);
 }
@@ -557,7 +556,7 @@ button { font: inherit; color: inherit; }
   .search { width: 100%; }
   .search-wrap { flex: 1; }
 
-  .cal { --num-h: 22px; --lane-h: 7px; --long-h: 3px; --more-h: 14px; }
+  .cal { --num-h: 22px; --lane-h: 7px; --long-h: 3px; --more-h: 14px; --week-h: 87px; }
   .cal-day { padding: 2px; text-align: center; }
   .cal-day .num { min-width: 20px; height: 20px; font-size: 11px; }
   .dl-mark { margin: 1px 0 0 1px; padding: 0 2px; font-size: 9px; line-height: 14px; }

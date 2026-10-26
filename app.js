@@ -833,12 +833,13 @@ function assignLanes(segs) {
   return laneEnds.length;
 }
 
-// Una semana es una grilla de 7 columnas: fila 1 para los números de día, los carriles de
-// barras normales, los carriles finitos de eventos largos y una fila final para los "+N más".
-// Las filas son siempre las mismas (estén ocupadas o no) para que todas las semanas, y por
-// lo tanto todos los meses, midan igual y la página no salte al cambiar de mes.
+// Una semana es una grilla de 7 columnas: fila 1 para los números de día, un carril por cada
+// fila de eventos superpuestos y debajo los carriles finitos de eventos largos.
+// La semana tiene alto fijo (la página no salta al cambiar de mes) y los carriles se reparten
+// ese alto: con pocos eventos cada barra mide lo normal y con muchos se achican, en vez de
+// esconderse. Solo un caso extremo (más de MAX_LANES superpuestos) termina en "+N más".
 function renderWeek(weekStart, month, events) {
-  const MAX_LANES = 3, MAX_LONG_LANES = 1;
+  const MAX_LANES = 8, MAX_LONG_LANES = 3;
   const weekEnd = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 7);
   const today = startOfDay(new Date()).getTime();
 
@@ -851,17 +852,30 @@ function renderWeek(weekStart, month, events) {
     .sort((p, q) => p.from - q.from || (q.to - q.from) - (p.to - p.from) || p.ev._start - q.ev._start);
   const short = segs.filter((s) => !s.long), long = segs.filter((s) => s.long);
 
-  assignLanes(short);
-  assignLanes(long);
+  const lanes = Math.min(assignLanes(short), MAX_LANES);
+  const longLanes = Math.min(assignLanes(long), MAX_LONG_LANES);
   const isHidden = (s) => s.lane >= (s.long ? MAX_LONG_LANES : MAX_LANES);
   const hidden = Array(7).fill(0);
   for (const s of segs) if (isHidden(s)) for (let c = s.from; c <= s.to; c++) hidden[c]++;
+  const anyHidden = hidden.some(Boolean);
 
-  const lanes = MAX_LANES; // filas fijas: los eventos largos van siempre debajo de los 3 carriles
-  const rows = MAX_LANES + MAX_LONG_LANES + 2; // fila de los "+N más"
+  // minmax(0, alto normal): cada carril crece hasta su alto normal y, si no entra todo, todos se
+  // achican por igual. El 1fr final absorbe el espacio sobrante en semanas tranquilas.
+  const rows = lanes + longLanes + 2; // fila de los "+N más" (solo existe si hace falta)
   const week = h("div", {
     class: "cal-week",
-    style: `grid-template-rows: var(--num-h) repeat(${MAX_LANES}, var(--lane-h)) repeat(${MAX_LONG_LANES}, var(--long-h)) var(--more-h)`,
+    style: [
+      // repeat(0, …) no es CSS válido: solo se agregan las filas que existen.
+      "grid-template-rows: " + [
+        "var(--num-h)",
+        lanes && `repeat(${lanes}, minmax(0, var(--lane-h)))`,
+        longLanes && `repeat(${longLanes}, minmax(0, var(--long-h)))`,
+        anyHidden && "var(--more-h)",
+        "1fr",
+      ].filter(Boolean).join(" "),
+      // letra más chica cuanto más carriles comparten el alto
+      `--bar-fs: ${lanes <= 3 ? 12 : lanes === 4 ? 11 : lanes === 5 ? 10 : 9}px`,
+    ].join("; "),
   });
 
   for (let c = 0; c < 7; c++) {
