@@ -231,7 +231,7 @@ button { font: inherit; color: inherit; }
 .cal-head .btn:not(.icon) { border-color: var(--border-strong); font-size: 13px; }
 
 .cal {
-  --num-h: 28px; --lane-h: 24px; --long-h: 16px; --week-min: 120px;
+  --num-h: 28px; --lane-h: 24px; --long-h: 16px; --more-h: 18px;
   background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
   box-shadow: 0 1px 2px rgba(60, 52, 44, .04);
 }
@@ -242,7 +242,7 @@ button { font: inherit; color: inherit; }
   color: var(--muted); font-size: 12px; text-align: center; padding: 6px 0;
   border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
 }
-.cal-week { min-height: var(--week-min); row-gap: 3px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.cal-week { row-gap: 3px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
 .cal-day { padding: 4px 6px; min-width: 0; margin-bottom: -6px; border-right: 1px solid var(--border); text-align: right; }
 .cal-week > div:nth-of-type(6), .cal-week > div:nth-of-type(7) { background: color-mix(in srgb, var(--bg) 70%, var(--surface)); }
 .cal-day.other .num { color: var(--faint); }
@@ -557,7 +557,7 @@ button { font: inherit; color: inherit; }
   .search { width: 100%; }
   .search-wrap { flex: 1; }
 
-  .cal { --num-h: 22px; --lane-h: 7px; --long-h: 3px; --week-min: 68px; }
+  .cal { --num-h: 22px; --lane-h: 7px; --long-h: 3px; --more-h: 14px; }
   .cal-day { padding: 2px; text-align: center; }
   .cal-day .num { min-width: 20px; height: 20px; font-size: 11px; }
   .dl-mark { margin: 1px 0 0 1px; padding: 0 2px; font-size: 9px; line-height: 14px; }

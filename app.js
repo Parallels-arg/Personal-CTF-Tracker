@@ -835,8 +835,10 @@ function assignLanes(segs) {
 
 // Una semana es una grilla de 7 columnas: fila 1 para los números de día, los carriles de
 // barras normales, los carriles finitos de eventos largos y una fila final para los "+N más".
+// Las filas son siempre las mismas (estén ocupadas o no) para que todas las semanas, y por
+// lo tanto todos los meses, midan igual y la página no salte al cambiar de mes.
 function renderWeek(weekStart, month, events) {
-  const MAX_LANES = 3, MAX_LONG_LANES = 2;
+  const MAX_LANES = 3, MAX_LONG_LANES = 1;
   const weekEnd = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 7);
   const today = startOfDay(new Date()).getTime();
 
@@ -849,16 +851,17 @@ function renderWeek(weekStart, month, events) {
     .sort((p, q) => p.from - q.from || (q.to - q.from) - (p.to - p.from) || p.ev._start - q.ev._start);
   const short = segs.filter((s) => !s.long), long = segs.filter((s) => s.long);
 
-  const lanes = Math.min(assignLanes(short), MAX_LANES);
-  const longLanes = Math.min(assignLanes(long), MAX_LONG_LANES);
+  assignLanes(short);
+  assignLanes(long);
   const isHidden = (s) => s.lane >= (s.long ? MAX_LONG_LANES : MAX_LANES);
   const hidden = Array(7).fill(0);
   for (const s of segs) if (isHidden(s)) for (let c = s.from; c <= s.to; c++) hidden[c]++;
 
-  const rows = lanes + longLanes + 2;
+  const lanes = MAX_LANES; // filas fijas: los eventos largos van siempre debajo de los 3 carriles
+  const rows = MAX_LANES + MAX_LONG_LANES + 2; // fila de los "+N más"
   const week = h("div", {
     class: "cal-week",
-    style: `grid-template-rows: var(--num-h) repeat(${lanes}, var(--lane-h)) repeat(${longLanes}, var(--long-h)) auto 1fr`,
+    style: `grid-template-rows: var(--num-h) repeat(${MAX_LANES}, var(--lane-h)) repeat(${MAX_LONG_LANES}, var(--long-h)) var(--more-h)`,
   });
 
   for (let c = 0; c < 7; c++) {
@@ -869,7 +872,7 @@ function renderWeek(weekStart, month, events) {
     const cls = ["cal-day", day.getMonth() !== month && "other", day.getTime() === today && "today", dayEvents.length && "has-events"];
     week.append(h("div", {
       class: cls.filter(Boolean).join(" "),
-      style: `grid-column: ${c + 1}; grid-row: 1 / ${rows + 2}`,
+      style: `grid-column: ${c + 1}; grid-row: 1 / -1`,
       onclick: dayEvents.length ? () => openDay(day, dayEvents) : null,
     }, h("span", { class: "num" }, day.getDate())));
     // ⏳ el día que cierra la inscripción de un evento "Me interesa" que todavía no cerró.
@@ -926,8 +929,7 @@ function calendarLegend() {
 function renderCalendar() {
   const y = state.month.getFullYear(), m = state.month.getMonth();
   const offset = (new Date(y, m, 1).getDay() + 6) % 7; // semana arranca en lunes
-  const daysInMonth = new Date(y, m + 1, 0).getDate();
-  const weeks = Math.ceil((offset + daysInMonth) / 7);
+  const weeks = 6; // siempre 6 semanas (como Google Calendar): todos los meses miden lo mismo
   const events = filtered({ includePast: state.showPast });
 
   const grid = h("div", { class: "cal" },
