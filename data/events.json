@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T14:58:54.283Z",
+  "updated": "2026-10-27T12:06:02.720Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -227,14 +227,14 @@
       "format": "otro",
       "location": "online",
       "organizer": "Exun Clan",
-      "prizes": "El oficial anuncia INR 90.000; además menciona USD 900 y obsequios para los 50 mejores equipos. Las cifras no son equivalencias verificadas.",
-      "description": "Competencia internacional que combina CTF y cryptic hunt durante 36 horas. El oficial confirma el nuevo formato obligatorio de equipos de 3 y ofrece registro; no se verificó un cierre de inscripción.",
-      "why": "Complementa tu práctica técnica con criptografía y resolución de pistas.",
+      "prizes": "El sitio oficial anuncia INR 90.000 y también USD 900, sin equivalencia aclarada; obsequios para los 50 mejores equipos.",
+      "description": "Cambio de horario: el sitio oficial ahora publica inicio el 27/10 a las 06:30 UTC (03:30 ART), mientras CTFtime todavía indica 03:30 UTC (00:30 ART); se prioriza el oficial. El cierre oficial publicado sigue siendo el 28/10 a las 15:30 UTC (12:30 ART), aunque eso suma 33 horas y la misma página declara 36 horas. En comentarios de CTFtime del 27/10, una cuenta que se presenta como organizadora reconoce problemas de acceso y anuncia que comunicará un nuevo horario; por eso ambos horarios son provisionales y requieren reconfirmación en el sitio oficial o el canal de avisos https://exun.co/26/whatsapp. Competencia internacional CTF y cryptic hunt con equipos obligatorios de tres personas.",
+      "why": "Sirve para practicar criptografía y resolución de acertijos en equipo; requiere encontrar otros dos integrantes.",
       "fee": "no verificado",
-      "eligibility": "abierto a todos; permite participación independiente sin afiliación escolar",
+      "eligibility": "abierto a todos; participación internacional sin requisito de afiliación escolar",
       "team_size": "exactamente 3",
-      "career_value": "Valor estimado: práctica en equipo y contacto con la comunidad; Intel y Jane Street figuran como socios, sin reclutamiento confirmado.",
-      "start": "2026-10-27T03:30:00.000Z",
+      "career_value": "Valor estimado: experiencia colaborativa y writeups para el portfolio; no hay oportunidades de contratación verificadas.",
+      "start": "2026-10-27T06:30:00.000Z",
       "end": "2026-10-28T15:30:00.000Z",
       "weight": 0,
       "tags": [
@@ -246,17 +246,19 @@
       "sources": [
         "carga-inicial.md",
         "carga-complementaria.md",
-        "enriquecimiento-2026-10-25.md"
+        "enriquecimiento-2026-10-25.md",
+        "2026-10-27.md"
       ],
       "added": "2026-10-20",
-      "last_seen": "2026-10-25",
+      "last_seen": "2026-10-27",
       "ctftime_rated": false,
       "verified_by": [
         "oficial",
         "ctftime"
       ],
-      "changed": "2026-10-25T22:07:06.316Z",
+      "changed": "2026-10-27T12:06:02.712Z",
       "changed_fields": [
+        "start",
         "eligibility"
       ]
     },
