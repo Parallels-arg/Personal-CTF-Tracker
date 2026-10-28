@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T12:06:02.720Z",
+  "updated": "2026-10-28T17:38:20.572Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -522,13 +522,13 @@
       "format": "jeopardy",
       "location": "online",
       "organizer": "Chronos Security",
-      "prizes": "Top 3 por track, importes por anunciar; writeups en las 24 h posteriores al cierre. Certificados de participación y logros tras los resultados.",
-      "description": "Las reglas, FAQ y calendario oficiales confirman 6–8/11/2026, inicio 15:00 EET (13:00 UTC), durante 48 horas. En la revisión actual las páginas legibles presentan el evento como futuro; se retira la advertencia anterior de operación concluida. Cada integrante debe registrarse y el equipo de 1–5 se bloquea al inicio.",
+      "prizes": "Bolsa anunciada EUR 8.000+ con aportes en especie; reparto por bracket pendiente. Quienes completen el evento reciben 3 meses de PIECE Elite y certificado tras feedback. Descuento ThunderCipher 66%; beneficios Elastic. Top 3 por track requiere writeups antes del 9/11, 15:00 EET.",
+      "description": "El calendario oficial mantiene 6–8/11/2026, 48 horas desde 15:00 EET (13:00 UTC), sin cambios de fechas. Se publicaron bonus para los tres primeros equipos en resolver cada reto: 8%, 5% y 2% del valor inicial, globales y no por división. Los writeups se envían a csctf@chronos-security.ro antes del 9/11 a las 15:00 EET; asunto WRITEUP - division - team name, un correo por equipo.",
       "why": "Los escenarios de aplicaciones, Windows y sectores como salud y finanzas conectan con tu trabajo en sistemas empresariales.",
       "fee": "gratis",
       "eligibility": "mundial; Juniors: todos menores de 18; Seniors: todos de 18+; Fighters: sin restricción de edad, permite participar desde Argentina · para vos: sí",
       "team_size": "1–5",
-      "career_value": "El registro permite optar por compartir datos y desempeño con sponsors y partners para oportunidades laborales, educativas o de colaboración; no garantiza ofertas.",
+      "career_value": "Los writeups enviados pueden publicarse con el nombre del autor en el archivo permanente del evento; sirve para mostrar trabajo técnico. No se verificaron ofertas laborales.",
       "start": "2026-11-06T13:00:00.000Z",
       "end": "2026-11-08T13:00:00.000Z",
       "weight": 0,
@@ -549,10 +549,11 @@
         "carga-inicial.md",
         "carga-complementaria.md",
         "enriquecimiento-2026-10-25.md",
-        "enriquecimiento-2026-10-26.md"
+        "enriquecimiento-2026-10-26.md",
+        "enriquecimiento-2026-10-28.md"
       ],
       "added": "2026-10-21",
-      "last_seen": "2026-10-26",
+      "last_seen": "2026-10-28",
       "verified_by": [
         "oficial",
         "ctftime"
@@ -916,11 +917,11 @@
       "format": "jeopardy",
       "location": "online",
       "organizer": "LosFuzzys",
-      "prizes": "Por anunciar.",
-      "description": "Quinta edición de GlacierCTF, con desafíos de pwn, reversing, web, crypto y misc. El sitio oficial confirma la edición y bienvenida a todos los niveles; el horario de 24 horas procede de CTFtime.",
+      "prizes": "Académicos: 1.º swag y 3 licencias IDA Pro Expert-2; 2.º, 2 licencias. Top 3: beca ISEC para Graz Security Week 2027 de hasta EUR 1.500, por reembolso tras asistir. Selección por writeups completos enviados en 7 días.",
+      "description": "La web oficial publicó premios académicos y condiciones de elegibilidad; los ganadores se eligen mediante evaluación de writeups, no únicamente por el scoreboard. Se mantienen los horarios de 24 horas de CTFtime. Cierre de inscripción, costo y límite de integrantes no publicados.",
       "why": "Valor estimado: práctica de reversing y explotación que complementa tu base de desarrollo.",
       "fee": "no verificado",
-      "eligibility": "se reciben participantes de todos los niveles; otras restricciones no verificadas",
+      "eligibility": "Participación abierta; premios estudiantiles: todo el equipo debe estudiar en escuela/universidad. Sin premios para equipos de países sancionados por Austria/UE; top 3 debe acreditar ciudadanía o matrícula. Faltan confirmar composición, documentación del equipo y aplicación de la exclusión · para vos: dudoso",
       "team_size": "no verificado",
       "career_value": "Valor estimado: práctica técnica y posibles writeups para tu portfolio; reclutamiento y contactos laborales no verificados.",
       "start": "2026-11-20T18:00:00.000Z",
@@ -938,14 +939,19 @@
       "sources": [
         "carga-inicial.md",
         "carga-complementaria.md",
-        "enriquecimiento-2026-10-26.md"
+        "enriquecimiento-2026-10-26.md",
+        "enriquecimiento-2026-10-28.md"
       ],
       "added": "2026-10-22",
-      "last_seen": "2026-10-26",
+      "last_seen": "2026-10-28",
       "ctftime_rated": null,
       "verified_by": [
         "oficial",
         "ctftime"
+      ],
+      "changed": "2026-10-28T17:38:20.566Z",
+      "changed_fields": [
+        "eligibility"
       ]
     },
     {
