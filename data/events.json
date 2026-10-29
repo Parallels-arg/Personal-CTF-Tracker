@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T17:38:20.572Z",
+  "updated": "2026-10-29T12:06:16.857Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -261,6 +261,37 @@
         "start",
         "eligibility"
       ]
+    },
+    {
+      "name": "Operation Cymbal: Cold Room",
+      "url": "https://ctf.hackthebox.com/event/details/operation-cymbal-cold-room-3631",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "Google Cloud Security Community y Hack The Box",
+      "prizes": "Premios anunciados para los primeros 25, artículos de Google Cloud Security/HTB y vouchers de examen Professional Security Operations Engineer, sujetos a condiciones.",
+      "description": "CTF online de 72 horas, del 29/10 a las 13:00 al 1/11 a las 13:00 ART, para reconstruir tres incidentes con evidencia de identidad, endpoints, correo, nube y sistemas de compilación. El organizador confirma que el registro limitado cerró el 28/10 y que se requiere aprobación previa y un código de acceso: no se presenta como inscripción disponible. Fuente oficial adicional: https://security.googlecloudcommunity.com/events/community-capture-the-flag-with-hack-the-box-operation-cymbal-cold-room-141.",
+      "why": "La investigación de intrusiones en entornos cloud y endpoints complementa tu desarrollo y transición a seguridad ofensiva, pero el acceso ya requiere autorización previa.",
+      "eligibility": "Requiere registro aprobado y código de acceso al evento privado; la inscripción cerró el 28/10 y no se verificó que tengas aprobación · para vos: dudoso",
+      "team_size": "individual (1)",
+      "career_value": "Valor estimado: experiencia en respuesta a incidentes y herramientas Google SecOps; el evento confirma premios y formación, no oportunidades laborales.",
+      "start": "2026-10-29T16:00:00.000Z",
+      "end": "2026-11-01T16:00:00.000Z",
+      "tags": [
+        "forensics",
+        "cloud",
+        "network",
+        "OSINT"
+      ],
+      "recommended": false,
+      "verified_by": [
+        "oficial"
+      ],
+      "id": "operation-cymbal-cold-room-2026",
+      "sources": [
+        "2026-10-29.md"
+      ],
+      "added": "2026-10-29",
+      "last_seen": "2026-10-29"
     },
     {
       "name": "HI Cyber Con CTF",
@@ -811,6 +842,41 @@
       "ctftime_rated": null
     },
     {
+      "name": "International Battle of Hackers 2026 (IBOH)",
+      "url": "https://battleofhackers.com/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "FSEC-SS, Asia Pacific University of Technology & Innovation (APU)",
+      "prizes": "Premios para los 10 mejores equipos internacionales, con efectivo y suscripciones OffSec PGP; el organizador anuncia un fondo total de RM 40.600 entre categorías.",
+      "description": "CTF universitario internacional con Jeopardy híbrido, jugable online desde Argentina, el 13/11 a las 21:30 hasta el 14/11 a las 07:00 ART (horario local malasio 14/11 08:30–18:00 GMT+8). Inscripción internacional online hasta el 5/11 a las 12:59 ART, por USD 25 por equipo; Attack & Defense es exclusivamente presencial y local, por lo que no aplica a la participación remota. Inscripción oficial: https://battleofhackers.com/ (botón Register: Jeopardy). La ficha de CTFtime anteriormente indexada no estuvo accesible para verificación actual, por lo que no se incorporan campos de rating.",
+      "why": "Tu condición de estudiante universitario argentino encaja explícitamente en la categoría internacional; las pruebas de reversing, web y forense conectan tu experiencia de desarrollo con seguridad ofensiva.",
+      "fee": "USD 25 por equipo para Jeopardy International online",
+      "eligibility": "Jeopardy International admite estudiantes universitarios de cualquier país, incluidos equipos entre universidades; estudiás Ingeniería en Informática en UNLaM (Argentina) · para vos: sí",
+      "team_size": "1–3",
+      "career_value": "El organizador declara colaboración con socios de la industria y ofrece premios de formación; potencial valor de portfolio y contactos, sin contratación verificada.",
+      "start": "2026-11-14T00:30:00.000Z",
+      "end": "2026-11-14T10:00:00.000Z",
+      "tags": [
+        "rev",
+        "web",
+        "crypto",
+        "forensics",
+        "OSINT",
+        "network"
+      ],
+      "recommended": true,
+      "verified_by": [
+        "oficial"
+      ],
+      "registration_deadline": "2026-11-05T15:59:00.000Z",
+      "id": "international-battle-of-hackers-2026",
+      "sources": [
+        "2026-10-29.md"
+      ],
+      "added": "2026-10-29",
+      "last_seen": "2026-10-29"
+    },
+    {
       "name": "InIt CTF",
       "url": "https://hackersinindia.com/init-ctf",
       "ctftime_url": "https://ctftime.org/event/3467/",
@@ -953,6 +1019,34 @@
       "changed_fields": [
         "eligibility"
       ]
+    },
+    {
+      "name": "SwampCTF 2026",
+      "url": "https://swampctf.com/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "SwampCTF",
+      "description": "El sitio oficial anuncia un CTF de 48 horas del 20 al 22/11/2026, con inicio a las 17:00 EDT indicado literalmente (18:00 ART, 21:00 UTC). La denominación EDT es inusual para noviembre; se conserva el instante anunciado y conviene reconfirmarlo cerca del inicio. Fuentes secundarias lo describen como Jeopardy online con reversing, pwn, forense y crypto, pero la web oficial todavía no publica condiciones de inscripción, costo ni equipos. La antigua ficha de CTFtime (event/3118) devuelve 404 y no figura en el listado actual, por lo que no se incluyen campos CTFtime.",
+      "why": "Competencia online extensa que permite practicar reversing y explotación y producir writeups para tu portfolio.",
+      "career_value": "Valor estimado: experiencia competitiva y portfolio; no hay contratación ni networking profesional verificados.",
+      "start": "2026-11-20T21:00:00.000Z",
+      "end": "2026-11-22T21:00:00.000Z",
+      "tags": [
+        "rev",
+        "pwn",
+        "forensics",
+        "crypto"
+      ],
+      "recommended": true,
+      "verified_by": [
+        "oficial"
+      ],
+      "id": "swampctf-2026",
+      "sources": [
+        "2026-10-29.md"
+      ],
+      "added": "2026-10-29",
+      "last_seen": "2026-10-29"
     },
     {
       "name": "Outback Overflow 2026",
