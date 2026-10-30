@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T03:16:22.870Z",
+  "updated": "2026-10-30T12:00:52.510Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -264,6 +264,37 @@
       ]
     },
     {
+      "name": "Dragos Capture the Flag 2026 (OT/ICS)",
+      "url": "https://hub.dragos.com/ctf-registration-26",
+      "format": "otro",
+      "location": "online",
+      "organizer": "Dragos",
+      "description": "CTF virtual de 48 horas sobre seguridad industrial, con análisis de PCAP de protocolos ICS, logs de Windows, memoria, phishing y programas de PLC. La fuente oficial fija del 28/10 a las 16:00 UTC al 30/10 a las 16:00 UTC (13:00 ART), de modo que quedan pocas horas de juego al momento del relevamiento. La página invita a registrarse y recibir detalles, sin confirmar acceso inmediato; no se encontró ficha de CTFtime.",
+      "why": "Conecta tu experiencia en sistemas y tu interés en dispositivos y protocolos con análisis forense de redes industriales. La ventana restante es corta, por lo que no se marca como recomendación fuerte.",
+      "eligibility": "El organizador menciona participantes de DISC de todo el mundo, pero no aclara si pueden inscribirse personas ajenas al evento ni si la inscripción sigue habilitada · para vos: dudoso",
+      "team_size": "individual o equipo; límite no verificado",
+      "career_value": "Valor estimado: experiencia práctica en OT/ICS y potenciales writeups; no se verificó reclutamiento ni acceso a networking.",
+      "start": "2026-10-28T16:00:00.000Z",
+      "end": "2026-10-30T16:00:00.000Z",
+      "tags": [
+        "forensics",
+        "network",
+        "OT",
+        "ICS",
+        "misc"
+      ],
+      "recommended": false,
+      "verified_by": [
+        "oficial"
+      ],
+      "id": "dragos-ot-ctf-2026",
+      "sources": [
+        "2026-10-30.md"
+      ],
+      "added": "2026-10-30",
+      "last_seen": "2026-10-30"
+    },
+    {
       "name": "Operation Cymbal: Cold Room",
       "url": "https://ctf.hackthebox.com/event/details/operation-cymbal-cold-room-3631",
       "format": "jeopardy",
@@ -293,6 +324,36 @@
       ],
       "added": "2026-10-29",
       "last_seen": "2026-10-29"
+    },
+    {
+      "name": "WCSC October 2026 CTF",
+      "url": "https://wcsc.ctfd.io/",
+      "format": "jeopardy",
+      "location": "online",
+      "difficulty": "principiante",
+      "organizer": "WhiteHatters Computer Security Club",
+      "description": "CTF Jeopardy anunciado para el 30/10/2026 desde las 09:00 ET (10:00 ART), con retos de web exploitation, reversing, forense y seguridad general; el organizador confirma que hay desafíos aptos para principiantes. La plataforma oficial muestra acceso a la competencia, pero no publica una hora de cierre verificable, por lo que se omite end. No se confirmó costo ni elegibilidad internacional; no figura una ficha verificable en CTFtime.",
+      "why": "Permite practicar reversing y análisis forense en desafíos accesibles, con opción de competir individualmente. Puede ser útil para preparar writeups cortos.",
+      "team_size": "1–4",
+      "career_value": "Valor estimado: práctica y material de portfolio; no se verificaron oportunidades de networking profesional ni contratación.",
+      "start": "2026-10-30T13:00:00.000Z",
+      "end": "2026-10-30T13:00:00.000Z",
+      "tags": [
+        "web",
+        "rev",
+        "forensics",
+        "misc"
+      ],
+      "recommended": true,
+      "verified_by": [
+        "oficial"
+      ],
+      "id": "wcsc-october-ctf-2026",
+      "sources": [
+        "2026-10-30.md"
+      ],
+      "added": "2026-10-30",
+      "last_seen": "2026-10-30"
     },
     {
       "name": "HI Cyber Con CTF",
