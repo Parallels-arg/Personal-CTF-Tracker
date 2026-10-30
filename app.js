@@ -1469,7 +1469,10 @@ function renderStats() {
   const pending = upcoming.filter((e) => statusOf(e) === "sin-clasificar").length;
   const fresh = upcoming.filter(isNew).length;
   const changed = upcoming.filter(isChanged).length;
-  const next = upcoming.filter((e) => statusOf(e) === "inscripto").sort((a, b) => a._start - b._start)[0];
+  // Inscriptos: los que ya empezaron se muestran como "en curso"; "siguiente" es el próximo que no empezó.
+  const inscriptos = upcoming.filter((e) => statusOf(e) === "inscripto");
+  const liveInsc = inscriptos.filter((e) => e._start <= now);
+  const next = inscriptos.filter((e) => e._start > now).sort((a, b) => a._start - b._start)[0];
   // Próximo cierre de inscripción entre los "Me interesa".
   const closing = state.events
     .filter((e) => notifiesDeadline(e) && new Date(e._deadline) > now)
@@ -1480,7 +1483,8 @@ function renderStats() {
     `${pending} sin clasificar`,
     fresh ? `${fresh} sin abrir` : null,
     changed ? `${changed} con cambios` : null,
-    next ? `siguiente inscripto: ${next.name} (${fmtDate.format(next._start)})` : null,
+    liveInsc.length ? `inscripto en curso: ${liveInsc.map((e) => e.name).join(", ")}` : null,
+    next ? `siguiente inscripto: ${next.name} (${fmtDate.format(next._start)}, ${relTime(next._start)})` : null,
   ].filter(Boolean).join(" · ");
 }
 
