@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T15:06:56.085Z",
+  "updated": "2026-10-31T12:00:47.157Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -532,6 +532,36 @@
       ]
     },
     {
+      "name": "Ejercicio Técnico CTF Llaitún – Smart City Edition 2026",
+      "url": "https://welcu.com/centroinnovauc/ctf_llaitun_smart_city_edition_2026",
+      "format": "mixed",
+      "location": "online",
+      "organizer": "CiberLab, Centro de Innovación UC Anacleto Angelini",
+      "description": "Ejercicio técnico de ciberdefensa ambientado en una ciudad inteligente, anunciado para el jueves 5 de noviembre de 2026 de 09:00 a 17:00 hora de Chile (también 09:00 a 17:00 ART). La página de inscripción del organizador confirma modalidad online y entrada gratuita; la descripción del evento menciona desafíos de ataque y defensa sobre infraestructura crítica urbana. No se verificaron límites de equipo ni admisión de participantes de Argentina, por lo que conviene consultar antes de inscribirse. Fuente adicional descriptiva: https://eventos.kenbria.com/evento/ejercicio-tecnico-ctf-llaitun-smart-city-edition-ciberlab",
+      "why": "Encaja especialmente con tu interés en IoT y seguridad de infraestructura y con la transición hacia pentesting y Red Team. La elegibilidad internacional aún requiere confirmación.",
+      "fee": "gratis",
+      "eligibility": "Inscripción online publicada por el organizador en Chile; no se aclara expresamente si se aceptan equipos desde Argentina · para vos: dudoso",
+      "career_value": "Valor estimado: experiencia en escenarios OT/ICS y contacto con comunidad académica/industrial chilena; no se verificaron oportunidades de contratación.",
+      "start": "2026-11-05T12:00:00.000Z",
+      "end": "2026-11-05T20:00:00.000Z",
+      "tags": [
+        "AD/network",
+        "OT",
+        "ICS",
+        "misc"
+      ],
+      "recommended": true,
+      "verified_by": [
+        "oficial"
+      ],
+      "id": "ctf-llaitun-smart-city-2026",
+      "sources": [
+        "2026-10-31.md"
+      ],
+      "added": "2026-10-31",
+      "last_seen": "2026-10-31"
+    },
+    {
       "name": "HKCERT CTF Quals",
       "url": "https://ctf.hkcert.org/",
       "ctftime_url": "https://ctftime.org/event/3418/",
@@ -667,14 +697,14 @@
       "difficulty": "principiante",
       "organizer": "NJIT Cyber Security Network (antes NICC)",
       "prizes": "El oficial anuncia premios en efectivo presenciales; elegibilidad y premios remotos no verificados.",
-      "description": "CTF de 24 horas, apto para principiantes y participantes con experiencia, con modalidad virtual y presencial en NJIT. CTFtime muestra 17:00 UTC en la cabecera pero el anuncio del organizador en esa misma ficha desplaza inicio y cierre cuatro horas: se usan 21:00 UTC. El oficial confirma los días 6–7/11, sin hora visible; reconfirmar el horario en Discord. Los agentes automáticos para resolver desafíos están prohibidos.",
+      "description": "CTF híbrido de 24 horas, apto para principiantes, organizado por NJIT Cyber Security Network. Cambio respecto de data/events.json: el anuncio del organizador en CTFtime ahora indica un desplazamiento de DOS horas respecto de la cabecera (17:00 UTC), es decir inicio 19:00 UTC (16:00 ART) y cierre 19:00 UTC el 7/11; el registro anterior usaba CUATRO horas (21:00 UTC). La web oficial confirma los días 6–7/11, pero no publica una hora visible; hay conflicto entre la cabecera de CTFtime y el aviso del organizador, por lo que prevalece este último. Se recomienda reconfirmar en Discord (https://discord.gg/NeHyp5fFHW); se prohíben agentes automáticos para resolver retos.",
       "why": "Es una opción accesible para practicar reversing, binarios y web y buscar equipo en Discord.",
       "fee": "gratis",
       "eligibility": "estudiantes, principiantes y profesionales; 18+ solo para asistir presencialmente",
       "team_size": "individual o equipo; límite no verificado",
       "career_value": "Valor estimado: práctica técnica y posibles writeups para tu portfolio; reclutamiento y contactos laborales no verificados.",
-      "start": "2026-11-06T21:00:00.000Z",
-      "end": "2026-11-07T21:00:00.000Z",
+      "start": "2026-11-06T19:00:00.000Z",
+      "end": "2026-11-07T19:00:00.000Z",
       "weight": 0,
       "tags": [
         "rev",
@@ -689,15 +719,21 @@
       "id": "spookyctf-2026",
       "sources": [
         "carga-inicial.md",
-        "carga-complementaria.md"
+        "carga-complementaria.md",
+        "2026-10-31.md"
       ],
       "added": "2026-10-20",
-      "last_seen": "2026-10-25",
+      "last_seen": "2026-10-31",
       "verified_by": [
         "oficial",
         "ctftime"
       ],
-      "ctftime_rated": null
+      "ctftime_rated": null,
+      "changed": "2026-10-31T12:00:47.150Z",
+      "changed_fields": [
+        "start",
+        "end"
+      ]
     },
     {
       "name": "First Flag CTF",
