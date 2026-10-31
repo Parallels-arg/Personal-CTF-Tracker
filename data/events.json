@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T12:00:47.157Z",
+  "updated": "2026-10-31T15:07:28.304Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -537,10 +537,10 @@
       "format": "mixed",
       "location": "online",
       "organizer": "CiberLab, Centro de Innovación UC Anacleto Angelini",
-      "description": "Ejercicio técnico de ciberdefensa ambientado en una ciudad inteligente, anunciado para el jueves 5 de noviembre de 2026 de 09:00 a 17:00 hora de Chile (también 09:00 a 17:00 ART). La página de inscripción del organizador confirma modalidad online y entrada gratuita; la descripción del evento menciona desafíos de ataque y defensa sobre infraestructura crítica urbana. No se verificaron límites de equipo ni admisión de participantes de Argentina, por lo que conviene consultar antes de inscribirse. Fuente adicional descriptiva: https://eventos.kenbria.com/evento/ejercicio-tecnico-ctf-llaitun-smart-city-edition-ciberlab",
+      "description": "Las bases oficiales fijan cierre de inscripción el 26/10/2026, sin hora, mientras Welcu aún permite abrir el formulario: no se confirma prórroga. Se conserva el 5/11, 09:00–17:00 de Chile, online. Equipos de hasta cuatro, con jefe responsable de inscripción. Acceso por VPN y computadores propios. Se prohíben servicios externos de resolución, IA agéntica, orquestación y automatización; el apoyo externo a las instituciones inscritas puede descalificar. El PDF no aclara participación desde Argentina. No se inventa una hora para registration_deadline.",
       "why": "Encaja especialmente con tu interés en IoT y seguridad de infraestructura y con la transición hacia pentesting y Red Team. La elegibilidad internacional aún requiere confirmación.",
       "fee": "gratis",
-      "eligibility": "Inscripción online publicada por el organizador en Chile; no se aclara expresamente si se aceptan equipos desde Argentina · para vos: dudoso",
+      "eligibility": "Equipos de instituciones académicas, organismos públicos, Fuerzas Armadas, empresas tecnológicas o profesionales de ciberseguridad; admisión desde Argentina sin confirmar · para vos: dudoso",
       "career_value": "Valor estimado: experiencia en escenarios OT/ICS y contacto con comunidad académica/industrial chilena; no se verificaron oportunidades de contratación.",
       "start": "2026-11-05T12:00:00.000Z",
       "end": "2026-11-05T20:00:00.000Z",
@@ -556,10 +556,17 @@
       ],
       "id": "ctf-llaitun-smart-city-2026",
       "sources": [
-        "2026-10-31.md"
+        "2026-10-31.md",
+        "enriquecimiento-2026-10-31.md"
       ],
       "added": "2026-10-31",
-      "last_seen": "2026-10-31"
+      "last_seen": "2026-10-31",
+      "team_size": "hasta 4; nombre único y jefe de equipo designado",
+      "changed": "2026-10-31T15:07:28.299Z",
+      "changed_fields": [
+        "eligibility",
+        "team_size"
+      ]
     },
     {
       "name": "HKCERT CTF Quals",
@@ -646,8 +653,8 @@
       "format": "jeopardy",
       "location": "online",
       "organizer": "Chronos Security",
-      "prizes": "Bolsa anunciada EUR 8.000+ con aportes en especie; reparto por bracket pendiente. Quienes completen el evento reciben 3 meses de PIECE Elite y certificado tras feedback. Descuento ThunderCipher 66%; beneficios Elastic. Top 3 por track requiere writeups antes del 9/11, 15:00 EET.",
-      "description": "El calendario oficial mantiene 6–8/11/2026, 48 horas desde 15:00 EET (13:00 UTC), sin cambios de fechas. Se publicaron bonus para los tres primeros equipos en resolver cada reto: 8%, 5% y 2% del valor inicial, globales y no por división. Los writeups se envían a csctf@chronos-security.ro antes del 9/11 a las 15:00 EET; asunto WRITEUP - division - team name, un correo por equipo.",
+      "prizes": "Bolsa anunciada EUR 8.000+ con aportes en especie; reparto por bracket pendiente. Best Writeup Award: certificado y archivo público destacado para un equipo. Beneficio PIECE discrepante entre páginas oficiales; ver description.",
+      "description": "Se mantiene el calendario 6–8/11/2026, 48 horas desde 15:00 EET, y el requisito de writeups del top 3 por división hasta el 9/11 a las 15:00 EET. Cualquier equipo puede optar al Best Writeup Award, evaluado por claridad, profundidad técnica y reproducibilidad. La plataforma ahora anuncia un mes de PIECE Premium por participante, certificado tras feedback y tres meses de acceso completo por enviar writeup. La web institucional todavía promete tres meses de PIECE Elite a quienes terminen: hay discrepancia oficial, no un beneficio uniforme confirmado.",
       "why": "Los escenarios de aplicaciones, Windows y sectores como salud y finanzas conectan con tu trabajo en sistemas empresariales.",
       "fee": "gratis",
       "eligibility": "mundial; Juniors: todos menores de 18; Seniors: todos de 18+; Fighters: sin restricción de edad, permite participar desde Argentina · para vos: sí",
@@ -674,10 +681,11 @@
         "carga-complementaria.md",
         "enriquecimiento-2026-10-25.md",
         "enriquecimiento-2026-10-26.md",
-        "enriquecimiento-2026-10-28.md"
+        "enriquecimiento-2026-10-28.md",
+        "enriquecimiento-2026-10-31.md"
       ],
       "added": "2026-10-21",
-      "last_seen": "2026-10-28",
+      "last_seen": "2026-10-31",
       "verified_by": [
         "oficial",
         "ctftime"
@@ -696,7 +704,7 @@
       "location": "online",
       "difficulty": "principiante",
       "organizer": "NJIT Cyber Security Network (antes NICC)",
-      "prizes": "El oficial anuncia premios en efectivo presenciales; elegibilidad y premios remotos no verificados.",
+      "prizes": "Anuncio del organizador en CTFtime: Open (online y presencial), 1.º $100, 2.º $50, 3.º $25; premio presencial $100. Moneda no explicitada.",
       "description": "CTF híbrido de 24 horas, apto para principiantes, organizado por NJIT Cyber Security Network. Cambio respecto de data/events.json: el anuncio del organizador en CTFtime ahora indica un desplazamiento de DOS horas respecto de la cabecera (17:00 UTC), es decir inicio 19:00 UTC (16:00 ART) y cierre 19:00 UTC el 7/11; el registro anterior usaba CUATRO horas (21:00 UTC). La web oficial confirma los días 6–7/11, pero no publica una hora visible; hay conflicto entre la cabecera de CTFtime y el aviso del organizador, por lo que prevalece este último. Se recomienda reconfirmar en Discord (https://discord.gg/NeHyp5fFHW); se prohíben agentes automáticos para resolver retos.",
       "why": "Es una opción accesible para practicar reversing, binarios y web y buscar equipo en Discord.",
       "fee": "gratis",
@@ -720,7 +728,8 @@
       "sources": [
         "carga-inicial.md",
         "carga-complementaria.md",
-        "2026-10-31.md"
+        "2026-10-31.md",
+        "enriquecimiento-2026-10-31.md"
       ],
       "added": "2026-10-20",
       "last_seen": "2026-10-31",
