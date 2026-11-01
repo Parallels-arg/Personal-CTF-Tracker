@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T12:05:15.799Z",
+  "updated": "2026-11-01T15:12:52.762Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -676,8 +676,8 @@
       "format": "jeopardy",
       "location": "online",
       "organizer": "Chronos Security",
-      "prizes": "Bolsa anunciada EUR 8.000+ con aportes en especie; reparto por bracket pendiente. Best Writeup Award: certificado y archivo público destacado para un equipo. Beneficio PIECE discrepante entre páginas oficiales; ver description.",
-      "description": "Se mantiene el calendario 6–8/11/2026, 48 horas desde 15:00 EET, y el requisito de writeups del top 3 por división hasta el 9/11 a las 15:00 EET. Cualquier equipo puede optar al Best Writeup Award, evaluado por claridad, profundidad técnica y reproducibilidad. La plataforma ahora anuncia un mes de PIECE Premium por participante, certificado tras feedback y tres meses de acceso completo por enviar writeup. La web institucional todavía promete tres meses de PIECE Elite a quienes terminen: hay discrepancia oficial, no un beneficio uniforme confirmado.",
+      "prizes": "Bolsa anunciada EUR 8.000+ con aportes en especie; reparto por bracket pendiente. Cinco bolsas Elastic para un equipo ganador. Best Writeup Award: certificado y archivo destacado para un equipo. Quienes finalicen reciben tres meses de PIECE Elite, sin compra ni tarjeta; certificado tras feedback.",
+      "description": "Se conserva el calendario 6–8/11, 48 horas desde las 15:00 EET. La plataforma ya coincide con la web institucional: tres meses de PIECE Elite para quienes finalicen; queda resuelta la discrepancia previa de Premium/Elite y duración. Todos los participantes tienen un descuento del 66 % en examen ThunderCipher con código TCCSCTF66. Cualquier equipo puede enviar writeup al archivo público y optar al Best Writeup Award. El top 3 por división debe entregarlo hasta el 9/11 a las 15:00 EET; no es un cierre de inscripción.",
       "why": "Los escenarios de aplicaciones, Windows y sectores como salud y finanzas conectan con tu trabajo en sistemas empresariales.",
       "fee": "gratis",
       "eligibility": "mundial; Juniors: todos menores de 18; Seniors: todos de 18+; Fighters: sin restricción de edad, permite participar desde Argentina · para vos: sí",
@@ -705,10 +705,11 @@
         "enriquecimiento-2026-10-25.md",
         "enriquecimiento-2026-10-26.md",
         "enriquecimiento-2026-10-28.md",
-        "enriquecimiento-2026-10-31.md"
+        "enriquecimiento-2026-10-31.md",
+        "enriquecimiento-2026-11-01.md"
       ],
       "added": "2026-10-21",
-      "last_seen": "2026-10-31",
+      "last_seen": "2026-11-01",
       "verified_by": [
         "oficial",
         "ctftime"
