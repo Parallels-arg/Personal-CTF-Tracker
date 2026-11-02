@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T15:12:52.762Z",
+  "updated": "2026-11-02T11:58:56.086Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -532,6 +532,43 @@
       ]
     },
     {
+      "name": "THE UNI6CTF 2.0 — Diwali Edition",
+      "url": "https://ctf2.uni6ctf.online/",
+      "format": "jeopardy",
+      "location": "online",
+      "difficulty": "intermedio",
+      "organizer": "UNI6CTF",
+      "prizes": "Premios configurados por un total de ₹26.000, sujetos a las condiciones del organizador.",
+      "description": "CTF online de 24 horas, del 03/11 11:30 ART al 04/11 11:30 ART, con 150+ retos anunciados en ocho dominios, incluidos reversing y hardware. El sitio oficial fija el cierre de inscripción el 02/11 a las 10:00 IST, equivalente al 02/11 01:30 ART: el plazo ya venció al momento de este relevamiento, por lo que la incorporación tardía no está confirmada. El precio anunciado es USD 2 por participante internacional; no se asumió que estés inscripto. Fuente oficial: https://ctf2.uni6ctf.online/.",
+      "why": "Sus desafíos de reversing, web y hardware coinciden con tus intereses, pero la inscripción ya cerró y no es una recomendación accionable sin reapertura.",
+      "fee": "USD 2 por participante internacional (el sitio también muestra ₹125)",
+      "eligibility": "abierto a participantes de todo el mundo, incluidos estudiantes y profesionales",
+      "team_size": "1–3",
+      "career_value": "Podría aportar práctica y writeups a participantes ya inscriptos; los patrocinadores no constituyen una oportunidad laboral verificada.",
+      "start": "2026-11-03T14:30:00.000Z",
+      "end": "2026-11-04T14:30:00.000Z",
+      "tags": [
+        "web",
+        "crypto",
+        "forensics",
+        "osint",
+        "rev",
+        "hardware",
+        "misc"
+      ],
+      "recommended": false,
+      "verified_by": [
+        "oficial"
+      ],
+      "registration_deadline": "2026-11-02T04:30:00.000Z",
+      "id": "uni6ctf-2-0-diwali-2026",
+      "sources": [
+        "2026-11-02.md"
+      ],
+      "added": "2026-11-02",
+      "last_seen": "2026-11-02"
+    },
+    {
       "name": "Ejercicio Técnico CTF Llaitún – Smart City Edition 2026",
       "url": "https://welcu.com/centroinnovauc/ctf_llaitun_smart_city_edition_2026",
       "format": "mixed",
@@ -946,6 +983,41 @@
       ]
     },
     {
+      "name": "The Cyber Trials 2026 (TryHackMe)",
+      "url": "https://tryhackme.com/the-cyber-trials",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "TryHackMe",
+      "prizes": "Premios para las tres mejores universidades; los integrantes pueden recibir certificaciones según posición.",
+      "description": "CTF universitario internacional de tres horas, el 13/11 de 14:00 a 17:00 ART. Solo un docente puede inscribir a la universidad y el plazo es el domingo 08/11/2026 (hora de cierre no publicada); la lista definitiva del equipo también vence ese día. Es una oportunidad condicionada a conseguir un docente de UNLaM y formar un equipo de 6–8 estudiantes; no se confirmó ninguna inscripción. Fuente oficial: https://tryhackme.com/the-cyber-trials.",
+      "why": "Las categorías de reversing, explotación binaria y seguridad web encajan con la transición hacia seguridad ofensiva; la dependencia de un profesor y la selección institucional limitan su accesibilidad inmediata.",
+      "fee": "gratis",
+      "eligibility": "Instituciones de educación superior de cualquier país; un profesor o docente debe registrar y representar a la universidad y seleccionar un equipo de 6–8 estudiantes. UNLaM puede participar por país y nivel educativo, pero no está confirmado que un docente registre a la universidad ni que seas seleccionado · para vos: dudoso",
+      "team_size": "6–8 estudiantes; un equipo por universidad",
+      "career_value": "Posible visibilidad académica y un writeup de equipo; no hay oferta de empleo confirmada.",
+      "start": "2026-11-13T17:00:00.000Z",
+      "end": "2026-11-13T20:00:00.000Z",
+      "tags": [
+        "web",
+        "crypto",
+        "rev",
+        "pwn",
+        "forensics",
+        "misc",
+        "AI"
+      ],
+      "recommended": false,
+      "verified_by": [
+        "oficial"
+      ],
+      "id": "tryhackme-the-cyber-trials-2026",
+      "sources": [
+        "2026-11-02.md"
+      ],
+      "added": "2026-11-02",
+      "last_seen": "2026-11-02"
+    },
+    {
       "name": "WolvCTF 2026",
       "url": "https://ctftime.org/event/3049/",
       "ctftime_url": "https://ctftime.org/event/3049/",
@@ -1017,6 +1089,40 @@
       ],
       "added": "2026-10-29",
       "last_seen": "2026-10-29"
+    },
+    {
+      "name": "Cipher Chase — Capture the Flag 2026",
+      "url": "https://unstop.com/hackathons/cipher-chase-capture-the-flag-synergy-26-international-institute-of-information-technology-iiit-bangalore-1763268",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "International Institute of Information Technology (IIIT), Bangalore — SYNERGY '26",
+      "prizes": "Premios anunciados por un total de ₹15.000.",
+      "description": "CTF online de 24 desafíos de web, criptografía, reversing, pwn y forense, con equipos de hasta dos personas. La ficha de inscripción indica inicio el 14/11 a las 09:00 IST (00:30 ART), pero lo marca «Timings TBA»: el horario es provisional y debe reconfirmarse; por esa razón se omite end aunque se anuncia duración de 24 horas. El cierre de inscripción figura el 12/11 a las 23:59 IST (15:29 ART). Fuente publicada por el organizador en Unstop: https://api.unstop.com/hackathons/cipher-chase-capture-the-flag-synergy-26-international-institute-of-information-technology-iiit-bangalore-1763268.",
+      "why": "Práctica pertinente para reversing y explotación web, con formato individual o dúo. La elegibilidad internacional y el horario definitivo requieren confirmación.",
+      "fee": "gratis (indicado en la ficha de inscripción)",
+      "eligibility": "La ficha admite estudiantes universitarios de grado y posgrado de diversas carreras; cursás Ingeniería en Informática en UNLaM, pero no se confirmó la admisión de participantes de Argentina · para vos: dudoso",
+      "team_size": "1–2",
+      "career_value": "Permite producir writeups de retos y practicar para futuras competencias; no se verificó vínculo con contrataciones.",
+      "start": "2026-11-14T03:30:00.000Z",
+      "end": "2026-11-14T03:30:00.000Z",
+      "tags": [
+        "web",
+        "crypto",
+        "rev",
+        "pwn",
+        "forensics"
+      ],
+      "recommended": false,
+      "verified_by": [
+        "oficial"
+      ],
+      "registration_deadline": "2026-11-12T18:29:00.000Z",
+      "id": "cipher-chase-ctf-2026",
+      "sources": [
+        "2026-11-02.md"
+      ],
+      "added": "2026-11-02",
+      "last_seen": "2026-11-02"
     },
     {
       "name": "InIt CTF",
