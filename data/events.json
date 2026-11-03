@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T11:59:42.740Z",
+  "updated": "2026-11-03T15:05:03.763Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -713,8 +713,8 @@
       "format": "jeopardy",
       "location": "online",
       "organizer": "Chronos Security",
-      "prizes": "Bolsa anunciada EUR 8.000+ con aportes en especie; reparto por bracket pendiente. Cinco bolsas Elastic para un equipo ganador. Best Writeup Award: certificado y archivo destacado para un equipo. Quienes finalicen reciben tres meses de PIECE Elite, sin compra ni tarjeta; certificado tras feedback.",
-      "description": "Se conserva el calendario 6–8/11, 48 horas desde las 15:00 EET. La plataforma ya coincide con la web institucional: tres meses de PIECE Elite para quienes finalicen; queda resuelta la discrepancia previa de Premium/Elite y duración. Todos los participantes tienen un descuento del 66 % en examen ThunderCipher con código TCCSCTF66. Cualquier equipo puede enviar writeup al archivo público y optar al Best Writeup Award. El top 3 por división debe entregarlo hasta el 9/11 a las 15:00 EET; no es un cierre de inscripción.",
+      "prizes": "Tres meses de PIECE Elite para participantes verificados con puntaje positivo. Certificado tras completar feedback y 8 CPE Grupo A para miembros de ISC2 con puntaje positivo. El descuento TC-VAPT se publica al cierre. PIECE Elite anual para el primer puesto de cada división y Premium anual para segundo y tercero. La tabla oficial detalla premios por división y puesto, incluidos TryHackMe, Hack The Box, YubiKeys y vouchers. Hay dos premios de archivo, Best Technical Writeup y Best AI-Assisted Methodology, para equipos distintos. El técnico incluye hasta cinco paquetes Elastic.",
+      "description": "El calendario oficial mantiene 48 horas, del 6 al 8 de noviembre. Las dos tandas de retos se abren el 6 y 7 de noviembre a las 15:00 EET (10:00 ART). El puntaje se cierra el 8 a esa hora y los retos quedan accesibles para práctica. El top 3 de cada división debe entregar un writeup por equipo que cubra todos sus retos acreditados antes del 9 de noviembre a las 15:00 EET. Las reglas permiten IA como apoyo de investigación y aprendizaje y hacen responsable al equipo de su uso. La portada anuncia resultados tras la revisión, a más tardar el 9 a las 15:00 EET. El cierre de inscripción sigue sin publicarse.",
       "why": "Los escenarios de aplicaciones, Windows y sectores como salud y finanzas conectan con tu trabajo en sistemas empresariales.",
       "fee": "gratis",
       "eligibility": "mundial; Juniors: todos menores de 18; Seniors: todos de 18+; Fighters: sin restricción de edad, permite participar desde Argentina · para vos: sí",
@@ -743,10 +743,11 @@
         "enriquecimiento-2026-10-26.md",
         "enriquecimiento-2026-10-28.md",
         "enriquecimiento-2026-10-31.md",
-        "enriquecimiento-2026-11-01.md"
+        "enriquecimiento-2026-11-01.md",
+        "enriquecimiento-2026-11-03.md"
       ],
       "added": "2026-10-21",
-      "last_seen": "2026-11-01",
+      "last_seen": "2026-11-03",
       "verified_by": [
         "oficial",
         "ctftime"
@@ -1693,11 +1694,11 @@
       "difficulty": "intermedio",
       "organizer": "Whoami-Labs",
       "prizes": "Reconocimiento en ranking y copa para el primer puesto; premios adicionales no verificados",
-      "description": "Temporada individual de 24 horas con 80 retos de web, criptografía, binarios, forense, pentesting y misc, incluidos al menos 20 desafíos de máxima dificultad según la plataforma. La ficha de temporada indica 5/12 08:00 a 6/12 08:00 GMT-5 (10:00 a 10:00 ART), pero un texto general del mismo sitio aún dice 'fecha por confirmar'; prevalece la ficha específica y conviene reconfirmar antes de participar. La página ofrece registro de cuenta y acceso a la arena, sin fecha límite de inscripción publicada.",
+      "description": "La ficha oficial T2026-2 anuncia 80 retos en 24 horas y permite jugar solo o en equipos de hasta tres. Muestra 5–6 de diciembre de 2026 de 08:00 a 08:00 GMT-5 (10:00 ART). La sección general aún muestra una fecha por confirmar y describe juego individual para Blackout LATAM. El registro público corresponde a la cuenta de la plataforma. Sigue pendiente un cierre específico para Electro Station.",
       "why": "Encaja fuertemente con tu práctica de reversing y crackmes y permite generar writeups técnicos útiles para tu portfolio de seguridad ofensiva.",
       "fee": "Plataforma de acceso gratuito; condiciones específicas de esta temporada no verificadas",
       "eligibility": "La plataforma anuncia competencias abiertas para Latinoamérica, incluida Argentina · para vos: sí",
-      "team_size": "individual",
+      "team_size": "individual o equipos de hasta 3",
       "career_value": "Valor estimado: visibilidad en el ranking de una comunidad latinoamericana y evidencia de habilidades; contratación no confirmada.",
       "start": "2026-12-05T13:00:00.000Z",
       "end": "2026-12-06T13:00:00.000Z",
@@ -1714,10 +1715,15 @@
       ],
       "id": "whoami-labs-electro-station-ctf-2026",
       "sources": [
-        "2026-11-01.md"
+        "2026-11-01.md",
+        "enriquecimiento-2026-11-03.md"
       ],
       "added": "2026-11-01",
-      "last_seen": "2026-11-01"
+      "last_seen": "2026-11-03",
+      "changed": "2026-11-03T15:05:03.756Z",
+      "changed_fields": [
+        "team_size"
+      ]
     },
     {
       "name": "niteCTF 2026",
