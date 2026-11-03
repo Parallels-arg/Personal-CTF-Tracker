@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-02T15:07:18.893Z",
+  "updated": "2026-11-03T11:59:42.740Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1908,6 +1908,76 @@
       "changed_fields": [
         "eligibility"
       ]
+    },
+    {
+      "name": "JerseyCTF VII",
+      "url": "https://ctf.jerseyctf.com/",
+      "ctftime_url": "https://ctftime.org/event/3458",
+      "format": "jeopardy",
+      "location": "híbrido (Newark, Estados Unidos; acceso online)",
+      "difficulty": "principiante",
+      "organizer": "NJIT Information & Cybersecurity Club / Highlander Hackers",
+      "description": "CTFtime confirma JerseyCTF VII del 13/03/2027 17:00 UTC al 14/03 16:00 UTC, con participación online o presencial en NJIT. El sitio oficial https://ctf.jerseyctf.com/ aún muestra JerseyCTF VI y reglas/premios de una edición anterior: oficial sin confirmar para VII. CTFtime muestra Future weight por determinar y rating weight actual 47.14; inscripción, costo y límites de equipo de la nueva edición no verificados.",
+      "why": "La orientación a principiantes y los desafíos de reversing y explotación binaria encajan con tu transición a seguridad ofensiva. La participación online evita viajar.",
+      "eligibility": "Dirigido a estudiantes, principiantes y profesionales; la ficha permite acceso online, pero la admisión desde Argentina para la edición VII no está confirmada explícitamente · para vos: dudoso",
+      "career_value": "Valor estimado: writeups y experiencia competitiva para el portfolio; premios de ediciones anteriores no se atribuyen a VII y no hay contratación confirmada.",
+      "start": "2027-03-13T17:00:00.000Z",
+      "end": "2027-03-14T16:00:00.000Z",
+      "weight": 47.14,
+      "tags": [
+        "rev",
+        "pwn",
+        "web",
+        "crypto",
+        "forensics",
+        "OSINT"
+      ],
+      "recommended": true,
+      "ctftime_rated": null,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "jerseyctf-vii-2027",
+      "sources": [
+        "2026-11-03.md"
+      ],
+      "added": "2026-11-03",
+      "last_seen": "2026-11-03"
+    },
+    {
+      "name": "Undutmaning 2027",
+      "url": "https://undutmaning.se/",
+      "ctftime_url": "https://ctftime.org/event/3481",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "MUST / SÄPO / FRA (Suecia)",
+      "prizes": "Los equipos destacados podrán ser invitados a un seminario presencial; se requiere expresar interés en el sitio para optar a la invitación.",
+      "description": "CTFtime confirma 24 desafíos online el 20/03/2027 de 11:00 a 19:00 UTC (08:00 a 16:00 ART). Los enunciados y la información estarán principalmente en sueco. La web oficial requiere JavaScript y no permitió reconfirmar las condiciones: oficial sin confirmar. Future weight por determinar; rating weight actual 44.75.",
+      "why": "Incluye pwn, reversing y criptografía, pero el idioma sueco puede limitar el aprovechamiento de los retos.",
+      "eligibility": "Competencia online organizada por organismos suecos; no se verificaron restricciones de nacionalidad ni admisión desde Argentina · para vos: dudoso",
+      "career_value": "Valor estimado: práctica y writeups; el seminario anunciado está sujeto a clasificación e invitación y no se verificaron oportunidades laborales.",
+      "start": "2027-03-20T11:00:00.000Z",
+      "end": "2027-03-20T19:00:00.000Z",
+      "weight": 44.75,
+      "tags": [
+        "crypto",
+        "web",
+        "pwn",
+        "rev",
+        "forensics",
+        "misc"
+      ],
+      "recommended": false,
+      "ctftime_rated": null,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "undutmaning-2027",
+      "sources": [
+        "2026-11-03.md"
+      ],
+      "added": "2026-11-03",
+      "last_seen": "2026-11-03"
     }
   ]
 }
