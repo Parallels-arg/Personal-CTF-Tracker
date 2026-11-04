@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T12:03:27.899Z",
+  "updated": "2026-11-04T14:59:51.232Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -714,7 +714,7 @@
       "location": "online",
       "organizer": "Chronos Security",
       "prizes": "Tres meses de PIECE Elite para participantes verificados con puntaje positivo. Certificado tras completar feedback y 8 CPE Grupo A para miembros de ISC2 con puntaje positivo. El descuento TC-VAPT se publica al cierre. PIECE Elite anual para el primer puesto de cada división y Premium anual para segundo y tercero. La tabla oficial detalla premios por división y puesto, incluidos TryHackMe, Hack The Box, YubiKeys y vouchers. Hay dos premios de archivo, Best Technical Writeup y Best AI-Assisted Methodology, para equipos distintos. El técnico incluye hasta cinco paquetes Elastic.",
-      "description": "El calendario oficial mantiene 48 horas, del 6 al 8 de noviembre. Las dos tandas de retos se abren el 6 y 7 de noviembre a las 15:00 EET (10:00 ART). El puntaje se cierra el 8 a esa hora y los retos quedan accesibles para práctica. El top 3 de cada división debe entregar un writeup por equipo que cubra todos sus retos acreditados antes del 9 de noviembre a las 15:00 EET. Las reglas permiten IA como apoyo de investigación y aprendizaje y hacen responsable al equipo de su uso. La portada anuncia resultados tras la revisión, a más tardar el 9 a las 15:00 EET. El cierre de inscripción sigue sin publicarse.",
+      "description": "El alta de cuentas nuevas cierra al inicio de la competencia, el 6/11 a las 15:00 EET (10:00 ART). Las cuentas existentes pueden crear o unirse a un equipo durante el evento. Las tandas de retos se abren el 6 y 7/11 a las 15:00 EET. El puntaje cierra el 8/11 a esa hora y los retos quedan accesibles para práctica. El top 3 de cada división debe enviar un writeup por equipo antes del 9/11 a las 15:00 EET, con todos sus retos acreditados. Las reglas permiten IA como apoyo de investigación y aprendizaje y hacen responsable al equipo de su uso.",
       "why": "Los escenarios de aplicaciones, Windows y sectores como salud y finanzas conectan con tu trabajo en sistemas empresariales.",
       "fee": "gratis",
       "eligibility": "mundial; Juniors: todos menores de 18; Seniors: todos de 18+; Fighters: sin restricción de edad, permite participar desde Argentina · para vos: sí",
@@ -744,19 +744,21 @@
         "enriquecimiento-2026-10-28.md",
         "enriquecimiento-2026-10-31.md",
         "enriquecimiento-2026-11-01.md",
-        "enriquecimiento-2026-11-03.md"
+        "enriquecimiento-2026-11-03.md",
+        "enriquecimiento-2026-11-04.md"
       ],
       "added": "2026-10-21",
-      "last_seen": "2026-11-03",
+      "last_seen": "2026-11-04",
       "verified_by": [
         "oficial",
         "ctftime"
       ],
       "ctftime_rated": null,
-      "changed": "2026-10-26T14:58:54.276Z",
+      "changed": "2026-11-04T14:59:51.224Z",
       "changed_fields": [
-        "eligibility"
-      ]
+        "registration_deadline"
+      ],
+      "registration_deadline": "2026-11-06T13:00:00.000Z"
     },
     {
       "name": "SpookyCTF",
@@ -1166,16 +1168,16 @@
     },
     {
       "name": "h4ckc0n 2026",
-      "url": "https://ctftime.org/event/3464",
+      "url": "https://d4rkc0de.iiitd.edu.in/",
       "ctftime_url": "https://ctftime.org/event/3464",
       "format": "jeopardy",
       "location": "online",
       "organizer": "d4rkc0de / h4ckc0n",
       "prizes": "₹10.000 INR repartidos entre los tres primeros; solo cobrables por equipos con cuenta bancaria india",
-      "description": "CTF internacional online de 24 horas, del 14/11 12:30 ART al 15/11 12:30 ART, con desafíos de reversing, explotación web, forense, pwn, criptografía, OSINT y otras categorías. La ficha de CTFtime confirma el calendario y anuncia que la plataforma oficial estará disponible próximamente; al consultar https://h4ckc0n.in/ no se pudo acceder (502), por lo que el oficial queda sin confirmar. Los premios requieren cuenta bancaria india y no se confirmó el costo de inscripción ni el máximo de integrantes por equipo.",
+      "description": "La ficha de inscripción publicada por IIIT Delhi confirma el CTF online internacional de 24 horas a partir del 14/11. El cierre que publica Unstop es el 14/11 a las 23:59 IST (15:29 ART), después de las 12:30 ART de inicio en CTFtime. Las horas del evento se conservan porque las fuentes oficiales consultadas no publican una ventana exacta coherente. El micrositio institucional muestra a la vez la inscripción abierta y un aviso de evento iniciado. No está confirmado que se pueda empezar a jugar tras el inicio con una inscripción tardía. Los premios monetarios tienen una restricción separada para equipos indios según Unstop y CTFtime menciona cuenta bancaria india.",
       "why": "Las categorías de reversing, pwn y web encajan con tu práctica de CTF y transición hacia seguridad ofensiva; es una oportunidad internacional online de dificultad variada.",
-      "eligibility": "competencia internacional online por equipos; participación desde Argentina anunciada como internacional, sin restricciones de país publicadas",
-      "team_size": "por equipos; límite no verificado",
+      "eligibility": "Abierto a cualquier persona interesada. Admite equipos de distintas instituciones, especialidades y años.",
+      "team_size": "1–6 integrantes",
       "career_value": "Valor estimado: experiencia competitiva y writeups para portfolio; no se verificaron oportunidades laborales.",
       "start": "2026-11-14T15:30:00.000Z",
       "end": "2026-11-15T15:30:00.000Z",
@@ -1194,14 +1196,26 @@
       "recommended": true,
       "ctftime_rated": null,
       "verified_by": [
-        "ctftime"
+        "ctftime",
+        "oficial"
       ],
       "id": "h4ckc0n-2026",
       "sources": [
-        "2026-11-04.md"
+        "2026-11-04.md",
+        "enriquecimiento-2026-11-04.md"
       ],
       "added": "2026-11-04",
-      "last_seen": "2026-11-04"
+      "last_seen": "2026-11-04",
+      "fee": "gratis",
+      "registration_deadline": "2026-11-14T18:29:00.000Z",
+      "changed": "2026-11-04T14:59:51.224Z",
+      "changed_fields": [
+        "url",
+        "registration_deadline",
+        "fee",
+        "eligibility",
+        "team_size"
+      ]
     },
     {
       "name": "RAN Tour 2026 Buenos Aires (networking)",
