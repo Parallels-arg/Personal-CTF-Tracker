@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T14:59:51.232Z",
+  "updated": "2026-11-05T15:06:21.508Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -769,11 +769,11 @@
       "difficulty": "principiante",
       "organizer": "NJIT Cyber Security Network (antes NICC)",
       "prizes": "Anuncio del organizador en CTFtime: Open (online y presencial), 1.º $100, 2.º $50, 3.º $25; premio presencial $100. Moneda no explicitada.",
-      "description": "CTF híbrido de 24 horas, apto para principiantes, organizado por NJIT Cyber Security Network. Cambio respecto de data/events.json: el anuncio del organizador en CTFtime ahora indica un desplazamiento de DOS horas respecto de la cabecera (17:00 UTC), es decir inicio 19:00 UTC (16:00 ART) y cierre 19:00 UTC el 7/11; el registro anterior usaba CUATRO horas (21:00 UTC). La web oficial confirma los días 6–7/11, pero no publica una hora visible; hay conflicto entre la cabecera de CTFtime y el aviso del organizador, por lo que prevalece este último. Se recomienda reconfirmar en Discord (https://discord.gg/NeHyp5fFHW); se prohíben agentes automáticos para resolver retos.",
+      "description": "La FAQ oficial confirma que no hay tope de integrantes. Los premios se calculan para cuatro personas y los equipos mayores deben repartirlos entre más integrantes. La IA no puede interactuar directamente con la infraestructura del concurso, leer retos en la plataforma ni enviar soluciones. Los miembros humanos pueden usarla como herramienta externa. Las necesidades de accesibilidad se tramitan mediante ticket. El horario cargado sigue respaldado por el aviso del organizador en CTFtime, que desplaza dos horas su cabecera. El cierre de inscripción sigue sin publicarse.",
       "why": "Es una opción accesible para practicar reversing, binarios y web y buscar equipo en Discord.",
       "fee": "gratis",
       "eligibility": "estudiantes, principiantes y profesionales; 18+ solo para asistir presencialmente",
-      "team_size": "individual o equipo; límite no verificado",
+      "team_size": "individual o equipo sin límite; premios calculados para grupos de 4",
       "career_value": "Valor estimado: práctica técnica y posibles writeups para tu portfolio; reclutamiento y contactos laborales no verificados.",
       "start": "2026-11-06T19:00:00.000Z",
       "end": "2026-11-07T19:00:00.000Z",
@@ -793,19 +793,19 @@
         "carga-inicial.md",
         "carga-complementaria.md",
         "2026-10-31.md",
-        "enriquecimiento-2026-10-31.md"
+        "enriquecimiento-2026-10-31.md",
+        "enriquecimiento-2026-11-05.md"
       ],
       "added": "2026-10-20",
-      "last_seen": "2026-10-31",
+      "last_seen": "2026-11-05",
       "verified_by": [
         "oficial",
         "ctftime"
       ],
       "ctftime_rated": null,
-      "changed": "2026-10-31T12:00:47.150Z",
+      "changed": "2026-11-05T15:06:21.503Z",
       "changed_fields": [
-        "start",
-        "end"
+        "team_size"
       ]
     },
     {
@@ -815,8 +815,8 @@
       "location": "online",
       "difficulty": "principiante",
       "organizer": "CyberLearner",
-      "prizes": "Gift cards de £100 / £50 / £25 para los tres primeros; certificado verificable para quien entregue al menos una flag correcta.",
-      "description": "CTF individual de seis horas y seis desafíos; dos están pensados para principiantes. El oficial confirma fecha, horario y registro gratuito. El top 3 debe entregar writeups para recibir las gift cards; las herramientas de IA no se recomiendan.",
+      "prizes": "Crédito de Audn.AI de £100, £50 y £25 para los tres primeros, utilizable en modelos y API de seguridad de IA. Certificado verificable al entregar al menos una flag y certificado de puesto para el top 3. Canje y requisitos adicionales se comunican a ganadores.",
+      "description": "Competencia individual gratuita de seis horas y seis retos. La sección de premios ahora anuncia saldo de uso en Audn.AI. Las reglas de pago todavía mencionan gift cards y exigen un writeup breve por cada flag del top 3, por lo que existe una discrepancia editorial. La plataforma anuncia que comunicará los pasos de canje y cualquier requisito de elegibilidad a los ganadores. El cierre de inscripción sigue sin publicarse y las herramientas de IA continúan desaconsejadas para resolver el evento.",
       "why": "Formato breve que permite practicar reversing y binarios sin dedicar todo el fin de semana.",
       "fee": "gratis (£0)",
       "eligibility": "sin experiencia CTF previa requerida; otras restricciones no verificadas",
@@ -838,10 +838,11 @@
       ],
       "id": "first-flag-ctf-2026",
       "sources": [
-        "carga-complementaria.md"
+        "carga-complementaria.md",
+        "enriquecimiento-2026-11-05.md"
       ],
       "added": "2026-10-21",
-      "last_seen": "2026-10-25"
+      "last_seen": "2026-11-05"
     },
     {
       "name": "Mimic",
