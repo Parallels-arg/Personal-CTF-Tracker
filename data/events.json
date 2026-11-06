@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T15:06:55.028Z",
+  "updated": "2026-11-06T15:05:36.130Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1023,13 +1023,13 @@
     },
     {
       "name": "WolvCTF 2026",
-      "url": "https://ctftime.org/event/3049/",
+      "url": "https://wolvctf.io/",
       "ctftime_url": "https://ctftime.org/event/3049/",
       "format": "jeopardy",
       "location": "online",
       "organizer": "w01verines",
       "prizes": "Por anunciar.",
-      "description": "CTFtime confirma el aplazamiento a noviembre: 48 horas del 13 al 15/11. Incluye retos desde principiantes hasta difíciles, división Open y división de estudiantes de University of Michigan, sin tope de equipo. Oficial sin confirmar. Peso actual 0 y futuro por determinar; no se confirma aún el estado definitivo de puntuación.",
+      "description": "El sitio oficial de WolvCTF 2026 ya es legible y confirma el calendario cargado: del 13/11 a las 23:00 UTC al 15/11 a las 23:00 UTC, 48 horas online. Confirma las divisiones Open y separada para estudiantes de University of Michigan, y equipos sin límite. Los premios se anunciarán en Discord. No publica cierre de inscripción ni costo. La invitación oficial de Discord requiere cuenta para leer los canales. CTFtime mantiene el peso futuro por determinar; no se confirma el estado definitivo de puntuación.",
       "why": "Retos de dificultad variada y categoría abierta permiten priorizar reversing, binarios y web.",
       "fee": "no verificado",
       "eligibility": "división Open; división separada para estudiantes de University of Michigan",
@@ -1049,15 +1049,21 @@
       ],
       "recommended": true,
       "verified_by": [
+        "oficial",
         "ctftime"
       ],
       "id": "wolvctf-2026",
       "sources": [
-        "carga-complementaria.md"
+        "carga-complementaria.md",
+        "enriquecimiento-2026-11-06.md"
       ],
       "added": "2026-10-22",
-      "last_seen": "2026-10-25",
-      "ctftime_rated": null
+      "last_seen": "2026-11-06",
+      "ctftime_rated": null,
+      "changed": "2026-11-06T15:05:36.122Z",
+      "changed_fields": [
+        "url"
+      ]
     },
     {
       "name": "International Battle of Hackers 2026 (IBOH)",
