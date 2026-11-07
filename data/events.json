@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-06T15:05:36.130Z",
+  "updated": "2026-11-07T12:04:00.599Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -871,6 +871,40 @@
       ],
       "added": "2026-10-22",
       "last_seen": "2026-10-25"
+    },
+    {
+      "name": "CyberZerk CTF 2026",
+      "url": "https://ctftime.org/event/list/",
+      "format": "jeopardy",
+      "location": "online",
+      "difficulty": "principiante",
+      "organizer": "CyberZerk",
+      "description": "CTF online individual y gratuito del 9 al 22 de noviembre, con retos de web, criptografía, forense, esteganografía e ingeniería social para distintos niveles. CTFtime confirma fechas y formato; el sitio de la asociación no fue accesible para contrastar las reglas (oficial sin confirmar). La URL apunta al listado de CTFtime porque no se pudo recuperar el identificador de la ficha individual; el peso 0 es el mostrado actualmente en el listado y no permite determinar por sí solo si puntúa.",
+      "why": "La duración extensa facilita practicar seguridad web y análisis forense entre el trabajo y la facultad, y documentar soluciones para tu portfolio.",
+      "fee": "gratis",
+      "eligibility": "sin restricciones de participación publicadas en la ficha resumida; admisión desde Argentina no confirmada",
+      "team_size": "individual",
+      "career_value": "Valor estimado: writeups y práctica demostrable; no se verificó reclutamiento.",
+      "start": "2026-11-09T13:00:00.000Z",
+      "end": "2026-11-22T17:00:00.000Z",
+      "weight": 0,
+      "tags": [
+        "web",
+        "crypto",
+        "forensics",
+        "misc"
+      ],
+      "recommended": true,
+      "ctftime_rated": null,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "cyberzerk-ctf-2026",
+      "sources": [
+        "2026-11-07.md"
+      ],
+      "added": "2026-11-07",
+      "last_seen": "2026-11-07"
     },
     {
       "name": "CSAW CTF Final Round 2026",
@@ -1822,6 +1856,39 @@
       ],
       "added": "2026-10-24",
       "last_seen": "2026-10-26"
+    },
+    {
+      "name": "Leo's 20th Birthday Bash",
+      "url": "https://dmoj.ca/contest/leo20",
+      "format": "otro",
+      "location": "online",
+      "organizer": "SanguineChameleon",
+      "prizes": "USD 512, 256 y 128 para los tres primeros; bounty adicional USD 64 anunciado.",
+      "description": "Concurso online de 24 horas que combina programación competitiva, acertijos matemáticos y desafíos de estilo CTF; el organizador publicó reglas y convocatoria en https://codeforces.com/blog/entry/158417. CTFtime lo clasifica como Hack quest casual con peso 0. El organizador prohíbe el uso de IA generativa interactiva; se recomienda revisar las reglas completas antes de participar.",
+      "why": "Puede servir para ejercitar scripting y resolución de problemas, aunque está menos orientado a reversing y pentesting que otros CTF.",
+      "fee": "no verificado",
+      "eligibility": "convocatoria pública del organizador; otras restricciones no verificadas",
+      "team_size": "1–10",
+      "career_value": "Valor estimado: práctica de algoritmos y trabajo en equipo; no se anunciaron oportunidades laborales.",
+      "start": "2026-12-12T01:00:00.000Z",
+      "end": "2026-12-13T01:00:00.000Z",
+      "weight": 0,
+      "tags": [
+        "crypto",
+        "misc"
+      ],
+      "recommended": false,
+      "ctftime_rated": false,
+      "verified_by": [
+        "oficial",
+        "ctftime"
+      ],
+      "id": "leos-20th-birthday-bash-2026",
+      "sources": [
+        "2026-11-07.md"
+      ],
+      "added": "2026-11-07",
+      "last_seen": "2026-11-07"
     },
     {
       "name": "BSides Algiers 2026 CTF",
