@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-07T12:04:00.599Z",
+  "updated": "2026-11-07T15:03:58.358Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -874,16 +874,16 @@
     },
     {
       "name": "CyberZerk CTF 2026",
-      "url": "https://ctftime.org/event/list/",
+      "url": "https://ctf.cyberzerk.fr/",
       "format": "jeopardy",
       "location": "online",
       "difficulty": "principiante",
       "organizer": "CyberZerk",
-      "description": "CTF online individual y gratuito del 9 al 22 de noviembre, con retos de web, criptografía, forense, esteganografía e ingeniería social para distintos niveles. CTFtime confirma fechas y formato; el sitio de la asociación no fue accesible para contrastar las reglas (oficial sin confirmar). La URL apunta al listado de CTFtime porque no se pudo recuperar el identificador de la ficha individual; el peso 0 es el mostrado actualmente en el listado y no permite determinar por sí solo si puntúa.",
+      "description": "El reglamento del 3/11 confirma el calendario existente, la modalidad online individual y la gratuidad. Requiere confirmar el correo. Los profesionales deben competir a título personal y con recursos propios. Permite IA para consultas y aprendizaje, y prohíbe delegarle un reto completo o automatizar la resolución y el envío de flags. No publica un cierre inequívoco de inscripción. El formulario pidió verificación humana en este navegador. CTFtime confirma que no otorga puntos de rating global.",
       "why": "La duración extensa facilita practicar seguridad web y análisis forense entre el trabajo y la facultad, y documentar soluciones para tu portfolio.",
-      "fee": "gratis",
-      "eligibility": "sin restricciones de participación publicadas en la ficha resumida; admisión desde Argentina no confirmada",
-      "team_size": "individual",
+      "fee": "Gratis. Donaciones opcionales.",
+      "eligibility": "Mayores de edad o menores de 15 años en adelante con consentimiento del representante legal. Edad o consentimiento y admisión desde Argentina sin confirmar · para vos: dudoso",
+      "team_size": "Individual, una cuenta por persona",
       "career_value": "Valor estimado: writeups y práctica demostrable; no se verificó reclutamiento.",
       "start": "2026-11-09T13:00:00.000Z",
       "end": "2026-11-22T17:00:00.000Z",
@@ -895,16 +895,26 @@
         "misc"
       ],
       "recommended": true,
-      "ctftime_rated": null,
+      "ctftime_rated": false,
       "verified_by": [
+        "oficial",
         "ctftime"
       ],
       "id": "cyberzerk-ctf-2026",
       "sources": [
-        "2026-11-07.md"
+        "2026-11-07.md",
+        "enriquecimiento-2026-11-07.md"
       ],
       "added": "2026-11-07",
-      "last_seen": "2026-11-07"
+      "last_seen": "2026-11-07",
+      "ctftime_url": "https://ctftime.org/event/3499",
+      "changed": "2026-11-07T15:03:58.350Z",
+      "changed_fields": [
+        "url",
+        "fee",
+        "eligibility",
+        "team_size"
+      ]
     },
     {
       "name": "CSAW CTF Final Round 2026",
@@ -1447,10 +1457,10 @@
       "location": "online",
       "difficulty": "principiante",
       "organizer": "High School Cybersecurity Community (HSCC)",
-      "description": "Se conservan 21–22/11/2026, 10:00 AEDT (20–21/11, 23:00 UTC), 24 horas online. Las reglas permiten IA para investigar, aprender, depurar y asistir con lenguajes o herramientas desconocidos; usarla para resolver directamente un reto, obtener una flag o generar la solución completa causa descalificación. El registro CTFd sigue anunciado como no abierto; otra sección ofrece registro para avisos, sin cierre confirmado. No se confunden esas modalidades ni se inventa una fecha límite.",
+      "description": "El botón de registro de la portada lleva al sistema de entradas de HSCC, que ofrece participación general online gratuita y una sesión opcional y gratuita de entrenamiento presencial durante el CTF en UTS Building 11, Sídney. HSCC pide crear o registrar también un equipo en CTFd, incluso al jugar en solitario. El formulario CTFd es visible, aunque la FAQ aún anuncia una apertura posterior. No hay cierre publicado. Se conservan calendario, equipos de hasta cuatro y política de IA de las reglas: se permite apoyo para investigar o depurar y se sanciona usar IA para resolver directamente, obtener flags o generar una solución completa.",
       "why": "Te ofrece una entrada accesible a reversing y web, con margen para intentar retos más difíciles y buscar compañeros en Discord.",
       "fee": "gratis",
-      "eligibility": "abierto a todos, incluida participación internacional; los premios para secundarios requieren validación escolar",
+      "eligibility": "Participación online abierta a todos, incluida Argentina. La categoría escolar requiere correo de la escuela y puede pedir documentación adicional · para vos: sí",
       "team_size": "hasta 4",
       "career_value": "Valor estimado: práctica y contactos con una comunidad estudiantil; no se verificó contratación.",
       "start": "2026-11-20T23:00:00.000Z",
@@ -1471,13 +1481,14 @@
       "id": "outback-overflow-2026",
       "sources": [
         "2026-10-24.md",
-        "enriquecimiento-2026-10-30.md"
+        "enriquecimiento-2026-10-30.md",
+        "enriquecimiento-2026-11-07.md"
       ],
       "added": "2026-10-25",
-      "last_seen": "2026-10-30",
-      "changed": "2026-10-30T03:16:22.863Z",
+      "last_seen": "2026-11-07",
+      "changed": "2026-11-07T15:03:58.350Z",
       "changed_fields": [
-        "url"
+        "eligibility"
       ]
     },
     {
@@ -1864,7 +1875,7 @@
       "location": "online",
       "organizer": "SanguineChameleon",
       "prizes": "USD 512, 256 y 128 para los tres primeros; bounty adicional USD 64 anunciado.",
-      "description": "Concurso online de 24 horas que combina programación competitiva, acertijos matemáticos y desafíos de estilo CTF; el organizador publicó reglas y convocatoria en https://codeforces.com/blog/entry/158417. CTFtime lo clasifica como Hack quest casual con peso 0. El organizador prohíbe el uso de IA generativa interactiva; se recomienda revisar las reglas completas antes de participar.",
+      "description": "Concurso online de 24 horas que combina programación competitiva, acertijos matemáticos y desafíos de estilo CTF. El anuncio del organizador confirma equipos de 1 a 10 y prohíbe la IA generativa interactiva. Su ficha individual en CTFtime aclara que el equipo comparte una cuenta DMOJ para enviar soluciones y que el bounty de USD 64 corresponde al primer equipo que resuelva por completo el problema T durante el concurso. CTFtime lo clasifica como casual. DMOJ pidió verificación humana en este navegador, por lo que costo y cierre de inscripción siguen sin confirmarse.",
       "why": "Puede servir para ejercitar scripting y resolución de problemas, aunque está menos orientado a reversing y pentesting que otros CTF.",
       "fee": "no verificado",
       "eligibility": "convocatoria pública del organizador; otras restricciones no verificadas",
@@ -1885,10 +1896,12 @@
       ],
       "id": "leos-20th-birthday-bash-2026",
       "sources": [
-        "2026-11-07.md"
+        "2026-11-07.md",
+        "enriquecimiento-2026-11-07.md"
       ],
       "added": "2026-11-07",
-      "last_seen": "2026-11-07"
+      "last_seen": "2026-11-07",
+      "ctftime_url": "https://ctftime.org/event/3498"
     },
     {
       "name": "BSides Algiers 2026 CTF",
@@ -2085,7 +2098,7 @@
       "location": "online",
       "organizer": "MUST / SÄPO / FRA (Suecia)",
       "prizes": "Los equipos destacados podrán ser invitados a un seminario presencial; se requiere expresar interés en el sitio para optar a la invitación.",
-      "description": "CTFtime confirma 24 desafíos online el 20/03/2027 de 11:00 a 19:00 UTC (08:00 a 16:00 ART). Los enunciados y la información estarán principalmente en sueco. La web oficial requiere JavaScript y no permitió reconfirmar las condiciones: oficial sin confirmar. Future weight por determinar; rating weight actual 44.75.",
+      "description": "La portada oficial ya es legible y anuncia el regreso del CTF el 19/03/2027, sin horario. CTFtime indica el 20/03 de 11:00 a 19:00 UTC y mantiene el peso futuro pendiente. Se conserva la ventana cargada hasta contar con un horario oficial que resuelva la discrepancia. Las reglas generales permiten participar en solitario o en equipo sin tope. La página del encuentro físico sigue fechada en abril de 2026. No se confirma cierre, costo ni condiciones geográficas para 2027.",
       "why": "Incluye pwn, reversing y criptografía, pero el idioma sueco puede limitar el aprovechamiento de los retos.",
       "eligibility": "Competencia online organizada por organismos suecos; no se verificaron restricciones de nacionalidad ni admisión desde Argentina · para vos: dudoso",
       "career_value": "Valor estimado: práctica y writeups; el seminario anunciado está sujeto a clasificación e invitación y no se verificaron oportunidades laborales.",
@@ -2103,14 +2116,21 @@
       "recommended": false,
       "ctftime_rated": null,
       "verified_by": [
+        "oficial",
         "ctftime"
       ],
       "id": "undutmaning-2027",
       "sources": [
-        "2026-11-03.md"
+        "2026-11-03.md",
+        "enriquecimiento-2026-11-07.md"
       ],
       "added": "2026-11-03",
-      "last_seen": "2026-11-03"
+      "last_seen": "2026-11-07",
+      "team_size": "Individual o en equipo sin límite, según las reglas generales",
+      "changed": "2026-11-07T15:03:58.350Z",
+      "changed_fields": [
+        "team_size"
+      ]
     }
   ]
 }
