@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-07T15:03:58.358Z",
+  "updated": "2026-11-08T15:02:23.789Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1457,7 +1457,7 @@
       "location": "online",
       "difficulty": "principiante",
       "organizer": "High School Cybersecurity Community (HSCC)",
-      "description": "El botón de registro de la portada lleva al sistema de entradas de HSCC, que ofrece participación general online gratuita y una sesión opcional y gratuita de entrenamiento presencial durante el CTF en UTS Building 11, Sídney. HSCC pide crear o registrar también un equipo en CTFd, incluso al jugar en solitario. El formulario CTFd es visible, aunque la FAQ aún anuncia una apertura posterior. No hay cierre publicado. Se conservan calendario, equipos de hasta cuatro y política de IA de las reglas: se permite apoyo para investigar o depurar y se sanciona usar IA para resolver directamente, obtener flags o generar una solución completa.",
+      "description": "El portal de entradas de HSCC ahora deriva la inscripción online a CTFd. En ese portal, tanto la entrada general online como la escolar figuran agotadas y remiten a CTFd, cuyo formulario público sigue visible. El aviso de agotado corresponde a esas entradas del portal. No se verificó el envío del formulario ni se encontró un cierre publicado. Se conserva la participación online gratuita en equipos de hasta cuatro y el entrenamiento presencial gratuito y opcional en UTS, Sídney, que tiene su propia entrada en el portal. Las reglas permiten IA para investigación y depuración y sancionan su uso para resolver retos directamente, obtener flags o generar soluciones completas.",
       "why": "Te ofrece una entrada accesible a reversing y web, con margen para intentar retos más difíciles y buscar compañeros en Discord.",
       "fee": "gratis",
       "eligibility": "Participación online abierta a todos, incluida Argentina. La categoría escolar requiere correo de la escuela y puede pedir documentación adicional · para vos: sí",
@@ -1482,10 +1482,11 @@
       "sources": [
         "2026-10-24.md",
         "enriquecimiento-2026-10-30.md",
-        "enriquecimiento-2026-11-07.md"
+        "enriquecimiento-2026-11-07.md",
+        "enriquecimiento-2026-11-08.md"
       ],
       "added": "2026-10-25",
-      "last_seen": "2026-11-07",
+      "last_seen": "2026-11-08",
       "changed": "2026-11-07T15:03:58.350Z",
       "changed_fields": [
         "eligibility"
