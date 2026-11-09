@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-09T12:02:30.394Z",
+  "updated": "2026-11-09T15:29:01.104Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1543,7 +1543,7 @@
       "format": "jeopardy",
       "location": "online",
       "organizer": "FOI y Fuerzas Armadas de Suecia",
-      "description": "El oficial confirma la competencia del 21/11/2026, online, individual o grupal y apta para principiantes y avanzados. La inscripción abrió el 1/9 y se realiza en ctf.crate.foi.se; las horas proceden de CTFtime.",
+      "description": "FOI confirma el CTF online del 21/11/2026 y la plataforma oficial especifica de 14:00 a 22:00 hora local sueca (13:00–21:00 UTC), en coincidencia con los horarios ya cargados. La inscripción abrió el 1/9 y se hace en ctf.crate.foi.se. Las reglas permiten jugar solo o en equipos sin límite, con una sola afiliación por persona. La puntuación de retos es dinámica y retroactiva. No se publica cierre de inscripción, costo ni una condición explícita de admisión internacional.",
       "why": "Valor estimado: una jornada de ocho horas permite practicar distintos problemas sin comprometer todo el fin de semana.",
       "fee": "no verificado",
       "eligibility": "no verificado",
@@ -1557,10 +1557,11 @@
       "sources": [
         "carga-inicial.md",
         "carga-complementaria.md",
-        "enriquecimiento-2026-10-25.md"
+        "enriquecimiento-2026-10-25.md",
+        "enriquecimiento-2026-11-09.md"
       ],
       "added": "2026-10-22",
-      "last_seen": "2026-10-25",
+      "last_seen": "2026-11-09",
       "ctftime_rated": null,
       "verified_by": [
         "oficial",
@@ -1836,13 +1837,13 @@
     },
     {
       "name": "niteCTF 2026",
-      "url": "https://ctftime.org/event/3367/",
+      "url": "https://nitectf.cryptonitemit.in/",
       "ctftime_url": "https://ctftime.org/event/3367/",
       "format": "jeopardy",
       "location": "online",
       "organizer": "Cryptonite",
       "prizes": "Por anunciar.",
-      "description": "CTF online de 48 horas para estudiantes y participantes experimentados, con hardware, crypto, web, forensics, pwn y reversing; fechas confirmadas en CTFtime. Oficial sin confirmar: la web queda en blanco por un error al crear el contexto WebGL; la versión sin JavaScript no aporta contenido y las redes consultadas no permitieron confirmar los datos de inscripción de esta edición.",
+      "description": "La versión indexada de la portada oficial de niteCTF 2026 anuncia la próxima apertura de inscripciones sin fecha. Describe un Jeopardy orientado a estudiantes y también a profesionales que quieren practicar. El navegador queda en blanco por un fallo al crear el contexto WebGL y la lectura directa de texto pide JavaScript. CTFtime mantiene del 11 al 13/12/2026 a las 12:00 UTC, con peso futuro pendiente. Cierre, costo, tamaño de equipo y restricciones de acceso siguen sin confirmarse.",
       "why": "Valor estimado: práctica técnica complementaria a tu experiencia de desarrollo y análisis de sistemas.",
       "fee": "no verificado",
       "eligibility": "no verificado",
@@ -1862,15 +1863,21 @@
       "recommended": false,
       "ctftime_rated": null,
       "verified_by": [
+        "oficial",
         "ctftime"
       ],
       "id": "nitectf-2026",
       "sources": [
         "carga-complementaria.md",
-        "enriquecimiento-2026-10-26.md"
+        "enriquecimiento-2026-10-26.md",
+        "enriquecimiento-2026-11-09.md"
       ],
       "added": "2026-10-24",
-      "last_seen": "2026-10-26"
+      "last_seen": "2026-11-09",
+      "changed": "2026-11-09T15:29:01.099Z",
+      "changed_fields": [
+        "url"
+      ]
     },
     {
       "name": "Leo's 20th Birthday Bash",
