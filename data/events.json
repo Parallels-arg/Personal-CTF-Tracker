@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-09T15:29:01.104Z",
+  "updated": "2026-11-10T15:06:07.749Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -2068,13 +2068,13 @@
     },
     {
       "name": "JerseyCTF VII",
-      "url": "https://ctf.jerseyctf.com/",
+      "url": "https://jerseyctf.com/",
       "ctftime_url": "https://ctftime.org/event/3458",
       "format": "jeopardy",
       "location": "híbrido (Newark, Estados Unidos; acceso online)",
       "difficulty": "principiante",
       "organizer": "NJIT Information & Cybersecurity Club / Highlander Hackers",
-      "description": "CTFtime confirma JerseyCTF VII del 13/03/2027 17:00 UTC al 14/03 16:00 UTC, con participación online o presencial en NJIT. El sitio oficial https://ctf.jerseyctf.com/ aún muestra JerseyCTF VI y reglas/premios de una edición anterior: oficial sin confirmar para VII. CTFtime muestra Future weight por determinar y rating weight actual 47.14; inscripción, costo y límites de equipo de la nueva edición no verificados.",
+      "description": "La portada oficial anuncia JerseyCTF VII para la primavera de 2027 en Estados Unidos. El calendario detallado sigue siendo el de CTFtime: 13/03/2027 a las 17:00 UTC hasta 14/03/2027 a las 16:00 UTC, con participación online o presencial en NJIT. Se conservan esas fechas. La plataforma, las reglas y el formulario aún corresponden a JerseyCTF VI. No se confirmaron costo, límite de equipo, apertura ni cierre de inscripción específicos para VII. CTFtime mantiene el peso futuro pendiente.",
       "why": "La orientación a principiantes y los desafíos de reversing y explotación binaria encajan con tu transición a seguridad ofensiva. La participación online evita viajar.",
       "eligibility": "Dirigido a estudiantes, principiantes y profesionales; la ficha permite acceso online, pero la admisión desde Argentina para la edición VII no está confirmada explícitamente · para vos: dudoso",
       "career_value": "Valor estimado: writeups y experiencia competitiva para el portfolio; premios de ediciones anteriores no se atribuyen a VII y no hay contratación confirmada.",
@@ -2092,14 +2092,20 @@
       "recommended": true,
       "ctftime_rated": null,
       "verified_by": [
-        "ctftime"
+        "ctftime",
+        "oficial"
       ],
       "id": "jerseyctf-vii-2027",
       "sources": [
-        "2026-11-03.md"
+        "2026-11-03.md",
+        "enriquecimiento-2026-11-10.md"
       ],
       "added": "2026-11-03",
-      "last_seen": "2026-11-03"
+      "last_seen": "2026-11-10",
+      "changed": "2026-11-10T15:06:07.742Z",
+      "changed_fields": [
+        "url"
+      ]
     },
     {
       "name": "Undutmaning 2027",
