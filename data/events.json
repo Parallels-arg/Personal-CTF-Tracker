@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-10T15:06:07.749Z",
+  "updated": "2026-11-12T15:08:30.207Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1460,7 +1460,7 @@
       "location": "online",
       "difficulty": "principiante",
       "organizer": "High School Cybersecurity Community (HSCC)",
-      "description": "El portal de entradas de HSCC ahora deriva la inscripción online a CTFd. En ese portal, tanto la entrada general online como la escolar figuran agotadas y remiten a CTFd, cuyo formulario público sigue visible. El aviso de agotado corresponde a esas entradas del portal. No se verificó el envío del formulario ni se encontró un cierre publicado. Se conserva la participación online gratuita en equipos de hasta cuatro y el entrenamiento presencial gratuito y opcional en UTS, Sídney, que tiene su propia entrada en el portal. Las reglas permiten IA para investigación y depuración y sancionan su uso para resolver retos directamente, obtener flags o generar soluciones completas.",
+      "description": "La portada y el FAQ oficiales confirman que la inscripción online está abierta en CTFd. El formulario público está disponible y no publica fecha de cierre. La competencia online es gratuita y permite equipos de hasta cuatro personas. El entrenamiento presencial en UTS, Sídney, es gratuito y opcional. Las reglas permiten IA para investigación y depuración y sancionan su uso para resolver retos directamente, obtener flags o generar soluciones completas.",
       "why": "Te ofrece una entrada accesible a reversing y web, con margen para intentar retos más difíciles y buscar compañeros en Discord.",
       "fee": "gratis",
       "eligibility": "Participación online abierta a todos, incluida Argentina. La categoría escolar requiere correo de la escuela y puede pedir documentación adicional · para vos: sí",
@@ -1486,10 +1486,11 @@
         "2026-10-24.md",
         "enriquecimiento-2026-10-30.md",
         "enriquecimiento-2026-11-07.md",
-        "enriquecimiento-2026-11-08.md"
+        "enriquecimiento-2026-11-08.md",
+        "enriquecimiento-2026-11-12.md"
       ],
       "added": "2026-10-25",
-      "last_seen": "2026-11-08",
+      "last_seen": "2026-11-12",
       "changed": "2026-11-07T15:03:58.350Z",
       "changed_fields": [
         "eligibility"
