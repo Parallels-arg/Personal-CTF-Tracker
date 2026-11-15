@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12T15:08:30.207Z",
+  "updated": "2026-11-15T12:03:31.118Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1694,6 +1694,43 @@
       "last_seen": "2026-10-25"
     },
     {
+      "name": "Black Hat India 2026 Official CTF",
+      "url": "https://ctf.blackhat-india.com/",
+      "ctftime_url": "https://ctftime.org/event/3510",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "CTF7",
+      "prizes": "Tres pases para Black Hat India 2027 para cada uno de los tres mejores equipos; nueve pases en total, según CTFtime.",
+      "description": "CTF online de 24 horas con 200 desafíos anunciados, incluyendo una pista para principiantes y áreas de reversing, explotación binaria, Active Directory, cloud, IA y web. CTFtime confirma fechas, modalidad, equipos de hasta tres y premios; oficial sin confirmar de forma independiente. Costo y elegibilidad internacional específica no verificados; sitio de la competencia: https://ctf.blackhat-india.com/.",
+      "why": "Las categorías de reversing, pwn, IAM/SSO y web conectan directamente con tu experiencia de desarrollo y tu transición a pentesting y Red Team.",
+      "team_size": "hasta 3",
+      "career_value": "Valor estimado: práctica y writeups para portfolio; los pases de conferencia son premios anunciados, no una oportunidad de contratación.",
+      "start": "2026-11-28T14:00:00.000Z",
+      "end": "2026-11-29T14:00:00.000Z",
+      "weight": 0,
+      "tags": [
+        "web",
+        "rev",
+        "pwn",
+        "crypto",
+        "forensics",
+        "OSINT",
+        "AD/network",
+        "misc"
+      ],
+      "recommended": true,
+      "ctftime_rated": null,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "black-hat-india-official-ctf-2026",
+      "sources": [
+        "2026-11-15.md"
+      ],
+      "added": "2026-11-15",
+      "last_seen": "2026-11-15"
+    },
+    {
       "name": "Bloomberg x WiCyS",
       "url": "https://www.wicys.org/benefits/capture-the-flag/",
       "format": "jeopardy",
@@ -2019,6 +2056,40 @@
       ],
       "added": "2026-10-24",
       "last_seen": "2026-10-30"
+    },
+    {
+      "name": "THE FINAL EXPLOIT CTF 2026 — Qualifiers",
+      "url": "https://0xv01d-ctf.xyz/",
+      "ctftime_url": "https://ctftime.org/event/3511",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "0xV01D",
+      "description": "Clasificatorio online internacional por equipos con reversing, pwn, malware, cloud y seguridad móvil; 30 equipos avanzarán a la final según divisiones. La ficha de CTFtime muestra 29/12 00:00–31/12 00:00 UTC en su encabezado, pero el calendario y la descripción del organizador dentro de la ficha indican 12:00–12:00 UTC; se usa esta última franja provisionalmente, oficial sin confirmar. Inscripción, costo y límite de integrantes no verificados; sitio anunciado: https://0xv01d-ctf.xyz/.",
+      "why": "Es especialmente relevante para practicar explotación binaria, reversing y análisis de malware con desafíos competitivos en equipo.",
+      "eligibility": "Clasificatorio abierto a equipos internacionales; las plazas de universidad, escuela y equipos femeninos de Jordania tienen restricciones específicas; como residente en Argentina podés aspirar a la división internacional, sin requisitos adicionales verificados · para vos: dudoso",
+      "career_value": "Valor estimado: clasificación y writeups para portfolio; no hay contratación ni networking garantizados.",
+      "start": "2026-12-29T12:00:00.000Z",
+      "end": "2026-12-31T12:00:00.000Z",
+      "weight": 0,
+      "tags": [
+        "web",
+        "pwn",
+        "rev",
+        "crypto",
+        "OSINT",
+        "misc"
+      ],
+      "recommended": true,
+      "ctftime_rated": null,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "the-final-exploit-ctf-2026-quals",
+      "sources": [
+        "2026-11-15.md"
+      ],
+      "added": "2026-11-15",
+      "last_seen": "2026-11-15"
     },
     {
       "name": "GaianSpace Perihelion CTF 2027",
