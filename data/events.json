@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-15T12:03:31.118Z",
+  "updated": "2026-11-15T15:07:08.074Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1413,7 +1413,7 @@
       "location": "online",
       "organizer": "WolvSec",
       "prizes": "Por anunciar.",
-      "description": "CAMBIO CONFIRMADO: el sitio oficial ahora anuncia del 20/11 a las 23:00 UTC al 22/11 a las 23:00 UTC (20:00 ART ambos días), una semana después del calendario anterior (13–15/11). La ficha/calendario de CTFtime todavía puede mostrar el horario antiguo, pero su descripción también anuncia el aplazamiento; prevalece el sitio oficial. El CTF es online, de 48 horas y con divisiones Open y University of Michigan, sin límite de integrantes. Inscripción y costo no verificados; el peso futuro en CTFtime continúa sin determinarse.",
+      "description": "La portada oficial y el encabezado de CTFtime ya coinciden en el horario aplazado del 20 al 22 de noviembre a las 20:00 ART. El CTF es online, dura 48 horas y tiene divisiones Open y University of Michigan, con equipos sin límite. La portada no publica costo ni cierre de inscripción.",
       "why": "Reversing, explotación binaria y web encajan directamente con tu práctica de crackmes y transición a pentesting/Red Team. La división Open permite competir sin afiliación a Michigan.",
       "fee": "no verificado",
       "eligibility": "división Open para participantes generales; división estudiantil reservada a University of Michigan · para vos: sí",
@@ -1439,10 +1439,11 @@
       "sources": [
         "carga-complementaria.md",
         "enriquecimiento-2026-11-06.md",
-        "2026-11-09.md"
+        "2026-11-09.md",
+        "enriquecimiento-2026-11-15.md"
       ],
       "added": "2026-10-22",
-      "last_seen": "2026-11-09",
+      "last_seen": "2026-11-15",
       "ctftime_rated": null,
       "changed": "2026-11-09T12:02:30.389Z",
       "changed_fields": [
@@ -1701,9 +1702,9 @@
       "location": "online",
       "organizer": "CTF7",
       "prizes": "Tres pases para Black Hat India 2027 para cada uno de los tres mejores equipos; nueve pases en total, según CTFtime.",
-      "description": "CTF online de 24 horas con 200 desafíos anunciados, incluyendo una pista para principiantes y áreas de reversing, explotación binaria, Active Directory, cloud, IA y web. CTFtime confirma fechas, modalidad, equipos de hasta tres y premios; oficial sin confirmar de forma independiente. Costo y elegibilidad internacional específica no verificados; sitio de la competencia: https://ctf.blackhat-india.com/.",
+      "description": "El FAQ oficial confirma acceso mundial con una cuenta CTF7 y equipos de exactamente tres. La inscripción es gratuita. La ficha de la competencia y el calendario de CTF7 publican del 28 al 29 de noviembre a las 11:00 ART, en coincidencia con el repositorio. La consola pide iniciar sesión y no encontré un cierre de inscripción en las páginas públicas.",
       "why": "Las categorías de reversing, pwn, IAM/SSO y web conectan directamente con tu experiencia de desarrollo y tu transición a pentesting y Red Team.",
-      "team_size": "hasta 3",
+      "team_size": "exactamente 3 integrantes",
       "career_value": "Valor estimado: práctica y writeups para portfolio; los pases de conferencia son premios anunciados, no una oportunidad de contratación.",
       "start": "2026-11-28T14:00:00.000Z",
       "end": "2026-11-29T14:00:00.000Z",
@@ -1721,14 +1722,24 @@
       "recommended": true,
       "ctftime_rated": null,
       "verified_by": [
-        "ctftime"
+        "ctftime",
+        "oficial"
       ],
       "id": "black-hat-india-official-ctf-2026",
       "sources": [
-        "2026-11-15.md"
+        "2026-11-15.md",
+        "enriquecimiento-2026-11-15.md"
       ],
       "added": "2026-11-15",
-      "last_seen": "2026-11-15"
+      "last_seen": "2026-11-15",
+      "fee": "gratis",
+      "eligibility": "Abierto a participantes de todo el mundo; requiere cuenta CTF7",
+      "changed": "2026-11-15T15:07:08.069Z",
+      "changed_fields": [
+        "fee",
+        "eligibility",
+        "team_size"
+      ]
     },
     {
       "name": "Bloomberg x WiCyS",
