@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-15T15:07:08.074Z",
+  "updated": "2026-11-16T12:04:31.797Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1583,6 +1583,37 @@
       "changed_fields": [
         "team_size"
       ]
+    },
+    {
+      "name": "RedReaper CTF 2026",
+      "url": "https://qualification.redx.site/",
+      "format": "jeopardy",
+      "location": "online",
+      "organizer": "RedX & Reaper",
+      "description": "CTF online de ocho horas publicado en CTFtime el 15 de noviembre, con desafíos de explotación web, criptografía, reversing, análisis forense y explotación binaria. Oficial sin confirmar: el sitio del organizador no fue accesible en esta revisión; la ficha de evento individual de CTFtime tampoco pudo recuperarse, aunque el calendario y la página del equipo organizador confirman la competencia. Inscripción, costo, tamaño de equipo, elegibilidad internacional y estado definitivo del rating no verificados. Fuentes: https://ctftime.org/event/list/upcoming/ y https://ctftime.org/ctf/1753.",
+      "why": "Reversing, pwn y web encajan con tu transición a pentesting y Red Team; la duración de ocho horas facilita participar sin comprometer todo el fin de semana.",
+      "career_value": "Valor estimado: práctica competitiva y writeups para el portfolio; no se verificó networking laboral ni contratación.",
+      "start": "2026-11-27T11:00:00.000Z",
+      "end": "2026-11-27T19:00:00.000Z",
+      "weight": 0,
+      "tags": [
+        "web",
+        "crypto",
+        "rev",
+        "forensics",
+        "pwn"
+      ],
+      "recommended": true,
+      "ctftime_rated": null,
+      "verified_by": [
+        "ctftime"
+      ],
+      "id": "redreaper-ctf-2026",
+      "sources": [
+        "2026-11-16.md"
+      ],
+      "added": "2026-11-16",
+      "last_seen": "2026-11-16"
     },
     {
       "name": "LakeCTF Quals",
