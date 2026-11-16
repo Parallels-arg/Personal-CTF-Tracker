@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16T12:04:31.797Z",
+  "updated": "2026-11-16T15:15:45.640Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1652,7 +1652,7 @@
       "location": "online",
       "organizer": "TIFAC-CORE in Cyber Security, Amrita Vishwa Vidyapeetham, Coimbatore",
       "prizes": "Por anunciar.",
-      "description": "Clasificatorio online de 12 horas, de 10:00 a 22:00 IST, con categoría para principiantes; fechas coincidentes en oficial y CTFtime. El sitio indica que la inscripción abrirá próximamente. Los mejores equipos serán invitados a finales presenciales en Coimbatore.",
+      "description": "La inscripción está abierta en https://play.l3m0nctf.xyz/register. El formulario permite crear una cuenta con CTFtime o con correo electrónico. El organizador anunciará el cierre más adelante. El clasificatorio online mantiene el horario del 28 de noviembre de 01:30 a 13:30 ART, está abierto a todos y admite equipos de uno a cuatro. Los mejores equipos pasan a la final presencial en Coimbatore, cuya fecha sigue pendiente.",
       "why": "Combina reversing, pwn y web con áreas de IoT y hardware que te interesan.",
       "fee": "no verificado",
       "eligibility": "abierto a todos",
@@ -1679,10 +1679,11 @@
       "id": "l3m0n-ctf-2026-quals",
       "sources": [
         "carga-inicial.md",
-        "carga-complementaria.md"
+        "carga-complementaria.md",
+        "enriquecimiento-2026-11-16.md"
       ],
       "added": "2026-10-23",
-      "last_seen": "2026-10-25",
+      "last_seen": "2026-11-16",
       "verified_by": [
         "oficial",
         "ctftime"
