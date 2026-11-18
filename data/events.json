@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-18T12:03:02.537Z",
+  "updated": "2026-11-18T14:58:50.360Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1631,11 +1631,11 @@
       "location": "online",
       "difficulty": "principiante",
       "organizer": "NovaRun",
-      "description": "CTF online Jeopardy de 24 horas, con retos para principiantes y participantes experimentados. CTFtime anuncia acceso mundial gratuito y confirma las fechas; el sitio oficial no se pudo reconfirmar, por lo que queda oficial sin confirmar. Un anuncio atribuido al organizador indica que la plataforma ya permite jugar antes de la ventana competitiva; se conservan las fechas publicadas por CTFtime y no se infiere inscripción ni premios confirmados. Anuncio adicional: https://www.reddit.com/r/securityCTF/comments/1xw5o1a/n0v4ctf_2026_is_now_live_come_break_our_challenges/.",
+      "description": "El sitio oficial ya es legible y confirma inscripción gratuita y abierta a todo el mundo, con equipos sin límite de integrantes. El formulario de alta está visible. La portada indica que la competencia todavía no comenzó y confirma del 27 al 28 de noviembre a las 17:00 UTC (14:00 ART), en coincidencia con el repositorio y CTFtime. Cierre de inscripción y premios siguen sin anunciarse. Las reglas públicas prohíben compartir flags, pistas inéditas o soluciones durante el evento y limitan los envíos a ocho por minuto por cuenta.",
       "why": "Reversing, pwn y web encajan con tu práctica de crackmes y tu transición a pentesting; los desafíos iniciales ofrecen una entrada accesible.",
       "fee": "gratis",
-      "eligibility": "equipos de todo el mundo",
-      "team_size": "por equipos; límite no verificado",
+      "eligibility": "Abierto a participantes de todo el mundo",
+      "team_size": "sin límite de integrantes",
       "career_value": "Valor estimado: writeups y práctica competitiva para portfolio; no se verificaron empleadores ni contratación.",
       "start": "2026-11-27T17:00:00.000Z",
       "end": "2026-11-28T17:00:00.000Z",
@@ -1651,14 +1651,21 @@
       "recommended": true,
       "ctftime_rated": null,
       "verified_by": [
-        "ctftime"
+        "ctftime",
+        "oficial"
       ],
       "id": "n0v4ctf-2026",
       "sources": [
-        "2026-11-18.md"
+        "2026-11-18.md",
+        "enriquecimiento-2026-11-18.md"
       ],
       "added": "2026-11-18",
-      "last_seen": "2026-11-18"
+      "last_seen": "2026-11-18",
+      "changed": "2026-11-18T14:58:50.354Z",
+      "changed_fields": [
+        "eligibility",
+        "team_size"
+      ]
     },
     {
       "name": "LakeCTF Quals",
