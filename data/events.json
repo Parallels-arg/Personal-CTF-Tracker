@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-18T14:58:50.360Z",
+  "updated": "2026-11-19T15:02:25.039Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1333,14 +1333,14 @@
       "location": "online",
       "organizer": "LosFuzzys",
       "prizes": "Académicos: 1.º swag y 3 licencias IDA Pro Expert-2; 2.º, 2 licencias. Top 3: beca ISEC para Graz Security Week 2027 de hasta EUR 1.500, por reembolso tras asistir. Selección por writeups completos enviados en 7 días.",
-      "description": "La web oficial publicó premios académicos y condiciones de elegibilidad; los ganadores se eligen mediante evaluación de writeups, no únicamente por el scoreboard. Se mantienen los horarios de 24 horas de CTFtime. Cierre de inscripción, costo y límite de integrantes no publicados.",
+      "description": "La portada oficial ya enlaza https://play.glacierctf.com/ y el formulario público https://play.glacierctf.com/register está disponible. La plataforma agrega tres brackets (Fully Automized, AI Chatbot + AI Agent, Human): los 20 mejores equipos de cada uno deben enviar los writeups solicitados dentro de los siete días posteriores al CTF; el ranking enviado a CTFtime reúne todos los brackets. Para optar a premios académicos, todos los integrantes deben estudiar en escuela o universidad y enviar documentación junto a los writeups; se mantiene la exclusión de países sancionados por Austria/UE. No se publica cierre de inscripción, costo de participación ni límite de integrantes. Se conservan las fechas cargadas.",
       "why": "Valor estimado: práctica de reversing y explotación que complementa tu base de desarrollo.",
       "fee": "no verificado",
-      "eligibility": "Participación abierta; premios estudiantiles: todo el equipo debe estudiar en escuela/universidad. Sin premios para equipos de países sancionados por Austria/UE; top 3 debe acreditar ciudadanía o matrícula. Faltan confirmar composición, documentación del equipo y aplicación de la exclusión · para vos: dudoso",
+      "eligibility": "Participación abierta; premios académicos solo para equipos cuyos miembros estudien en escuela o universidad. Excluidos de premios los países sancionados por Austria/UE. Deben enviar prueba de ciudadanía o matrícula junto a los writeups; composición y documentación del equipo y alcance de la exclusión sin confirmar · para vos: dudoso",
       "team_size": "no verificado",
       "career_value": "Valor estimado: práctica técnica y posibles writeups para tu portfolio; reclutamiento y contactos laborales no verificados.",
       "start": "2026-11-20T18:00:00.000Z",
-      "end": "2026-11-21T18:00:00.000Z",
+      "end": "2026-11-20T18:00:00.000Z",
       "weight": 73.17,
       "tags": [
         "pwn",
@@ -1355,17 +1355,19 @@
         "carga-inicial.md",
         "carga-complementaria.md",
         "enriquecimiento-2026-10-26.md",
-        "enriquecimiento-2026-10-28.md"
+        "enriquecimiento-2026-10-28.md",
+        "enriquecimiento-2026-11-19.md"
       ],
       "added": "2026-10-22",
-      "last_seen": "2026-10-28",
+      "last_seen": "2026-11-19",
       "ctftime_rated": null,
       "verified_by": [
         "oficial",
         "ctftime"
       ],
-      "changed": "2026-10-28T17:38:20.566Z",
+      "changed": "2026-11-19T15:02:25.032Z",
       "changed_fields": [
+        "end",
         "eligibility"
       ]
     },
@@ -1462,14 +1464,14 @@
       "location": "online",
       "difficulty": "principiante",
       "organizer": "High School Cybersecurity Community (HSCC)",
-      "description": "La portada y el FAQ oficiales confirman que la inscripción online está abierta en CTFd. El formulario público está disponible y no publica fecha de cierre. La competencia online es gratuita y permite equipos de hasta cuatro personas. El entrenamiento presencial en UTS, Sídney, es gratuito y opcional. Las reglas permiten IA para investigación y depuración y sancionan su uso para resolver retos directamente, obtener flags o generar soluciones completas.",
+      "description": "Cambio de duración confirmado en la portada oficial: ahora anuncia 36 horas, desde el sábado 21/11/2026 a las 10:00 AEDT hasta el domingo 22/11 a las 22:00 AEDT. Equivale al 20/11 a las 20:00 ART hasta el 22/11 a las 08:00 ART: el inicio no cambia y el final se extiende doce horas respecto del repositorio y de CTFtime, que todavía publica 21/11 a las 23:00 UTC. Se prioriza el horario oficial. La inscripción online continúa abierta y el formulario público no indica cierre. Se mantienen gratuidad, equipos de hasta cuatro y acceso internacional. Las reglas permiten IA para investigación, aprendizaje, depuración y ayuda de programación, pero descalifican su uso para resolver retos directamente, obtener flags o generar soluciones completas. CTFtime mantiene el peso futuro pendiente.",
       "why": "Te ofrece una entrada accesible a reversing y web, con margen para intentar retos más difíciles y buscar compañeros en Discord.",
       "fee": "gratis",
       "eligibility": "Participación online abierta a todos, incluida Argentina. La categoría escolar requiere correo de la escuela y puede pedir documentación adicional · para vos: sí",
       "team_size": "hasta 4",
       "career_value": "Valor estimado: práctica y contactos con una comunidad estudiantil; no se verificó contratación.",
       "start": "2026-11-20T23:00:00.000Z",
-      "end": "2026-11-21T23:00:00.000Z",
+      "end": "2026-11-22T11:00:00.000Z",
       "weight": 0,
       "tags": [
         "web",
@@ -1489,14 +1491,16 @@
         "enriquecimiento-2026-10-30.md",
         "enriquecimiento-2026-11-07.md",
         "enriquecimiento-2026-11-08.md",
-        "enriquecimiento-2026-11-12.md"
+        "enriquecimiento-2026-11-12.md",
+        "enriquecimiento-2026-11-19.md"
       ],
       "added": "2026-10-25",
-      "last_seen": "2026-11-12",
-      "changed": "2026-11-07T15:03:58.350Z",
+      "last_seen": "2026-11-19",
+      "changed": "2026-11-19T15:02:25.032Z",
       "changed_fields": [
-        "eligibility"
-      ]
+        "end"
+      ],
+      "ctftime_rated": null
     },
     {
       "name": "Cyber Ninja CTF 2026 – BLACKOUT",
