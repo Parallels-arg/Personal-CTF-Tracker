@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-20T11:56:55.941Z",
+  "updated": "2026-11-21T15:00:38.590Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1873,12 +1873,12 @@
       "location": "online",
       "difficulty": "principiante",
       "organizer": "CTF Club de la University of Tulsa",
-      "description": "Competencia online organizada por el club CTF de la University of Tulsa, diseñada para distintos niveles y explícitamente amigable para principiantes. La web oficial ofrece registro en https://ctfd.tuctf.com/ y Discord; no se verificaron costo, cierre de inscripción ni restricciones geográficas. CTFtime confirma el 4 al 6 de diciembre y el peso futuro todavía por determinar.",
+      "description": "El reglamento enlazado desde la portada oficial de TUCTF 2026 limita los premios a equipos de Estados Unidos, con la escuela o universidad indicada en Affiliation; premia al top 3 de secundaria y al top 3 universitario de grado y envía todo a una sola dirección. Como residente en Argentina, no se confirma elegibilidad para esos premios: esta restricción se refiere a premios y no demuestra una prohibición general de jugar desde Argentina. Se mantiene el máximo de cinco integrantes. La plataforma CTFd y su sitemap devuelven 404; Discord pide cuenta. No confirmé costo ni cierre de inscripción. Se conservan las fechas de data/events.json; CTFtime mantiene el 4–6/12 y el peso futuro pendiente.",
       "why": "Combina reversing y web con una dificultad de entrada apropiada para consolidar tu transición desde desarrollo hacia pentesting.",
       "team_size": "hasta 5",
       "career_value": "Valor estimado: práctica competitiva y writeups para el portfolio; no se verificaron oportunidades de contratación.",
       "start": "2026-12-04T10:00:00.000Z",
-      "end": "2026-12-06T18:00:00.000Z",
+      "end": "2026-12-04T10:00:00.000Z",
       "weight": 0,
       "tags": [
         "web",
@@ -1895,10 +1895,17 @@
       ],
       "id": "tuctf-2026",
       "sources": [
-        "2026-11-20.md"
+        "2026-11-20.md",
+        "enriquecimiento-2026-11-21.md"
       ],
       "added": "2026-11-20",
-      "last_seen": "2026-11-20"
+      "last_seen": "2026-11-21",
+      "eligibility": "Premios solo para equipos de EE.UU. con afiliación a secundaria o universidad de grado · para vos: no",
+      "changed": "2026-11-21T15:00:38.584Z",
+      "changed_fields": [
+        "end",
+        "eligibility"
+      ]
     },
     {
       "name": "x3CTF 2026",
@@ -1976,14 +1983,14 @@
       "difficulty": "intermedio",
       "organizer": "Whoami-Labs",
       "prizes": "Reconocimiento en ranking y copa para el primer puesto; premios adicionales no verificados",
-      "description": "La ficha oficial T2026-2 anuncia 80 retos en 24 horas y permite jugar solo o en equipos de hasta tres. Muestra 5–6 de diciembre de 2026 de 08:00 a 08:00 GMT-5 (10:00 ART). La sección general aún muestra una fecha por confirmar y describe juego individual para Blackout LATAM. El registro público corresponde a la cuenta de la plataforma. Sigue pendiente un cierre específico para Electro Station.",
+      "description": "El formulario público de Whoami-Labs requiere declarar ser mayor de 18 años, y las Condiciones de Uso confirman ese requisito para el servicio. Como Electro Station utiliza la misma cuenta, se incorpora esta condición de acceso; tu edad no está confirmada. La ficha T2026-2 mantiene 80 retos en 24 horas, equipos de uno a tres o juego individual y el 5–6/12 de 08:00 a 08:00 GMT-5 (10:00 ART). La sección general todavía dice fecha por confirmar. Se conservan las fechas de data/events.json; no se publica un cierre específico para esta edición.",
       "why": "Encaja fuertemente con tu práctica de reversing y crackmes y permite generar writeups técnicos útiles para tu portfolio de seguridad ofensiva.",
       "fee": "Plataforma de acceso gratuito; condiciones específicas de esta temporada no verificadas",
-      "eligibility": "La plataforma anuncia competencias abiertas para Latinoamérica, incluida Argentina · para vos: sí",
+      "eligibility": "Plataforma abierta a Latinoamérica, incluida Argentina; cuenta para mayores de 18 años. Tu edad no está confirmada · para vos: dudoso",
       "team_size": "individual o equipos de hasta 3",
       "career_value": "Valor estimado: visibilidad en el ranking de una comunidad latinoamericana y evidencia de habilidades; contratación no confirmada.",
       "start": "2026-12-05T13:00:00.000Z",
-      "end": "2026-12-06T13:00:00.000Z",
+      "end": "2026-12-05T13:00:00.000Z",
       "tags": [
         "web",
         "crypto",
@@ -1998,13 +2005,15 @@
       "id": "whoami-labs-electro-station-ctf-2026",
       "sources": [
         "2026-11-01.md",
-        "enriquecimiento-2026-11-03.md"
+        "enriquecimiento-2026-11-03.md",
+        "enriquecimiento-2026-11-21.md"
       ],
       "added": "2026-11-01",
-      "last_seen": "2026-11-03",
-      "changed": "2026-11-03T15:05:03.756Z",
+      "last_seen": "2026-11-21",
+      "changed": "2026-11-21T15:00:38.584Z",
       "changed_fields": [
-        "team_size"
+        "end",
+        "eligibility"
       ]
     },
     {
