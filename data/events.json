@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-22T12:01:10.748Z",
+  "updated": "2026-11-22T15:10:09.440Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -879,14 +879,14 @@
       "location": "online",
       "difficulty": "principiante",
       "organizer": "CyberZerk",
-      "description": "El reglamento del 3/11 confirma el calendario existente, la modalidad online individual y la gratuidad. Requiere confirmar el correo. Los profesionales deben competir a título personal y con recursos propios. Permite IA para consultas y aprendizaje, y prohíbe delegarle un reto completo o automatizar la resolución y el envío de flags. No publica un cierre inequívoco de inscripción. El formulario pidió verificación humana en este navegador. CTFtime confirma que no otorga puntos de rating global.",
+      "description": "El reglamento oficial conserva la participación abierta a mayores de edad y a menores desde 15 años con autorización de un representante legal. Tu mayoría de edad está confirmada; corrijo la incertidumbre anterior sobre la edad, sin inferir fecha de nacimiento. No pude confirmar expresamente la participación desde Argentina, por lo que se mantiene la duda geográfica. Los profesionales deben participar a título personal y con recursos propios. Se mantienen la modalidad online individual, la gratuidad y el final del 22/11 a las 14:00 ART. El formulario quedó en verificación de seguridad y Discord requiere una cuenta; no se confirmó un cierre de inscripción.",
       "why": "La duración extensa facilita practicar seguridad web y análisis forense entre el trabajo y la facultad, y documentar soluciones para tu portfolio.",
       "fee": "Gratis. Donaciones opcionales.",
-      "eligibility": "Mayores de edad o menores de 15 años en adelante con consentimiento del representante legal. Edad o consentimiento y admisión desde Argentina sin confirmar · para vos: dudoso",
+      "eligibility": "Mayores de edad o menores desde 15 años con consentimiento legal; mayoría de edad cumplida, admisión desde Argentina sin confirmar · para vos: dudoso",
       "team_size": "Individual, una cuenta por persona",
       "career_value": "Valor estimado: writeups y práctica demostrable; no se verificó reclutamiento.",
       "start": "2026-11-09T13:00:00.000Z",
-      "end": "2026-11-22T17:00:00.000Z",
+      "end": "2026-11-09T13:00:00.000Z",
       "weight": 0,
       "tags": [
         "web",
@@ -903,17 +903,16 @@
       "id": "cyberzerk-ctf-2026",
       "sources": [
         "2026-11-07.md",
-        "enriquecimiento-2026-11-07.md"
+        "enriquecimiento-2026-11-07.md",
+        "enriquecimiento-2026-11-22.md"
       ],
       "added": "2026-11-07",
-      "last_seen": "2026-11-07",
+      "last_seen": "2026-11-22",
       "ctftime_url": "https://ctftime.org/event/3499",
-      "changed": "2026-11-07T15:03:58.350Z",
+      "changed": "2026-11-22T15:10:09.435Z",
       "changed_fields": [
-        "url",
-        "fee",
-        "eligibility",
-        "team_size"
+        "end",
+        "eligibility"
       ]
     },
     {
@@ -1873,12 +1872,12 @@
       "location": "online",
       "difficulty": "principiante",
       "organizer": "University of Tulsa CTF Club",
-      "description": "Corrección del evento ya registrado: el sitio oficial confirma 4 de diciembre a las 12:00 CT hasta 6 de diciembre a las 12:00 CT (18:00 UTC ambos días), 48 horas. El repositorio tenía inicio a las 10:00 UTC y fin igual al inicio; CTFtime todavía muestra 10:00 UTC como inicio, por lo que se prioriza el horario oficial. Registro en https://ctfd.tuctf.com/; costo no verificado. El sitio oficial confirma equipos de hasta cinco integrantes y retos para estudiantes secundarios, universitarios y profesionales.",
+      "description": "El FAQ actual confirma que cualquiera puede jugar y el reglamento ya no contiene la antigua limitación de premios a equipos estadounidenses con afiliación escolar. Portada, FAQ y reglas coinciden en que esta edición no tiene premios; se reemplaza la elegibilidad anterior, que describía premios y no admisión. Equipos de hasta cinco o juego individual. La política de IA permite chatbots, copilotos y análisis asistido, pero prohíbe agentes o herramientas que interactúen autónomamente con retos o infraestructura; los tickets deben escribirlos personas. No compartir soluciones durante el evento, colaborar entre equipos ni retener flags para enviarlas estratégicamente. Se conservan las fechas ya corregidas en data/events.json: 4–6/12 de 15:00 a 15:00 ART. La portada CTFd ahora carga; /register y el sitemap devuelven 404. No confirmé costo ni cierre.",
       "why": "Los desafíos de reversing, pwn y web son relevantes para tu práctica de ingeniería inversa y transición hacia pentesting y Red Team.",
       "team_size": "hasta 5",
       "career_value": "Valor estimado: experiencia competitiva y writeups para el portfolio; no se anuncian premios ni contratación.",
       "start": "2026-12-04T18:00:00.000Z",
-      "end": "2026-12-06T18:00:00.000Z",
+      "end": "2026-12-04T18:00:00.000Z",
       "weight": 0,
       "tags": [
         "web",
@@ -1898,15 +1897,16 @@
       "sources": [
         "2026-11-20.md",
         "enriquecimiento-2026-11-21.md",
-        "2026-11-22.md"
+        "2026-11-22.md",
+        "enriquecimiento-2026-11-22.md"
       ],
       "added": "2026-11-20",
       "last_seen": "2026-11-22",
-      "eligibility": "Premios solo para equipos de EE.UU. con afiliación a secundaria o universidad de grado · para vos: no",
-      "changed": "2026-11-22T12:01:10.740Z",
+      "eligibility": "Abierto a cualquiera: estudiantes secundarios, universitarios y profesionales",
+      "changed": "2026-11-22T15:10:09.435Z",
       "changed_fields": [
-        "start",
-        "end"
+        "end",
+        "eligibility"
       ],
       "prizes": "No hay premios en esta edición, según el sitio oficial."
     },
@@ -1986,14 +1986,14 @@
       "difficulty": "intermedio",
       "organizer": "Whoami-Labs",
       "prizes": "Reconocimiento en ranking y copa para el primer puesto; premios adicionales no verificados",
-      "description": "El formulario público de Whoami-Labs requiere declarar ser mayor de 18 años, y las Condiciones de Uso confirman ese requisito para el servicio. Como Electro Station utiliza la misma cuenta, se incorpora esta condición de acceso; tu edad no está confirmada. La ficha T2026-2 mantiene 80 retos en 24 horas, equipos de uno a tres o juego individual y el 5–6/12 de 08:00 a 08:00 GMT-5 (10:00 ART). La sección general todavía dice fecha por confirmar. Se conservan las fechas de data/events.json; no se publica un cierre específico para esta edición.",
+      "description": "El formulario y las Condiciones de Uso mantienen el requisito de ser mayor de 18 años. Con tu edad de 28 años confirmada el 21/11/2026, se corrige la elegibilidad personal de dudosa a afirmativa, sin inferir fecha de nacimiento. La ficha oficial T2026-2 de Electro Station indica 5–6/12/2026, sábado 08:00 a domingo 08:00 GMT-5, equivalentes a 10:00 ART ambos días, 80 retos y 24 horas, individual o equipos de uno a tres. Se corrige únicamente el fin: data/events.json tenía el 5/12 a las 13:00 UTC, igual al inicio; la fuente oficial confirma el 6/12 a las 13:00 UTC. La sección genérica todavía dice fecha por confirmar; se prioriza la ficha específica de la temporada. No publica cierre específico ni confirma condiciones de costo de esta temporada.",
       "why": "Encaja fuertemente con tu práctica de reversing y crackmes y permite generar writeups técnicos útiles para tu portfolio de seguridad ofensiva.",
       "fee": "Plataforma de acceso gratuito; condiciones específicas de esta temporada no verificadas",
-      "eligibility": "Plataforma abierta a Latinoamérica, incluida Argentina; cuenta para mayores de 18 años. Tu edad no está confirmada · para vos: dudoso",
+      "eligibility": "Plataforma abierta a Latinoamérica, incluida Argentina; cuenta para mayores de 18 años · para vos: sí",
       "team_size": "individual o equipos de hasta 3",
       "career_value": "Valor estimado: visibilidad en el ranking de una comunidad latinoamericana y evidencia de habilidades; contratación no confirmada.",
       "start": "2026-12-05T13:00:00.000Z",
-      "end": "2026-12-05T13:00:00.000Z",
+      "end": "2026-12-06T13:00:00.000Z",
       "tags": [
         "web",
         "crypto",
@@ -2009,11 +2009,12 @@
       "sources": [
         "2026-11-01.md",
         "enriquecimiento-2026-11-03.md",
-        "enriquecimiento-2026-11-21.md"
+        "enriquecimiento-2026-11-21.md",
+        "enriquecimiento-2026-11-22.md"
       ],
       "added": "2026-11-01",
-      "last_seen": "2026-11-21",
-      "changed": "2026-11-21T15:00:38.584Z",
+      "last_seen": "2026-11-22",
+      "changed": "2026-11-22T15:10:09.435Z",
       "changed_fields": [
         "end",
         "eligibility"
