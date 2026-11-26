@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25T15:06:18.691Z",
+  "updated": "2026-11-26T11:57:02.483Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1695,20 +1695,20 @@
     },
     {
       "name": "L3m0n CTF 2026 Quals",
-      "url": "https://l3m0nctf.xyz/",
+      "url": "https://ctftime.org/event/3485/",
       "ctftime_url": "https://ctftime.org/event/3485/",
       "format": "jeopardy",
       "location": "online",
       "organizer": "TIFAC-CORE in Cyber Security, Amrita Vishwa Vidyapeetham, Coimbatore",
       "prizes": "Por anunciar.",
-      "description": "Se recupera el sitio oficial frente a la URL de CTFtime que figura actualmente en data/events.json. Portada, FAQ, reglas y formulario público confirman registro abierto, clasificatorio online el 28/11/2026 de 01:30 a 13:30 ART y equipos de uno a cuatro, abierto a todos. Se conservan las fechas del clasificatorio. La final presencial en Coimbatore sigue anunciada para el 12/12 a las 01:30 ART, durante 24 horas, para los mejores 75–85 equipos. No se publica fecha límite de inscripción ni costo. Discord requiere una cuenta para leer los canales. La afirmación del organizador sobre el rating no se transforma en una actualización de ctftime_rated sin verificar la ficha de CTFtime.",
+      "description": "CTFtime confirma 12 horas de clasificatoria online, equipos de 1 a 4 y final presencial en India. Oficial sin confirmar.",
       "why": "Combina reversing, pwn y web con áreas de IoT y hardware que te interesan.",
       "fee": "no verificado",
       "eligibility": "abierto a todos",
       "team_size": "1–4",
       "career_value": "Valor estimado: práctica técnica y posibles writeups para tu portfolio; reclutamiento y contactos laborales no verificados.",
       "start": "2026-11-28T04:30:00.000Z",
-      "end": "2026-11-28T04:30:00.000Z",
+      "end": "2026-11-28T16:30:00.000Z",
       "weight": 0,
       "tags": [
         "web",
@@ -1732,16 +1732,16 @@
         "enriquecimiento-2026-11-16.md",
         "enriquecimiento-2026-11-24.md",
         "2026-11-25.md",
-        "enriquecimiento-2026-11-25.md"
+        "enriquecimiento-2026-11-25.md",
+        "2026-11-26.md"
       ],
       "added": "2026-10-23",
-      "last_seen": "2026-11-25",
+      "last_seen": "2026-11-26",
       "verified_by": [
-        "ctftime",
-        "oficial"
+        "ctftime"
       ],
       "ctftime_rated": null,
-      "changed": "2026-11-25T15:06:18.685Z",
+      "changed": "2026-11-26T11:57:02.476Z",
       "changed_fields": [
         "end",
         "url"
@@ -2184,20 +2184,20 @@
     },
     {
       "name": "idktheCTF 2026",
-      "url": "https://ctf.idktheflag.sh/",
+      "url": "https://ctftime.org/event/3429",
       "ctftime_url": "https://ctftime.org/event/3429",
       "format": "jeopardy",
       "location": "online",
       "organizer": "idktheflag",
       "prizes": "Premios monetarios anunciados sin montos ni condiciones definidos",
-      "description": "Se recupera la URL oficial HTTPS frente a la ficha de CTFtime que figura actualmente en data/events.json. Portada y formulario público de registro cargan en el navegador; se conservan las fechas actuales, del 25/12/2026 a las 22:00 ART hasta el 28/12 a las 01:59 ART. Las reglas públicas prohíben atacar la infraestructura, hacer fuerza bruta contra el envío de flags y compartir flags entre equipos. El formulario solicita nombre de usuario, correo y contraseña; no se envió. No publica costo, cierre de inscripción ni condiciones de elegibilidad suficientes para completar esos campos. No se actualiza el tamaño de equipo ni ctftime_rated sin una nueva confirmación específica.",
+      "description": "CTFtime confirma finalización el 28 de diciembre a las 04:59 UTC, sin límite de equipo. Oficial sin confirmar.",
       "why": "Su foco en reversing y pwn es especialmente pertinente para tu aprendizaje de bajo nivel y seguridad ofensiva.",
       "fee": "no verificado",
       "eligibility": "no verificado",
       "team_size": "sin límite",
       "career_value": "Valor estimado: competencia técnica y posibles writeups para portfolio; no hay contratación ni networking laboral verificados.",
       "start": "2026-12-26T01:00:00.000Z",
-      "end": "2026-12-26T01:00:00.000Z",
+      "end": "2026-12-28T04:59:00.000Z",
       "weight": 0,
       "tags": [
         "crypto",
@@ -2209,19 +2209,19 @@
       "recommended": true,
       "ctftime_rated": null,
       "verified_by": [
-        "ctftime",
-        "oficial"
+        "ctftime"
       ],
       "id": "idkthectf-2026",
       "sources": [
         "2026-11-18.md",
         "enriquecimiento-2026-11-23.md",
         "2026-11-24.md",
-        "enriquecimiento-2026-11-25.md"
+        "enriquecimiento-2026-11-25.md",
+        "2026-11-26.md"
       ],
       "added": "2026-11-18",
-      "last_seen": "2026-11-25",
-      "changed": "2026-11-25T15:06:18.685Z",
+      "last_seen": "2026-11-26",
+      "changed": "2026-11-26T11:57:02.476Z",
       "changed_fields": [
         "end",
         "url"
