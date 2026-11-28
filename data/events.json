@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-27T15:01:32.950Z",
+  "updated": "2026-11-28T11:56:59.293Z",
   "events": [
     {
       "name": "Pointer Overflow CTF 2026",
@@ -1695,20 +1695,20 @@
     },
     {
       "name": "L3m0n CTF 2026 Quals",
-      "url": "https://l3m0nctf.xyz/",
+      "url": "https://ctftime.org/event/3485/",
       "ctftime_url": "https://ctftime.org/event/3485/",
       "format": "jeopardy",
       "location": "online",
       "organizer": "TIFAC-CORE in Cyber Security, Amrita Vishwa Vidyapeetham, Coimbatore",
       "prizes": "Por anunciar.",
-      "description": "Se restituye la URL oficial que la carga actual volvió a reemplazar por CTFtime. Portada, reglas, FAQ y formulario confirman clasificatorio online el 28/11 de 01:30 a 13:30 ART, abierto a todos y equipos de uno a cuatro. Se conservan ambas fechas. La final presencial en Coimbatore sigue prevista para el 12/12 a las 01:30 ART durante 24 horas, para los mejores 75–85 equipos. Registro abierto, sin costo ni fecha límite publicados. Discord exige una cuenta para leer anuncios. Aunque el organizador afirma que el evento puntúa, la ficha de esta edición en CTFtime todavía dice Future weight: to be determined; se conserva ctftime_rated en null.",
+      "description": "Finalización corregida según el calendario de CTFtime; oficial sin confirmar en esta ejecución. Los datos restantes proceden de la ficha previamente registrada.",
       "why": "Combina reversing, pwn y web con áreas de IoT y hardware que te interesan.",
       "fee": "no verificado",
       "eligibility": "abierto a todos",
       "team_size": "1–4",
       "career_value": "Valor estimado: práctica técnica y posibles writeups para tu portfolio; reclutamiento y contactos laborales no verificados.",
       "start": "2026-11-28T04:30:00.000Z",
-      "end": "2026-11-28T04:30:00.000Z",
+      "end": "2026-11-28T16:30:00.000Z",
       "weight": 0,
       "tags": [
         "web",
@@ -1734,16 +1734,16 @@
         "2026-11-25.md",
         "enriquecimiento-2026-11-25.md",
         "2026-11-26.md",
-        "enriquecimiento-2026-11-26.md"
+        "enriquecimiento-2026-11-26.md",
+        "2026-11-28.md"
       ],
       "added": "2026-10-23",
-      "last_seen": "2026-11-26",
+      "last_seen": "2026-11-28",
       "verified_by": [
-        "ctftime",
-        "oficial"
+        "ctftime"
       ],
       "ctftime_rated": null,
-      "changed": "2026-11-26T15:07:26.816Z",
+      "changed": "2026-11-28T11:56:59.288Z",
       "changed_fields": [
         "end",
         "url"
@@ -1876,12 +1876,12 @@
       "location": "online",
       "difficulty": "principiante",
       "organizer": "University of Tulsa CTF Club",
-      "description": "El formulario oficial https://ctfd.tuctf.com/register ahora carga y muestra registro de usuario con nombre, correo y contraseña; en la revisión del 22/11 devolvía 404. No se envió el formulario. Portada, FAQ y reglas conservan el 4–6/12/2026 de 15:00 a 15:00 ART, equipos de hasta cinco o juego individual, acceso abierto a cualquiera y ausencia de premios. El reglamento permite chatbots, copilotos y análisis asistido, pero prohíbe agentes que interactúen autónomamente con retos o infraestructura; los tickets deben escribirlos personas. No se publica costo ni fecha límite de inscripción. Discord requiere una cuenta. Se conserva el calendario actual, cuyo fin ya está corregido en data/events.json.",
+      "description": "Finalización corregida según la portada oficial y la referencia CTFtime registrada. CTFtime indica inicio a las 10:00 UTC, pero la portada oficial confirma las 18:00 UTC. Se preservan las demás condiciones previamente registradas.",
       "why": "Los desafíos de reversing, pwn y web son relevantes para tu práctica de ingeniería inversa y transición hacia pentesting y Red Team.",
       "team_size": "hasta 5",
       "career_value": "Valor estimado: experiencia competitiva y writeups para el portfolio; no se anuncian premios ni contratación.",
       "start": "2026-12-04T18:00:00.000Z",
-      "end": "2026-12-04T18:00:00.000Z",
+      "end": "2026-12-06T18:00:00.000Z",
       "weight": 0,
       "tags": [
         "web",
@@ -1904,12 +1904,13 @@
         "2026-11-22.md",
         "enriquecimiento-2026-11-22.md",
         "2026-11-25.md",
-        "enriquecimiento-2026-11-25.md"
+        "enriquecimiento-2026-11-25.md",
+        "2026-11-28.md"
       ],
       "added": "2026-11-20",
-      "last_seen": "2026-11-25",
+      "last_seen": "2026-11-28",
       "eligibility": "Abierto a cualquiera: estudiantes secundarios, universitarios y profesionales",
-      "changed": "2026-11-25T15:06:18.685Z",
+      "changed": "2026-11-28T11:56:59.288Z",
       "changed_fields": [
         "end"
       ],
@@ -2186,20 +2187,20 @@
     },
     {
       "name": "idktheCTF 2026",
-      "url": "https://ctf.idktheflag.sh/",
+      "url": "https://ctftime.org/event/3429",
       "ctftime_url": "https://ctftime.org/event/3429",
       "format": "jeopardy",
       "location": "online",
       "organizer": "idktheflag",
       "prizes": "Premios monetarios anunciados sin montos ni condiciones definidos",
-      "description": "Se recupera la URL oficial HTTPS y la verificación oficial frente a la ficha de CTFtime que conserva la carga actual. Tras esperar la carga de JavaScript, la portada confirma inicio el 26/12/2026 a las 01:00 UTC y final el 28/12 a las 04:59 UTC: 25/12 a las 22:00 ART hasta 28/12 a las 01:59 ART. Se conservan las fechas de data/events.json; el texto inicial Starts: Not set / Ends: Not set era transitorio durante la carga. El formulario público de registro pide usuario, correo y contraseña. Se permite formar un equipo de uno para jugar solo. Las reglas mantienen no atacar infraestructura, no hacer fuerza bruta ni compartir soluciones y respetar el alcance. No se publica costo, cierre de inscripción, límite numérico de equipo ni requisitos de elegibilidad suficientes para completar esos campos.",
+      "description": "Finalización corregida según el calendario de CTFtime; oficial sin confirmar en esta ejecución. Los datos restantes proceden de la ficha previamente registrada.",
       "why": "Su foco en reversing y pwn es especialmente pertinente para tu aprendizaje de bajo nivel y seguridad ofensiva.",
       "fee": "no verificado",
       "eligibility": "no verificado",
       "team_size": "sin límite",
       "career_value": "Valor estimado: competencia técnica y posibles writeups para portfolio; no hay contratación ni networking laboral verificados.",
       "start": "2026-12-26T01:00:00.000Z",
-      "end": "2026-12-26T01:00:00.000Z",
+      "end": "2026-12-28T04:59:00.000Z",
       "weight": 0,
       "tags": [
         "crypto",
@@ -2211,8 +2212,7 @@
       "recommended": true,
       "ctftime_rated": null,
       "verified_by": [
-        "ctftime",
-        "oficial"
+        "ctftime"
       ],
       "id": "idkthectf-2026",
       "sources": [
@@ -2221,11 +2221,12 @@
         "2026-11-24.md",
         "enriquecimiento-2026-11-25.md",
         "2026-11-26.md",
-        "enriquecimiento-2026-11-27.md"
+        "enriquecimiento-2026-11-27.md",
+        "2026-11-28.md"
       ],
       "added": "2026-11-18",
-      "last_seen": "2026-11-27",
-      "changed": "2026-11-27T15:01:32.945Z",
+      "last_seen": "2026-11-28",
+      "changed": "2026-11-28T11:56:59.288Z",
       "changed_fields": [
         "end",
         "url"
@@ -2263,39 +2264,37 @@
     },
     {
       "name": "pothloe CTF 2026",
-      "url": "https://pothloe.cc/",
+      "url": "https://ctftime.org/event/3516",
       "ctftime_url": "https://ctftime.org/event/3516",
       "format": "jeopardy",
       "location": "online",
       "organizer": "pothloe cft",
-      "description": "El sitio oficial ahora carga y confirma Jeopardy potluck online abierto a todos, equipos de cualquier tamaño y prohibición de IA. Se conserva el calendario del 27 al 29/12/2026 de 17:00 a 17:00 ART, coincidente con la ficha de CTFtime. Habrá presencia en el congreso 40C3 en Hamburgo, con ubicación de la assembly por anunciar; los premios se reservan a equipos presenciales y siguen sin detalle. La participación online no exige asistir al congreso. No se publica costo, formulario ni cierre de inscripción. Discord muestra una invitación que requiere cuenta para leer los canales. CTFtime mantiene el peso futuro pendiente.",
+      "description": "Finalización corregida según el calendario de CTFtime; oficial sin confirmar en esta ejecución. Los datos restantes proceden de la ficha previamente registrada.",
       "why": "Puede aportar práctica general de CTF, aunque todavía no se conocen categorías que permitan priorizarlo para reversing o pentesting.",
       "career_value": "Valor estimado: práctica y posibles writeups; no hay networking ni contratación verificados.",
       "start": "2026-12-27T20:00:00.000Z",
-      "end": "2026-12-27T20:00:00.000Z",
+      "end": "2026-12-29T20:00:00.000Z",
       "weight": 0,
       "recommended": false,
       "ctftime_rated": null,
       "verified_by": [
-        "ctftime",
-        "oficial"
+        "ctftime"
       ],
       "id": "pothloe-ctf-2026",
       "sources": [
         "2026-11-23.md",
-        "enriquecimiento-2026-11-26.md"
+        "enriquecimiento-2026-11-26.md",
+        "2026-11-28.md"
       ],
       "added": "2026-11-23",
-      "last_seen": "2026-11-26",
+      "last_seen": "2026-11-28",
       "prizes": "Por anunciar; reservados a equipos que participen presencialmente en el congreso.",
       "eligibility": "Participación online abierta a todos",
       "team_size": "sin límite de integrantes",
-      "changed": "2026-11-26T15:07:26.816Z",
+      "changed": "2026-11-28T11:56:59.288Z",
       "changed_fields": [
         "end",
-        "url",
-        "eligibility",
-        "team_size"
+        "url"
       ]
     },
     {
@@ -2305,12 +2304,12 @@
       "format": "jeopardy",
       "location": "online",
       "organizer": "0xV01D",
-      "description": "La portada oficial ya carga y confirma del 29 al 31/12/2026 a las 14:00 EET (UTC+2), equivalentes a 09:00 ART ambos días. Se conservan las fechas de data/events.json; la ficha de CTFtime ya coincide en encabezado y descripción, resolviendo la discrepancia anterior. El anuncio firmado por 0xV01D en CTFtime amplía a 50 los equipos que avanzan a la final, frente a los 30 del texto anterior: 16 International Open, 4 International Women, 10 universidades de Jordania, 10 escuelas de Jordania y 10 equipos femeninos de Jordania. El clasificatorio está abierto mundialmente; cada equipo puede ocupar una sola plaza de clasificación. La verificación de equipos y las reglas completas de la final siguen pendientes, por lo que se conserva la duda sobre la elegibilidad definitiva para esa fase. La portada no enlaza Rules, FAQ, registro ni redes y no publica costo, tamaño máximo de equipo ni cierre. CTFtime mantiene Future weight: to be determined.",
+      "description": "Finalización corregida según la portada oficial y la referencia CTFtime registrada. Se preservan las demás condiciones previamente registradas.",
       "why": "Es especialmente relevante para practicar explotación binaria, reversing y análisis de malware con desafíos competitivos en equipo.",
       "eligibility": "Clasificatorio mundial por equipos; final con divisiones International Open, International Women (solo mujeres), universidades y escuelas de Jordania, y mujeres de Jordania; verificación y requisitos completos de la final pendientes · para vos: dudoso",
       "career_value": "Valor estimado: clasificación y writeups para portfolio; no hay contratación ni networking garantizados.",
       "start": "2026-12-29T12:00:00.000Z",
-      "end": "2026-12-29T12:00:00.000Z",
+      "end": "2026-12-31T12:00:00.000Z",
       "weight": 0,
       "tags": [
         "web",
@@ -2329,14 +2328,14 @@
       "id": "the-final-exploit-ctf-2026-quals",
       "sources": [
         "2026-11-15.md",
-        "enriquecimiento-2026-11-26.md"
+        "enriquecimiento-2026-11-26.md",
+        "2026-11-28.md"
       ],
       "added": "2026-11-15",
-      "last_seen": "2026-11-26",
-      "changed": "2026-11-26T15:07:26.816Z",
+      "last_seen": "2026-11-28",
+      "changed": "2026-11-28T11:56:59.288Z",
       "changed_fields": [
-        "end",
-        "eligibility"
+        "end"
       ]
     },
     {
@@ -2347,13 +2346,13 @@
       "location": "online",
       "difficulty": "intermedio",
       "organizer": "GaianSpace",
-      "description": "Registro, reglas y términos conservan la participación mundial, sujeta a la normativa local, para mayores de 18 años o con consentimiento parental. El formulario incluye Argentina. Con tus 28 años confirmados se corrige la incertidumbre anterior sobre la edad y la elegibilidad personal, sin inferir fecha de nacimiento. Se conservan la ventana del 2–3/01/2027 de 15:00 a 15:00 ART, el cierre de inscripción del 30/12/2026 a las 15:00 ART y equipos de uno a tres. No se publica costo. Las reglas mantienen el envío manual de flags, un minuto de espera tras un fallo y la prohibición de colaboración externa. El premio al write-up sigue exigiendo una categoría completa, con envío después del cierre y hasta el 10/01/2027 a las 15:00 ART; no se considera una novedad de esta pasada.",
+      "description": "Finalización corregida según la portada oficial y la referencia CTFtime registrada. Se preservan las demás condiciones previamente registradas.",
       "why": "Buen encaje con la práctica de reversing y explotación y el interés en IoT, protocolos y hardware; permite participar solo.",
       "eligibility": "Internacional, sujeto a normativa local; 18 años o consentimiento parental. Argentina figura en el registro y cumplís el requisito de edad · para vos: sí",
       "team_size": "1–3",
       "career_value": "Valor estimado: writeups técnicos y exposición a seguridad de sistemas espaciales; contratación no verificada.",
       "start": "2027-01-02T18:00:00.000Z",
-      "end": "2027-01-02T18:00:00.000Z",
+      "end": "2027-01-03T18:00:00.000Z",
       "weight": 25,
       "tags": [
         "rev",
@@ -2376,16 +2375,16 @@
       "sources": [
         "2026-10-25.md",
         "enriquecimiento-2026-10-30.md",
-        "enriquecimiento-2026-11-26.md"
+        "enriquecimiento-2026-11-26.md",
+        "2026-11-28.md"
       ],
       "added": "2026-10-25",
-      "last_seen": "2026-11-26",
+      "last_seen": "2026-11-28",
       "ctftime_rated": null,
       "prizes": "1.º 10.000 SATS; 2.º 5.000; 3.º 2.500; mejor writeup de categoría 5.000 SATS. Mención de ganadores en web/redes; premios sujetos a cambios.",
-      "changed": "2026-11-26T15:07:26.816Z",
+      "changed": "2026-11-28T11:56:59.288Z",
       "changed_fields": [
-        "end",
-        "eligibility"
+        "end"
       ]
     },
     {
@@ -2440,13 +2439,13 @@
       "location": "online",
       "difficulty": "principiante",
       "organizer": "ACM Cyber at UCLA / Psi Beta Rho",
-      "description": "La portada oficial mantiene 19–21/02/2027 de 18:00 a 18:00 PST, equivalentes a 19–21/02 de 23:00 a 23:00 ART. Se conservan inicio y fin de data/events.json. La división Open admite cualquier procedencia y equipos sin límite; la división UCLA exige estudiantes de grado actuales de UCLA y limita a cuatro los equipos elegibles para sus premios. El enlace CTF Platform redirige a https://platform.2026.lac.tf/, que dice The CTF is over y conserva reglas de 2026: no se atribuyen a 2027 sus restricciones de premios a un contacto estadounidense ni su política de herramientas. La portada de 2027 anuncia que los detalles de premios, incluidos los de writeups, se publicarán cerca de la competencia. El RSVP publicado es para la actividad presencial y no confirma un registro online de 2027. No se confirmó costo ni fecha límite de inscripción para la próxima edición. Discord requiere una cuenta para leer los canales.",
+      "description": "Finalización corregida según la portada oficial y la referencia CTFtime registrada. Se preservan las demás condiciones previamente registradas.",
       "why": "Es una oportunidad especialmente alineada con reversing, explotación y aprendizaje competitivo desde un perfil de desarrollo.",
       "eligibility": "División Open abierta a equipos de cualquier país y tamaño; división UCLA reservada a estudiantes de grado de UCLA · para vos: sí",
       "team_size": "sin límite en división Open",
       "career_value": "Valor estimado: writeups públicos y contacto con comunidad académica de seguridad; no hay contratación confirmada.",
       "start": "2027-02-20T02:00:00.000Z",
-      "end": "2027-02-20T02:00:00.000Z",
+      "end": "2027-02-22T02:00:00.000Z",
       "weight": 75.96,
       "tags": [
         "web",
@@ -2464,11 +2463,12 @@
       "id": "la-ctf-2027",
       "sources": [
         "2026-11-23.md",
-        "enriquecimiento-2026-11-27.md"
+        "enriquecimiento-2026-11-27.md",
+        "2026-11-28.md"
       ],
       "added": "2026-11-23",
-      "last_seen": "2026-11-27",
-      "changed": "2026-11-27T15:01:32.945Z",
+      "last_seen": "2026-11-28",
+      "changed": "2026-11-28T11:56:59.288Z",
       "changed_fields": [
         "end"
       ]
